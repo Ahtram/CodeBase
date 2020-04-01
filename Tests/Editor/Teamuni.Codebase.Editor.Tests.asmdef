@@ -1,0 +1,14 @@
+{
+    "name": "Teamuni.Codebase.Editor.Tests",
+    "references": [
+        "Teamuni.Codebase.Editor",
+        "Teamuni.Codebase"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

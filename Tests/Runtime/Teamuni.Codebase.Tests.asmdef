@@ -1,0 +1,11 @@
+{
+    "name": "Teamuni.Codebase.Tests",
+    "references": [
+        "Teamuni.Codebase"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

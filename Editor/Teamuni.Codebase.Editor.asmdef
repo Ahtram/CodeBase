@@ -1,0 +1,10 @@
+{
+    "name": "Teamuni.Codebase.Editor",
+    "references": [
+      "Teamuni.Codebase"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
