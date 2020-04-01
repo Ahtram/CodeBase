@@ -1,12 +1,13 @@
 {
   "name": "com.unity.teamuni.codebase",
   "displayName": "CodeBase",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2019.1",
   "description": "A general purpose code base package for my team.",
   "hideInEditor": false,
   "dependencies": {
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.ugui": "1.0.0"
-  }
+  },
+  "type": "tool"
 }
