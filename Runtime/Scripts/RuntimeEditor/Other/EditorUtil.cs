@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
 using UnityEditorInternal;
 using System.Reflection;
 
-static class EditorUtil {
+static public class EditorUtil {
     
     /// <summary>
     /// Get all sorting layer names in the current project.
