@@ -24,6 +24,11 @@ public class FlatParallelogramShape : Shape {
         type = Type.FlatParallelogram;
     }
 
+    public FlatParallelogramShape(Vec2 size) {
+        type = Type.FlatParallelogram;
+        this.size.Set(size);
+    }
+
     public FlatParallelogramShape(Vec2 size, float sideSlope) {
         type = Type.FlatParallelogram;
         this.size.Set(size);
