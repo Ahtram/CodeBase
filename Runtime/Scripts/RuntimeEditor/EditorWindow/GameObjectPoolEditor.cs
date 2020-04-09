@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -19,7 +21,7 @@ public class GameObjectPoolEditor : UniEditorWindow {
     override public void OnGUI() {
         if (m_objectPool != null) {
             GUI.color = Color.green;
-                EditorGUILayout.HelpBox("There are [" + m_objectPool.loadOnAwake.Count + "] type of prefabs in this object pool. Current scene: " + EditorSceneManager.GetActiveScene().path, MessageType.Info);
+            EditorGUILayout.HelpBox("There are [" + m_objectPool.loadOnAwake.Count + "] type of prefabs in this object pool. Current scene: " + EditorSceneManager.GetActiveScene().path, MessageType.Info);
             GUI.color = Color.white;
             m_objectPool.asyncPreload = EditorGUILayoutPlus.ToggleLeft("Async Preload", m_objectPool.asyncPreload);
             int removeAtIndex = -1;
@@ -118,3 +120,5 @@ public class GameObjectPoolEditor : UniEditorWindow {
     }
 
 }
+
+#endif
