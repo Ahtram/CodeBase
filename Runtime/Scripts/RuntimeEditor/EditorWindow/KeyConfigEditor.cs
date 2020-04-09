@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEditor;
-using System;
 
 public class KeyConfigEditor : UniEditorWindow {
 
@@ -27,7 +25,7 @@ public class KeyConfigEditor : UniEditorWindow {
     override public void OnGUI() {
         base.OnGUI();
         KeyConfig.DataLocation newDataLocation = (KeyConfig.DataLocation)EditorGUILayout.EnumPopup(m_configFileDataLocation);
-        if(m_configFileDataLocation != newDataLocation) {
+        if (m_configFileDataLocation != newDataLocation) {
             //Load the editing config.
             m_configFileDataLocation = newDataLocation;
             m_editingConfig = KeyConfig.GetWithNoCache(m_configFileDataLocation);
@@ -183,15 +181,15 @@ public class KeyConfigEditor : UniEditorWindow {
         }
     }
 
-	private void StartListenKeyboardKey(int index) {
+    private void StartListenKeyboardKey(int index) {
         m_isListeningKeyboardKey = true;
         m_listeningKeyboardKeyIndex = index;
     }
 
-	private void StopListenKeyboardKey() {
-		m_isListeningKeyboardKey = false;
+    private void StopListenKeyboardKey() {
+        m_isListeningKeyboardKey = false;
         m_listeningKeyboardKeyIndex = -1;
-	}
+    }
 
     private void StartListenKeyboardSubKey(int index) {
         m_isListeningKeyboardSubKey = true;
@@ -233,3 +231,5 @@ public class KeyConfigEditor : UniEditorWindow {
     }
 
 }
+
+#endif

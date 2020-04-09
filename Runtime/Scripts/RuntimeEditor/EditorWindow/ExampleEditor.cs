@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
-using System;
 using System.Collections.Generic;
 
 public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
@@ -211,3 +212,5 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
         }
     }
 }
+
+#endif

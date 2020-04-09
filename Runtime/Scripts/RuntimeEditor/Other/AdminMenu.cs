@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -264,3 +265,5 @@ public class AdminMenu : UniEditorWindow {
     }
 
 }
+
+#endif
