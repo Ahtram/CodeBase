@@ -650,6 +650,11 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         });
                                                     }
 
+                                                    GUI.color = ColorPlus.LightSalmon;
+                                                    if (GUILayout.Button("c", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                                                        EditorGUIUtility.systemCopyBuffer = idCollection.IDIndexes[c].ids[i];
+                                                    }
+
                                                     GUI.color = Color.cyan;
                                                     if (GUILayout.Button("e", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                                         renameingIDIndex = i;
@@ -718,6 +723,12 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         }
                                                     }
                                                 } else {
+                                                    GUI.color = ColorPlus.LightSalmon;
+                                                    if (GUILayout.Button("c", EditorStyles.miniButton, GUILayout.Width(16.0f))) {
+                                                        EditorGUIUtility.systemCopyBuffer = idCollection.IDIndexes[c].ids[i];
+                                                    }
+                                                    GUI.color = ColorPlus.White;
+
                                                     //A hack for making the layout glitch disappear.
                                                     GUILayout.Button("", EditorStyles.miniLabel, GUILayout.Width(0.0f));
                                                 }
@@ -924,6 +935,11 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         });
                                                     }
 
+                                                    GUI.color = ColorPlus.LightSalmon;
+                                                    if (GUILayout.Button("c", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                                                        EditorGUIUtility.systemCopyBuffer = idCollection.IDIndexes[c].ids[i];
+                                                    }
+
                                                     GUI.color = Color.cyan;
                                                     if (GUILayout.Button("e", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                                         renameingIDIndex = i;
@@ -987,6 +1003,13 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                             newSelectingCatIndex = c;
                                                             newSelectingIndex = i;
                                                         }
+
+                                                        GUI.color = ColorPlus.LightSalmon;
+                                                        if (GUILayout.Button("c", EditorStyles.miniButton, GUILayout.Width(16.0f))) {
+                                                            EditorGUIUtility.systemCopyBuffer = idCollection.IDIndexes[c].ids[i];
+                                                        }
+                                                        GUI.color = ColorPlus.White;
+
                                                         //A hack for making the layout glitch disappear.
                                                         GUILayout.Button("", "ControlLabel", GUILayout.Width(0.0f));
                                                     }
