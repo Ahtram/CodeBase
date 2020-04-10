@@ -104,7 +104,7 @@ static public class EditorGUILayoutPlus {
     /// <param name="objectList">List to edit.</param>
     /// <param name="objectEditFunc">Editor GUI drawing function for editing a single object.</param>
     /// <returns>If any changes has been made.</returns>
-    static public bool EditObjectList<T>(string title, List<T> objectList, Func<T, bool> objectEditFunc) where T : new() {
+    static public bool EditObjectList<T>(string title, List<T> objectList, Func<T, bool> objectEditFunc) where T : Cloneable<T>, new() {
         return EditObjectList(new GUIContent(title), objectList, objectEditFunc);
     }
 
@@ -115,7 +115,7 @@ static public class EditorGUILayoutPlus {
     /// <param name="objectList">List to edit.</param>
     /// <param name="objectEditFunc">Editor GUI drawing function for editing a single object.</param>
     /// <returns>If any changes has been made.</returns>
-    static public bool EditObjectList<T>(GUIContent guiContent, List<T> objectList, Func<T, bool> objectEditFunc) where T : new() {
+    static public bool EditObjectList<T>(GUIContent guiContent, List<T> objectList, Func<T, bool> objectEditFunc) where T : Cloneable<T>, new() {
 
         bool hasChanged = false;
 
@@ -131,7 +131,7 @@ static public class EditorGUILayoutPlus {
             }
             GUI.color = ColorPlus.LightSalmon;
             if (GUILayout.Button("c", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-                objectListCopyBuffer = new List<T>(objectList.ToArray()) as List<System.Object>;
+                objectListCopyBuffer = objectList.Select((o) => o.Clone()).ToList<object>();
             }
 
             GUI.color = ColorPlus.LightBlue;
@@ -139,6 +139,7 @@ static public class EditorGUILayoutPlus {
                 if (objectListCopyBuffer != null && objectListCopyBuffer.Count > 0) {
                     objectList.Clear();
                     for (int i = 0; i < objectListCopyBuffer.Count; i++) {
+                        //Make sure it's the right type.
                         if (objectListCopyBuffer[i] is T) {
                             objectList.Add((T)objectListCopyBuffer[i]);
                         }
