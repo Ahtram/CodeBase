@@ -2442,7 +2442,7 @@ static public class EditorGUILayoutPlus {
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
-            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
+            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID + ((getIDComment == null) ? ("") : ("(" + getIDComment(editingID) + ")")));
             if (!string.IsNullOrEmpty(guiContent.text)) {
                 EditorGUILayoutPlus.LabelField(guiContent, false);
             }
@@ -2507,7 +2507,7 @@ static public class EditorGUILayoutPlus {
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
-            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
+            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID + ((getIDComment == null) ? ("") : ("(" + getIDComment(editingID) + ")")));
             if (!string.IsNullOrEmpty(guiContent.text)) {
                 EditorGUILayoutPlus.LabelField(guiContent, false);
             }
@@ -2681,7 +2681,7 @@ static public class EditorGUILayoutPlus {
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
-            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
+            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID + ((getIDComment == null) ? ("") : ("(" + getIDComment(editingID) + ")")));
             if (!string.IsNullOrEmpty(guiContent.text)) {
                 EditorGUILayoutPlus.LabelField(guiContent, false);
             }
@@ -2746,7 +2746,7 @@ static public class EditorGUILayoutPlus {
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
-            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
+            string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID + ((getIDComment == null) ? ("") : ("(" + getIDComment(editingID) + ")")));
             if (!string.IsNullOrEmpty(guiContent.text)) {
                 EditorGUILayoutPlus.LabelField(guiContent, false);
             }
