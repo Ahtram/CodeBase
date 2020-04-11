@@ -16,11 +16,13 @@ static public class GenericMenuPlus {
     /// <param name="menuFunction2"></param>
     /// <param name="selectingID"></param>
     /// <returns></returns>
-    static public GenericMenu Create(IDIndex IDIndexInput, GenericMenu.MenuFunction2 menuFunction2, string selectingID = "") {
+    static public GenericMenu Create(IDIndex IDIndexInput, GenericMenu.MenuFunction2 menuFunction2, 
+    string selectingID = "", Func<string, string> getIDComment = null) {
         GenericMenu menu = new GenericMenu();
 		for (int i = 0; i < IDIndexInput.ids.Count; i++) {
             bool isSelection = (!string.IsNullOrEmpty(selectingID) && selectingID == IDIndexInput.ids[i]) ? (true) : (false);
-            menu.AddItem(new GUIContent(IDIndexInput.ids[i]), isSelection, menuFunction2, IDIndexInput.ids[i]);
+            menu.AddItem(new GUIContent(IDIndexInput.ids[i] + ((getIDComment == null) ? ("") : ("(" + getIDComment(IDIndexInput.ids[i])+ ")"))), 
+            isSelection, menuFunction2, IDIndexInput.ids[i]);
 		}
         menu.AddSeparator("");
         menu.AddItem(new GUIContent("[Clear]"), false, menuFunction2, "");
@@ -35,11 +37,13 @@ static public class GenericMenuPlus {
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
     /// <param name="selectingID"></param>
     /// <returns></returns>
-    static public GenericMenu Create(IDIndex IDIndexInput, GenericMenu.MenuFunction2 menuFunction2, object pairedKey, string selectingID = "") {
+    static public GenericMenu Create(IDIndex IDIndexInput, GenericMenu.MenuFunction2 menuFunction2, object pairedKey, 
+    string selectingID = "", Func<string, string> getIDComment = null) {
         GenericMenu menu = new GenericMenu();
         for (int i = 0; i < IDIndexInput.ids.Count; i++) {
             bool isSelection = (!string.IsNullOrEmpty(selectingID) && selectingID == IDIndexInput.ids[i]) ? (true) : (false);
-            menu.AddItem(new GUIContent(IDIndexInput.ids[i]), isSelection, menuFunction2, new KeyValuePair<object, string>(pairedKey, IDIndexInput.ids[i]));
+            menu.AddItem(new GUIContent(IDIndexInput.ids[i] + ((getIDComment == null) ? ("") : ("(" + getIDComment(IDIndexInput.ids[i]) + ")"))), 
+            isSelection, menuFunction2, new KeyValuePair<object, string>(pairedKey, IDIndexInput.ids[i]));
         }
         menu.AddSeparator("");
         menu.AddItem(new GUIContent("[Clear]"), false, menuFunction2, new KeyValuePair<object, string>(pairedKey, ""));
@@ -52,12 +56,14 @@ static public class GenericMenuPlus {
     /// <param name="IDCollectionInput"></param>
     /// <param name="menuFunction2"></param>
     /// <returns></returns>
-    static public GenericMenu Create(IDCollection IDCollectionInput, GenericMenu.MenuFunction2 menuFunction2, string selectingID = "") {
+    static public GenericMenu Create(IDCollection IDCollectionInput, GenericMenu.MenuFunction2 menuFunction2, 
+    string selectingID = "", Func<string, string> getIDComment = null) {
         GenericMenu menu = new GenericMenu();
         for (int i = 0; i < IDCollectionInput.IDIndexes.Count; i++) {
             for (int j = 0; j < IDCollectionInput.IDIndexes[i].ids.Count; j++) {
                 bool isSelection = (!string.IsNullOrEmpty(selectingID) && selectingID == IDCollectionInput.IDIndexes[i].ids[j]) ? (true) : (false);
-                menu.AddItem(new GUIContent("[" + i + "]" + IDCollectionInput.IDIndexes[i].name + "/" + IDCollectionInput.IDIndexes[i].ids[j]), isSelection, menuFunction2, IDCollectionInput.IDIndexes[i].ids[j]);
+                menu.AddItem(new GUIContent("[" + i + "]" + IDCollectionInput.IDIndexes[i].name + "/" + IDCollectionInput.IDIndexes[i].ids[j] + ((getIDComment == null) ? ("") : ("(" + getIDComment(IDCollectionInput.IDIndexes[i].ids[j]) + ")"))), 
+                isSelection, menuFunction2, IDCollectionInput.IDIndexes[i].ids[j]);
 			}
         }
         menu.AddSeparator("");
@@ -72,12 +78,14 @@ static public class GenericMenuPlus {
     /// <param name="menuFunction2"></param>
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
     /// <returns></returns>
-    static public GenericMenu Create(IDCollection IDCollectionInput, GenericMenu.MenuFunction2 menuFunction2, object pairedKey, string selectingID = "") {
+    static public GenericMenu Create(IDCollection IDCollectionInput, GenericMenu.MenuFunction2 menuFunction2, object pairedKey, 
+    string selectingID = "", Func<string, string> getIDComment = null) {
         GenericMenu menu = new GenericMenu();
         for (int i = 0; i < IDCollectionInput.IDIndexes.Count; i++) {
             for (int j = 0; j < IDCollectionInput.IDIndexes[i].ids.Count; j++) {
                 bool isSelection = (!string.IsNullOrEmpty(selectingID) && selectingID == IDCollectionInput.IDIndexes[i].ids[j]) ? (true) : (false);
-                menu.AddItem(new GUIContent("[" + i + "]" + IDCollectionInput.IDIndexes[i].name + "/" + IDCollectionInput.IDIndexes[i].ids[j]), isSelection, menuFunction2, new KeyValuePair<object, string>(pairedKey, IDCollectionInput.IDIndexes[i].ids[j]));
+                menu.AddItem(new GUIContent("[" + i + "]" + IDCollectionInput.IDIndexes[i].name + "/" + IDCollectionInput.IDIndexes[i].ids[j] + ((getIDComment == null) ? ("") : ("(" + getIDComment(IDCollectionInput.IDIndexes[i].ids[j]) + ")"))), 
+                isSelection, menuFunction2, new KeyValuePair<object, string>(pairedKey, IDCollectionInput.IDIndexes[i].ids[j]));
             }
         }
         menu.AddSeparator("");

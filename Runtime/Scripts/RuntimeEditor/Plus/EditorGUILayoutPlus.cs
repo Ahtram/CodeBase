@@ -2427,8 +2427,9 @@ static public class EditorGUILayoutPlus {
     /// <param name="IDCollectionInput"></param>
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
-    static public void IDSelection(string title, IDCollection IDCollectionInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
-        IDSelection(new GUIContent(title), IDCollectionInput, editingID, onSelectID, onOpenEditorClick, onGreenLitClick, options);
+    static public void IDSelection(string title, IDCollection IDCollectionInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
+        IDSelection(new GUIContent(title), IDCollectionInput, editingID, onSelectID, onOpenEditorClick, onGreenLitClick, getIDComment, options);
     }
 
     /// <summary>
@@ -2437,7 +2438,8 @@ static public class EditorGUILayoutPlus {
     /// <param name="IDCollectionInput"></param>
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
-    static public void IDSelection(GUIContent guiContent, IDCollection IDCollectionInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
+    static public void IDSelection(GUIContent guiContent, IDCollection IDCollectionInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
             string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
@@ -2461,7 +2463,7 @@ static public class EditorGUILayoutPlus {
                     if (onSelectID != null) {
                         onSelectID((string)selectedID);
                     }
-                }, editingID);
+                }, editingID, getIDComment);
                 genericMenu.ShowAsContext();
             }
             GUI.color = ColorPlus.Cyan;
@@ -2489,8 +2491,9 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
-    static public void IDSelection<T>(string title, IDCollection IDCollectionInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
-        IDSelection(new GUIContent(title), IDCollectionInput, editingID, onSelectID, pairedKey, onOpenEditorClick, onGreenLitClick, options);
+    static public void IDSelection<T>(string title, IDCollection IDCollectionInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
+        IDSelection(new GUIContent(title), IDCollectionInput, editingID, onSelectID, pairedKey, onOpenEditorClick, onGreenLitClick, getIDComment, options);
     }
 
     /// <summary>
@@ -2500,7 +2503,8 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
-    static public void IDSelection<T>(GUIContent guiContent, IDCollection IDCollectionInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
+    static public void IDSelection<T>(GUIContent guiContent, IDCollection IDCollectionInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
             string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
@@ -2525,7 +2529,7 @@ static public class EditorGUILayoutPlus {
                         KeyValuePair<object, string> kvp = (KeyValuePair<object, string>)kvpObj;
                         onSelectID((T)kvp.Key, kvp.Value);
                     }
-                }, pairedKey, editingID);
+                }, pairedKey, editingID, getIDComment);
                 genericMenu.ShowAsContext();
             }
             GUI.color = ColorPlus.Cyan;
@@ -2549,14 +2553,16 @@ static public class EditorGUILayoutPlus {
     /// <summary>
     /// A convient ID list editing interface.
     /// </summary>
-    static public bool EditIDList(string title, IDCollection IDCollectionInput, List<string> editingIDList, Action onOpenEditorClick, Action<string> onGreenLitClick = null) {
-        return EditIDList(new GUIContent(title), IDCollectionInput, editingIDList, onOpenEditorClick, onGreenLitClick);
+    static public bool EditIDList(string title, IDCollection IDCollectionInput, List<string> editingIDList, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
+        return EditIDList(new GUIContent(title), IDCollectionInput, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
     }
 
     /// <summary>
     /// A convient ID list editing interface.
     /// </summary>
-    static public bool EditIDList(GUIContent guiContent, IDCollection IDCollectionInput, List<string> editingIDList, Action onOpenEditorClick, Action<string> onGreenLitClick = null) {
+    static public bool EditIDList(GUIContent guiContent, IDCollection IDCollectionInput, List<string> editingIDList, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
         bool hasChanged = false;
 
         EditorGUILayout.BeginHorizontal();
@@ -2621,7 +2627,7 @@ static public class EditorGUILayoutPlus {
                     if (index >= 0 && index < editingIDList.Count) {
                         editingIDList[index] = ID;
                     }
-                }, i, onOpenEditorClick, onGreenLitClick);
+                }, i, onOpenEditorClick, onGreenLitClick, getIDComment);
 
                 GUI.color = Color.red;
                 if (GUILayout.Button("-", EditorStyles.miniButton, GUILayout.Width(15.0f))) {
@@ -2660,8 +2666,9 @@ static public class EditorGUILayoutPlus {
     /// <param name="IDIndexInput"></param>
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
-    static public void IDSelection(string title, IDIndex IDIndexInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
-        IDSelection(new GUIContent(title), IDIndexInput, editingID, onSelectID, onOpenEditorClick, onGreenLitClick, options);
+    static public void IDSelection(string title, IDIndex IDIndexInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
+        IDSelection(new GUIContent(title), IDIndexInput, editingID, onSelectID, onOpenEditorClick, onGreenLitClick, getIDComment, options);
     }
 
     /// <summary>
@@ -2670,7 +2677,8 @@ static public class EditorGUILayoutPlus {
     /// <param name="IDIndexInput"></param>
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
-    static public void IDSelection(GUIContent guiContent, IDIndex IDIndexInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
+    static public void IDSelection(GUIContent guiContent, IDIndex IDIndexInput, string editingID, Action<string> onSelectID, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
             string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
@@ -2694,7 +2702,7 @@ static public class EditorGUILayoutPlus {
                     if (onSelectID != null) {
                         onSelectID((string)selectedID);
                     }
-                }, editingID);
+                }, editingID, getIDComment);
                 genericMenu.ShowAsContext();
             }
             GUI.color = ColorPlus.Cyan;
@@ -2722,8 +2730,9 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
-    static public void IDSelection<T>(string title, IDIndex IDIndexInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
-        IDSelection(new GUIContent(title), IDIndexInput, editingID, onSelectID, pairedKey, onOpenEditorClick, onGreenLitClick, options);
+    static public void IDSelection<T>(string title, IDIndex IDIndexInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
+        IDSelection(new GUIContent(title), IDIndexInput, editingID, onSelectID, pairedKey, onOpenEditorClick, onGreenLitClick, getIDComment, options);
     }
 
     /// <summary>
@@ -2733,7 +2742,8 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingID"></param>
     /// <param name="onSelectID"></param>
     /// <param name="pairedKey">This will be callback as a KeyValuePair key from GenericMenu.MenuFunction2</param>
-    static public void IDSelection<T>(GUIContent guiContent, IDIndex IDIndexInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, Action<string> onGreenLitClick = null, params GUILayoutOption[] options) {
+    static public void IDSelection<T>(GUIContent guiContent, IDIndex IDIndexInput, string editingID, Action<T, string> onSelectID, T pairedKey, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null, params GUILayoutOption[] options) {
         EditorGUILayout.BeginHorizontal(options);
         {
             string displayText = (string.IsNullOrEmpty(editingID)) ? ("[Data ID]") : (editingID);
@@ -2758,7 +2768,7 @@ static public class EditorGUILayoutPlus {
                         KeyValuePair<object, string> kvp = (KeyValuePair<object, string>)kvpObj;
                         onSelectID((T)kvp.Key, kvp.Value);
                     }
-                }, pairedKey, editingID);
+                }, pairedKey, editingID, getIDComment);
                 genericMenu.ShowAsContext();
             }
             GUI.color = ColorPlus.Cyan;
@@ -2782,14 +2792,16 @@ static public class EditorGUILayoutPlus {
     /// <summary>
     /// A convient ID list editing interface.
     /// </summary>
-    static public bool EditIDList(string title, IDIndex IDIndexInput, List<string> editingIDList, Action onOpenEditorClick, Action<string> onGreenLitClick = null) {
-        return EditIDList(new GUIContent(title), IDIndexInput, editingIDList, onOpenEditorClick, onGreenLitClick);
+    static public bool EditIDList(string title, IDIndex IDIndexInput, List<string> editingIDList, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
+        return EditIDList(new GUIContent(title), IDIndexInput, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
     }
 
     /// <summary>
     /// A convient ID list editing interface.
     /// </summary>
-    static public bool EditIDList(GUIContent guiContent, IDIndex IDIndexInput, List<string> editingIDList, Action onOpenEditorClick, Action<string> onGreenLitClick = null) {
+    static public bool EditIDList(GUIContent guiContent, IDIndex IDIndexInput, List<string> editingIDList, Action onOpenEditorClick, 
+    Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
         bool hasChanged = false;
 
         EditorGUILayout.BeginHorizontal();
@@ -2855,7 +2867,7 @@ static public class EditorGUILayoutPlus {
                     if (index >= 0 && index < editingIDList.Count) {
                         editingIDList[index] = ID;
                     }
-                }, i, onOpenEditorClick, onGreenLitClick);
+                }, i, onOpenEditorClick, onGreenLitClick, getIDComment);
 
                 GUI.color = Color.red;
                 if (GUILayout.Button("-", EditorStyles.miniButton, GUILayout.Width(15.0f))) {
