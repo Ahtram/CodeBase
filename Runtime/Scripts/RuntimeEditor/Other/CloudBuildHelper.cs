@@ -2,7 +2,7 @@
 using UnityEditor;
 
 public static class CloudBuildHelper {
-#if UNITY_CLOUD_BUILD
+#if UNITY_CLOUD_BUILD && (UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID)
     /// <summary>
     /// This method will be execute by UnityCloud before a build happen.
     /// </summary>
