@@ -557,6 +557,24 @@ static public class Util {
     }
 
     /// <summary>
+    /// Randomly pick a index from a general ordered int list.
+    /// </summary>
+    /// <param name="indexCount"></param>
+    /// <returns></returns>
+    static public int PickOneIndex(int indexCount) {
+        List<int> list = new List<int>();
+        for (int i = 0; i < indexCount; i++) {
+            list.Add(i);
+        }
+
+        if (list.Count > 0) {
+            return list[UnityEngine.Random.Range(0, list.Count)];
+        } else {
+            return -1;
+        }
+    }
+
+    /// <summary>
     /// Try pick multiple indexes from a weight list.
     /// </summary>
     /// <param name="weights"></param>
