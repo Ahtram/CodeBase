@@ -575,6 +575,30 @@ static public class Util {
     }
 
     /// <summary>
+    /// Randomly pick indexes form a general ordered int list.
+    /// </summary>
+    /// <param name="indexCount"></param>
+    /// <param name="returnCount"></param>
+    /// <returns></returns>
+    static public List<int> PickIndexes(int indexCount, int returnCount) {
+        List<int> sourceList = new List<int>();
+        for (int i = 0; i < indexCount; i++) {
+            sourceList.Add(i);
+        }
+
+        sourceList.Shuffle();
+
+        List<int> returnList = new List<int>();
+        for (int i = 0; i < returnCount; i++) {
+            if (i < sourceList.Count) {
+                returnList.Add(sourceList[i]);
+            }
+        }
+
+        return returnList;
+    }
+
+    /// <summary>
     /// Try pick multiple indexes from a weight list.
     /// </summary>
     /// <param name="weights"></param>
