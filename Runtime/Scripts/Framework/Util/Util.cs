@@ -372,6 +372,18 @@ static public class Util {
         return !list1ExceptList2.Any() && !list2ExceptList1.Any();
     }
 
+    /// <summary>
+    /// Compare two simple value list to see if they are equal. (string version)
+    /// </summary>
+    /// <param name="str"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static bool ListIsEqual(List<string> list1, List<string> list2) {
+        List<string> list1ExceptList2 = list1.Except(list2).ToList();
+        List<string> list2ExceptList1 = list2.Except(list1).ToList();
+        return !list1ExceptList2.Any() && !list2ExceptList1.Any();
+    }
+
     public static byte[] StringToBytes(string str) {
         byte[] bytes = new byte[str.Length * sizeof(char)];
         System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
