@@ -359,6 +359,19 @@ static public class Util {
         Resize(list, size, new T());
     }
 
+    //https://stackoverflow.com/questions/12795882/quickest-way-to-compare-two-generic-lists-for-differences
+    /// <summary>
+    /// Compare two simple value list to see if they are equal.
+    /// </summary>
+    /// <param name="str"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static bool ListIsEqual<T>(List<T> list1, List<T> list2) where T : struct, Enum, IConvertible {
+        List<T> list1ExceptList2 = list1.Except(list2).ToList();
+        List<T> list2ExceptList1 = list2.Except(list1).ToList();
+        return !list1ExceptList2.Any() && !list2ExceptList1.Any();
+    }
+
     public static byte[] StringToBytes(string str) {
         byte[] bytes = new byte[str.Length * sizeof(char)];
         System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
