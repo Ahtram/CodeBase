@@ -401,7 +401,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                 {
                     GUI.color = ColorPlus.CornflowerBlue;
                     editMode = GUILayout.Toggle(editMode, "Edit Mode (M)", EditorStyles.miniButtonLeft);
-                    GUI.color = ColorPlus.Golden;
+                    GUI.color = ColorPlus.Gold;
                     if (GUILayout.Button("Expand/Collapse (L)", EditorStyles.miniButtonRight)) {
                         if (foldOutCats.Count > 0) {
                             bool currentFoldState = foldOutCats[0];
@@ -418,7 +418,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
 
                 EditorGUILayout.BeginHorizontal();
                 {
-                    GUI.color = ColorPlus.PaleTurquoise;
+                    GUI.color = ColorPlus.Turquoise;
                     if (GUILayout.Button("Verify Pasted IDs (F11)", EditorStyles.miniButton)) {
                         onVerifyIDs?.Invoke();
                     }

@@ -7,12 +7,16 @@ public class ColorPlusViewer : UniEditorWindow {
     private Vector2 scrollPos;
 
     private static EditorWindow instance;
+    private const string REF_URL = "https://www.colorhexa.com/color-names";
 
     override public void OnGUI() {
         base.OnGUI();
 
         EditorGUILayout.BeginVertical("FrameBox");
         {
+            if (GUILayout.Button("See Reference Site", EditorStyles.miniButton)) {
+                Application.OpenURL(REF_URL);
+            }
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
             {
                 EditorGUILayout.BeginHorizontal();
@@ -23,21 +27,10 @@ public class ColorPlusViewer : UniEditorWindow {
                             EditorGUILayout.BeginHorizontal();
                             {
                                 GUI.color = ColorPlus.Colors[i];
-                                if (GUILayout.Button(((ColorPlus.Name)i).ToString(), GUILayout.MinWidth(20.0f), GUILayout.MaxWidth(300.0f))) {
+                                GUILayout.Label("[" + i.ToString("000") + "]", EditorStyles.whiteLabel, GUILayout.Width(38.0f));
+                                if (GUILayout.Button(((ColorPlus.Name)i).ToString())) {
                                     EditorGUIUtility.systemCopyBuffer = ((ColorPlus.Name)i).ToString();
                                 }
-
-                                GUILayout.Button(((ColorPlus.Name)i).ToString(), EditorStyles.helpBox, GUILayout.MinWidth(20.0f), GUILayout.MaxWidth(300.0f));
-
-                                EditorGUILayout.BeginVertical("FrameBox", GUILayout.Height(17.0f), GUILayout.MinWidth(20.0f), GUILayout.MaxWidth(300.0f));
-                                {
-                                    GUILayout.FlexibleSpace();
-                                }
-                                EditorGUILayout.EndVertical();
-
-                                GUILayout.Button(((ColorPlus.Name)i).ToString(), EditorStyles.centeredGreyMiniLabel, GUILayout.MinWidth(20.0f), GUILayout.MaxWidth(300.0f));
-
-                                GUILayout.Label(((ColorPlus.Name)i).ToString(), EditorStyles.whiteLabel, GUILayout.MinWidth(20.0f), GUILayout.MaxWidth(300.0f));
                             }
                             EditorGUILayout.EndHorizontal();
                         }
