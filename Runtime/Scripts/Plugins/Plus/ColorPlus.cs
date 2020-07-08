@@ -101,8 +101,8 @@ static public class ColorPlus {
 	static public Color CadmiumOrange					= new Color(237.0f / 255.0f, 135.0f / 255.0f, 045.0f / 255.0f);
 	static public Color CadmiumRed						= new Color(227.0f / 255.0f, 000.0f / 255.0f, 034.0f / 255.0f);
 	static public Color CadmiumYellow					= new Color(255.0f / 255.0f, 246.0f / 255.0f, 000.0f / 255.0f);
-	static public Color CaféAuLait						= new Color(166.0f / 255.0f, 123.0f / 255.0f, 091.0f / 255.0f);
-	static public Color CaféNoir						= new Color(075.0f / 255.0f, 054.0f / 255.0f, 033.0f / 255.0f);
+	static public Color CafeAuLait						= new Color(166.0f / 255.0f, 123.0f / 255.0f, 091.0f / 255.0f);
+	static public Color CafeNoir						= new Color(075.0f / 255.0f, 054.0f / 255.0f, 033.0f / 255.0f);
 	static public Color CalPolyPomonaGreen				= new Color(030.0f / 255.0f, 077.0f / 255.0f, 043.0f / 255.0f);
 	static public Color CambridgeBlue					= new Color(163.0f / 255.0f, 193.0f / 255.0f, 173.0f / 255.0f);
 	static public Color Camel							= new Color(193.0f / 255.0f, 154.0f / 255.0f, 107.0f / 255.0f);
@@ -307,7 +307,7 @@ static public class ColorPlus {
 	static public Color GreenYellow						= new Color(173.0f / 255.0f, 255.0f / 255.0f, 047.0f / 255.0f);
 	static public Color Grullo							= new Color(169.0f / 255.0f, 154.0f / 255.0f, 134.0f / 255.0f);
 	static public Color GuppieGreen						= new Color(000.0f / 255.0f, 255.0f / 255.0f, 127.0f / 255.0f);
-	static public Color HalayàÚbe						= new Color(102.0f / 255.0f, 056.0f / 255.0f, 084.0f / 255.0f);
+	static public Color HalayaUbe						= new Color(102.0f / 255.0f, 056.0f / 255.0f, 084.0f / 255.0f);
 	static public Color HanBlue							= new Color(068.0f / 255.0f, 108.0f / 255.0f, 207.0f / 255.0f);
 	static public Color HanPurple						= new Color(082.0f / 255.0f, 024.0f / 255.0f, 250.0f / 255.0f);
 	static public Color HansaYellow						= new Color(233.0f / 255.0f, 214.0f / 255.0f, 107.0f / 255.0f);
@@ -850,8 +850,8 @@ static public class ColorPlus {
         CadmiumOrange,
         CadmiumRed,
         CadmiumYellow,
-        CaféAuLait,
-        CaféNoir,
+        CafeAuLait,
+        CafeNoir,
         CalPolyPomonaGreen,
         CambridgeBlue,
         Camel,
@@ -1056,7 +1056,7 @@ static public class ColorPlus {
         GreenYellow,
         Grullo,
         GuppieGreen,
-        HalayàÚbe,
+        HalayaUbe,
         HanBlue,
         HanPurple,
         HansaYellow,
@@ -1599,8 +1599,8 @@ static public class ColorPlus {
 		CadmiumOrange,
 		CadmiumRed,
 		CadmiumYellow,
-		CaféAuLait,
-		CaféNoir,
+		CafeAuLait,
+		CafeNoir,
 		CalPolyPomonaGreen,
 		CambridgeBlue,
 		Camel,
@@ -1805,7 +1805,7 @@ static public class ColorPlus {
 		GreenYellow,
 		Grullo,
 		GuppieGreen,
-		HalayàÚbe,
+		HalayaUbe,
 		HanBlue,
 		HanPurple,
 		HansaYellow,
