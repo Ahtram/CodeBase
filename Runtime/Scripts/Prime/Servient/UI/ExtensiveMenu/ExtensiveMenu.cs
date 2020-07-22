@@ -86,7 +86,9 @@ public class ExtensiveMenu : UIBase {
 
     //嘗試新增一個選單選項 (這是給 Root 用的)
     public bool AddItem(string path, bool on, Action func) {
-        if (!string.IsNullOrEmpty(path) && !path.Contains(" ") && !_rawContents.Contains(path)) {
+        //確保路徑不會有空白字元。
+        path = path.Replace(' ', '_');
+        if (!string.IsNullOrEmpty(path) && !_rawContents.Contains(path)) {
             //加入此原輸入資料.
             _rawContents.Add(path);
             ParseAppend(_parsedContents, path, on, func);
@@ -99,7 +101,9 @@ public class ExtensiveMenu : UIBase {
 
     //嘗試新增一個選單選項 (這是給 Root 用的)
     public bool AddItem(string path, bool on, Action<object> func, object userData) {
-        if (!string.IsNullOrEmpty(path) && !path.Contains(" ") && !_rawContents.Contains(path)) {
+        //確保路徑不會有空白字元。
+        path = path.Replace(' ', '_');
+        if (!string.IsNullOrEmpty(path) && !_rawContents.Contains(path)) {
             //加入此原輸入資料.
             _rawContents.Add(path);
             ParseAppend(_parsedContents, path, on, func, userData);
