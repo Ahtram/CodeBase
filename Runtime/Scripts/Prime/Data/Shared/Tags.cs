@@ -28,4 +28,46 @@ public class Tags {
         return Util.ListIsEqual(items, tags.items);
     }
 
+    //是否含有任何一個傳入的 Tags 中的一個
+    public bool ContainsAnyOf(Tags tags) {
+        for (int i = 0; i < tags.items.Count; i++) {
+            if (items.Contains(tags.items[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //是否含有任何一個傳入的 Tags 中的一個
+    public bool ContainsAnyOf(List<string> tags) {
+        for (int i = 0; i < tags.Count; i++) {
+            if (items.Contains(tags[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //是否含有所有的傳入的 Tags
+    public bool ContainsAllOf(Tags tags) {
+        for (int i = 0; i < tags.items.Count; i++) {
+            if (!items.Contains(tags.items[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //是否含有所有的傳入的 Tags
+    public bool ContainsAllOf(List<string> tags) {
+        for (int i = 0; i < tags.Count; i++) {
+            if (!items.Contains(tags[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
