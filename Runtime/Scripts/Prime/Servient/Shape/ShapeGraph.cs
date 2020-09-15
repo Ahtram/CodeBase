@@ -172,12 +172,13 @@ public class ShapeGraph : MonoBehaviour {
     //============ Static APIs =============
 
     //Create (Instantiate) a new ShapeGraph object.
-    static public ShapeGraph Create(string gameObjectName, GameObject parent, Shape shape, bool colliderIsTrigger = true, bool attachCollider = true, bool attachMeshRenderer = true, bool attachLineRenderer = true) {
+    static public ShapeGraph Create(string gameObjectName, GameObject parent, Shape shape, Vector3 localPosision = new Vector3(), bool colliderIsTrigger = true, bool attachCollider = true, bool attachMeshRenderer = true, bool attachLineRenderer = true) {
         GameObject GO = new GameObject(gameObjectName);
         ShapeGraph shapeGraph = GO.AddComponent<ShapeGraph>();
         if (shapeGraph != null) {
             GO.transform.SetParent(parent.transform);
             GO.SetLayer(parent.layer);
+            GO.transform.localPosition = localPosision;
             shapeGraph.Setup(shape, colliderIsTrigger, attachCollider, attachMeshRenderer, attachLineRenderer);
             return shapeGraph;
         } else {
