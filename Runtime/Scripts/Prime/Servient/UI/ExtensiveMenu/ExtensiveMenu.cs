@@ -201,16 +201,24 @@ public class ExtensiveMenu : UIBase {
         if (Mathf.Abs(leftAnchorCanvasPos.x) > Mathf.Abs(rightAnchorCanvasPos.x)) {
             //Use right anchor. Use left pivot. 
             if (rightAnchorCanvasPos.y > 0) {
-                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos), PivotPresets.TopLeft);
+                //Shift up a bit.
+                Vector2 fixedAnchorPosition = (Vector2)subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos) + new Vector2(0.0f, 10.0f);
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, fixedAnchorPosition, PivotPresets.TopLeft);
             } else {
-                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos), PivotPresets.BottomLeft);
+                //Shift down a bit.
+                Vector2 fixedAnchorPosition = (Vector2)subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos) + new Vector2(0.0f, -10.0f);
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, fixedAnchorPosition, PivotPresets.BottomLeft);
             }
         } else {
             //Use left anchor. Use right pivot. 
             if (leftAnchorCanvasPos.y > 0) {
-                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos), PivotPresets.TopRight);
+                //Shift up a bit.
+                Vector2 fixedAnchorPosition = (Vector2)subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos) + new Vector2(0.0f, 10.0f);
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, fixedAnchorPosition, PivotPresets.TopRight);
             } else {
-                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos), PivotPresets.BottomRight);
+                //Shift down a bit.
+                Vector2 fixedAnchorPosition = (Vector2)subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos) + new Vector2(0.0f, -10.0f);
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, fixedAnchorPosition, PivotPresets.BottomRight);
             }
         }
 
@@ -220,6 +228,17 @@ public class ExtensiveMenu : UIBase {
     public void DestroySubMenu() {
         ExtensiveMenu.DestroyUnder(subMenuMountPoint);
         _displayingSubMenu = null;
+    }
+
+    public bool HasASubMenuOpening() {
+        return (_displayingSubMenu != null);
+    }
+
+    public bool HasAGrandSubMenuOpening() {
+        if (_displayingSubMenu != null) {
+            return _displayingSubMenu.HasASubMenuOpening();
+        }
+        return false;
     }
 
     //----------------------------------------------------------------------------------
