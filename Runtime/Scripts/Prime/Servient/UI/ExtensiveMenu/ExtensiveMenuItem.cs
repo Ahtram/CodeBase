@@ -18,7 +18,9 @@ public class ExtensiveMenuItem : UIBase {
     public TernaryButton button;
     public RawImage toggle;
     public RawImage arrow;
-    public RectTransform subMenuAnchor;
+
+    public RectTransform subMenuLeftAnchor;
+    public RectTransform subMenuRightAnchor;
 
     //Displaying content.
     private ExtensiveMenu.ItemContent m_content = null;

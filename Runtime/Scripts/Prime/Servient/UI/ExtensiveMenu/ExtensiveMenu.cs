@@ -12,7 +12,7 @@ using CodeBaseExtensions;
 public class ExtensiveMenu : UIBase {
 
     public const string PATH = "Prefabs/ExtensiveMenu/ExtensiveMenu";
-    
+
     //代表一個節點用的資料
     public class ItemContent {
         //顯示在選單上的字串
@@ -147,7 +147,7 @@ public class ExtensiveMenu : UIBase {
         DestroySubMenu();
         if (content != null && content.SubList.Count > 0) {
             //Todo: 這邊要判斷位置(以Item本身給的資訊)
-            CreateSubMenu(content, item.subMenuAnchor);
+            CreateSubMenu(content, item);
         }
     }
 
@@ -184,10 +184,36 @@ public class ExtensiveMenu : UIBase {
 
     //---------------- Sub Menu -----------------
 
-    public void CreateSubMenu(ExtensiveMenu.ItemContent content, RectTransform anchor) {
+    public void CreateSubMenu(ExtensiveMenu.ItemContent content, ExtensiveMenuItem item) {
         DestroySubMenu();
-        Vector3 calculatedAnchorPos = subMenuMountPoint.InverseTransformPoint(anchor.position);
-        _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, calculatedAnchorPos);
+        //這邊會計算SubMenu會掛在哪個位置上。
+
+        //我們使用 canvas RectTransform 上的 x, y 來判斷 pivot 要在哪邊.
+        //判斷 item 的 left anchor 以及 right anchor 哪個比較靠近畫面的中心點，使用最靠近畫面中心點的那個。
+        RectTransform canvasRectTransform = gameObject.GetRectTransform().GetCanvasRectTransform();
+
+        Vector2 leftAnchorWorldPos = item.subMenuLeftAnchor.position;
+        Vector2 rightAnchorWorldPos = item.subMenuRightAnchor.position;
+
+        Vector2 leftAnchorCanvasPos = canvasRectTransform.InverseTransformPoint(leftAnchorWorldPos);
+        Vector2 rightAnchorCanvasPos = canvasRectTransform.InverseTransformPoint(rightAnchorWorldPos);
+
+        if (Mathf.Abs(leftAnchorCanvasPos.x) > Mathf.Abs(rightAnchorCanvasPos.x)) {
+            //Use right anchor. Use left pivot. 
+            if (rightAnchorCanvasPos.y > 0) {
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos), PivotPresets.TopLeft);
+            } else {
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(rightAnchorWorldPos), PivotPresets.BottomLeft);
+            }
+        } else {
+            //Use left anchor. Use right pivot. 
+            if (leftAnchorCanvasPos.y > 0) {
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos), PivotPresets.TopRight);
+            } else {
+                _displayingSubMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", subMenuMountPoint, subMenuMountPoint.InverseTransformPoint(leftAnchorCanvasPos), PivotPresets.BottomRight);
+            }
+        }
+
         _displayingSubMenu.Setup(content.SubList);
     }
 
@@ -234,7 +260,7 @@ public class ExtensiveMenu : UIBase {
 
     //將輸入資料解析為 ItemContent 集合 (進階版本)
     static public void ParseAppend(Dictionary<string, ItemContent> itemContents, string path, bool on, Action<object> func, object userData) {
-       Dictionary<string, ItemContent> parsedContent = new Dictionary<string, ItemContent>();
+        Dictionary<string, ItemContent> parsedContent = new Dictionary<string, ItemContent>();
 
         //首先取得 path 的最前面一個 Item.
         string remainPath = "";
@@ -283,7 +309,7 @@ public class ExtensiveMenu : UIBase {
 
     public void OnScrollRectRectTransformDimensionsChange(RectTransform rectTransform) {
         //Check and fix self position.
-        
+
         //Check the size and see if we need to fix our position.
 
         RectTransform selfRectTransform = this.GetRectTransform();
@@ -296,15 +322,16 @@ public class ExtensiveMenu : UIBase {
                 float horizontalFix = 0.0f;
                 float verticalFix = 0.0f;
 
+                //[Dep] 改為根據位置調整 pivot 以後就不需要這些了。
                 ////Check top.
                 //if (localPosOnCanvas.y > canvasRectTransform.sizeDelta.y * 0.5f) {
                 //    verticalFix = canvasRectTransform.sizeDelta.y * 0.5f - localPosOnCanvas.y;
                 //}
 
                 //Check left.
-                if (localPosOnCanvas.x < -canvasRectTransform.sizeDelta.x * 0.5f) {
-                    horizontalFix = -canvasRectTransform.sizeDelta.x * 0.5f - localPosOnCanvas.x;
-                }
+                // if (localPosOnCanvas.x < -canvasRectTransform.sizeDelta.x * 0.5f) {
+                //     horizontalFix = -canvasRectTransform.sizeDelta.x * 0.5f - localPosOnCanvas.x;
+                // }
 
                 ////Check bottom.
                 //if (localPosOnCanvas.y - rectTransform.sizeDelta.y < -canvasRectTransform.sizeDelta.y * 0.5f) {
@@ -312,9 +339,11 @@ public class ExtensiveMenu : UIBase {
                 //}
 
                 //Check right.
-                if (localPosOnCanvas.x + rectTransform.sizeDelta.x > canvasRectTransform.sizeDelta.x * 0.5f) {
-                    horizontalFix = canvasRectTransform.sizeDelta.x * 0.5f - (localPosOnCanvas.x + rectTransform.sizeDelta.x);
-                }
+                // if (localPosOnCanvas.x + rectTransform.sizeDelta.x > canvasRectTransform.sizeDelta.x * 0.5f) {
+                //     horizontalFix = canvasRectTransform.sizeDelta.x * 0.5f - (localPosOnCanvas.x + rectTransform.sizeDelta.x);
+                // }
+
+                //Todo: 或許還需要修正。
 
                 //Fix position.
                 selfRectTransform.anchoredPosition = new Vector2(selfRectTransform.anchoredPosition.x + horizontalFix, selfRectTransform.anchoredPosition.y + verticalFix);
@@ -330,17 +359,53 @@ public class ExtensiveMenu : UIBase {
         if (menu != null) {
             menu.GetRectTransform().anchoredPosition = anchoredPosition;
 
-            //我們很愚蠢的使用wordposition y 來判斷 pivot 要在哪邊
-            Vector2 worldPos = parent.TransformPoint(anchoredPosition);
+            //我們使用 canvas RectTransform 上的 x, y 來判斷 pivot 要在哪邊.
+            RectTransform canvasRectTransform = parent.GetCanvasRectTransform();
 
-            //Decide pivor (Menu relative position to cursor)
-            if (worldPos.y > 0.0f) {
-                menu.GetRectTransform().SetPivot(PivotPresets.TopLeft);
-                menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.TopLeft);
+            Vector2 worldPos = parent.TransformPoint(anchoredPosition);
+            Vector2 canvasPos = canvasRectTransform.InverseTransformPoint(worldPos);
+
+            //Decide pivot (Menu relative position to cursor)
+            if (canvasPos.y > 0.0f) {
+                if (canvasPos.x > 0.0f) {
+                    menu.GetRectTransform().SetPivot(PivotPresets.TopRight);
+                    menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.TopRight);
+                } else {
+                    menu.GetRectTransform().SetPivot(PivotPresets.TopLeft);
+                    menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.TopLeft);
+                }
             } else {
-                menu.GetRectTransform().SetPivot(PivotPresets.BottomLeft);
-                menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.BottomLeft);
+                if (canvasPos.x > 0.0f) {
+                    menu.GetRectTransform().SetPivot(PivotPresets.BottomRight);
+                    menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.BottomRight);
+                } else {
+                    menu.GetRectTransform().SetPivot(PivotPresets.BottomLeft);
+                    menu.scrollRect.GetRectTransform().SetPivot(PivotPresets.BottomLeft);
+                }
             }
+
+            return menu;
+        } else {
+            Debug.LogWarning("Oops! ExtensiveMenu Instantiate failed?!");
+            return null;
+        }
+    }
+
+    //Create an item with content.
+    static public ExtensiveMenu Instantiate(string gameObjectName, RectTransform parent, Vector2 anchoredPosition, PivotPresets pivotPresets) {
+        ExtensiveMenu menu = Util.InstantiateModule<ExtensiveMenu>(PATH, parent);
+        if (menu != null) {
+            menu.GetRectTransform().anchoredPosition = anchoredPosition;
+
+            //我們使用 canvas RectTransform 上的 x, y 來判斷 pivot 要在哪邊.
+            RectTransform canvasRectTransform = parent.GetCanvasRectTransform();
+
+            Vector2 worldPos = parent.TransformPoint(anchoredPosition);
+            Vector2 canvasPos = canvasRectTransform.InverseTransformPoint(worldPos);
+
+            //Decide pivot (Menu relative position to cursor)
+            menu.GetRectTransform().SetPivot(pivotPresets);
+            menu.scrollRect.GetRectTransform().SetPivot(pivotPresets);
 
             return menu;
         } else {
