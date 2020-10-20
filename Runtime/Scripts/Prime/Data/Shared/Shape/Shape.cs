@@ -37,19 +37,19 @@ abstract public class Shape {
         //Destroy exist stuff.
         PolygonCollider2D existPolygonCollider2D = go.GetComponent<PolygonCollider2D>();
         if (existPolygonCollider2D != null) {
-            UnityEngine.Object.DestroyImmediate(existPolygonCollider2D);
+            Debug.Log("existPolygonCollider2D detected!");
         }
 
         //Destroy exist stuff.
         BoxCollider2D existBoxCollider2D = go.GetComponent<BoxCollider2D>();
         if (existBoxCollider2D != null) {
-            UnityEngine.Object.DestroyImmediate(existBoxCollider2D);
+            Debug.Log("existBoxCollider2D detected!");
         }
 
         //Destroy exist stuff.
         Rigidbody2D rigidbody2D = go.GetComponent<Rigidbody2D>();
         if (rigidbody2D != null) {
-            UnityEngine.Object.DestroyImmediate(rigidbody2D);
+            Debug.Log("rigidbody2D detected!");
         }
 
         return null;
@@ -60,13 +60,13 @@ abstract public class Shape {
         //Destroy exist stuff.
         MeshRenderer existMeshRenderer = go.GetComponent<MeshRenderer>();
         if (existMeshRenderer != null) {
-            UnityEngine.Object.DestroyImmediate(existMeshRenderer);
+            Debug.Log("existMeshRenderer detected!");
         }
 
         //Destroy exist stuff.
         MeshFilter existMeshFilter = go.GetComponent<MeshFilter>();
         if (existMeshFilter != null) {
-            UnityEngine.Object.DestroyImmediate(existMeshFilter);
+            Debug.Log("existMeshFilter detected!");
         }
 
         return null;
@@ -77,7 +77,7 @@ abstract public class Shape {
         //Destroy exist stuff.
         LineRenderer existLineRenderer = go.GetComponent<LineRenderer>();
         if (existLineRenderer != null) {
-            UnityEngine.Object.DestroyImmediate(existLineRenderer);
+            Debug.Log("existLineRenderer detected!");
         }
 
         return null;
