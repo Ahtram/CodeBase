@@ -11,6 +11,9 @@ public class BoxShape : Shape {
     [XmlElement("S")]
     public Vec2 size = new Vec2(100.0f, 100.0f);
 
+    [XmlElement("O")]
+    public Vec2 offset = new Vec2(0.0f, 0.0f);
+
     public BoxShape() {
         type = Type.Box;
     }
@@ -18,6 +21,12 @@ public class BoxShape : Shape {
     public BoxShape(Vec2 size) {
         type = Type.Box;
         this.size.Set(size);
+    }
+
+    public BoxShape(Vec2 size, Vec2 offset) {
+        type = Type.Box;
+        this.size.Set(size);
+        this.offset.Set(offset);
     }
 
     /// <summary>
@@ -28,10 +37,10 @@ public class BoxShape : Shape {
         float halfWidth = size.x * 0.5f;
         float halfHeight = size.y * 0.5f;
 
-        Vector2 lt = new Vector2(-(halfWidth), halfHeight);
-        Vector2 lb = new Vector2(-(halfWidth), -halfHeight);
-        Vector2 rb = new Vector2(halfWidth, -halfHeight);
-        Vector2 rt = new Vector2(halfWidth, halfHeight);
+        Vector2 lt = new Vector2(-(halfWidth), halfHeight) + offset.ToVector2();
+        Vector2 lb = new Vector2(-(halfWidth), -halfHeight) + offset.ToVector2();
+        Vector2 rb = new Vector2(halfWidth, -halfHeight) + offset.ToVector2();
+        Vector2 rt = new Vector2(halfWidth, halfHeight) + offset.ToVector2();
 
         return new Vector2[] {
             lt,
@@ -50,6 +59,7 @@ public class BoxShape : Shape {
         base.AttachCollider2D(go);
 
         BoxCollider2D newBoxCollider2D = go.AddComponent<BoxCollider2D>();
+        newBoxCollider2D.offset = offset.ToVector2();
         newBoxCollider2D.size = size.ToVector2();
         newBoxCollider2D.isTrigger = isTrigger;
 
@@ -112,6 +122,7 @@ public class BoxShape : Shape {
 
         //Collider stuffs.
         BoxCollider2D newBoxCollider2D = go.AddComponent<BoxCollider2D>();
+        newBoxCollider2D.offset = offset.ToVector2();
         newBoxCollider2D.size = size.ToVector2();
         newBoxCollider2D.isTrigger = colliderIsTrigger;
 
@@ -145,6 +156,7 @@ public class BoxShape : Shape {
 
         //Collider stuffs.
         BoxCollider2D newBoxCollider2D = go.AddComponent<BoxCollider2D>();
+        newBoxCollider2D.offset = offset.ToVector2();
         newBoxCollider2D.size = size.ToVector2();
         newBoxCollider2D.isTrigger = colliderIsTrigger;
 
