@@ -55,7 +55,7 @@ public class BoxShape : Shape {
     /// </summary>
     /// <param name="go">Target GameObject.</param>
     /// <returns></returns>
-    override public Collider2D AttachCollider2D(GameObject go, bool isTrigger = false) {
+    override public Collider2D AttachCollider2D(GameObject go, bool isTrigger = false, bool attachRigidbody2D = false) {
         base.AttachCollider2D(go);
 
         BoxCollider2D newBoxCollider2D = go.AddComponent<BoxCollider2D>();
@@ -63,9 +63,11 @@ public class BoxShape : Shape {
         newBoxCollider2D.size = size.ToVector2();
         newBoxCollider2D.isTrigger = isTrigger;
 
-        Rigidbody2D rigidbody2D = go.AddComponent<Rigidbody2D>();
-        rigidbody2D.gravityScale = 0.0f;
-        rigidbody2D.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        if (attachRigidbody2D) {
+            Rigidbody2D rigidbody2D = go.AddComponent<Rigidbody2D>();
+            rigidbody2D.gravityScale = 0.0f;
+            rigidbody2D.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        }
 
         return newBoxCollider2D;
     }

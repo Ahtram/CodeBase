@@ -33,7 +33,7 @@ abstract public class Shape {
 
     //Implement this to make the shape be able to apply a collider2D to a gameobject. (like BoxCollider2D or PolyCollider2D)
     //Possible return null.
-    virtual public Collider2D AttachCollider2D(GameObject go, bool isTrigger = true) {
+    virtual public Collider2D AttachCollider2D(GameObject go, bool isTrigger = true, bool attachRigidbody2D = false) {
         //Destroy exist stuff.
         PolygonCollider2D existPolygonCollider2D = go.GetComponent<PolygonCollider2D>();
         if (existPolygonCollider2D != null) {
