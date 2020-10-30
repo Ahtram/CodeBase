@@ -44,7 +44,7 @@ abstract public class UniEditorWindow : EditorWindow {
                 }
                 if (Event.current.keyCode == KeyCode.W) {
                     if (ctrlDown) {
-                        Close();
+                        OnCtrlW();
                     }
                 }
                 if (Event.current.keyCode == KeyCode.D) {
@@ -97,6 +97,14 @@ abstract public class UniEditorWindow : EditorWindow {
 
     virtual public void OnFocus() {
         ReleaseFocusControl();
+    }
+
+    /// <summary>
+    /// General convenient hotkey. Override this to make your own good.
+    /// </summary>
+    virtual protected void OnCtrlW() {
+        //This hotkey is the default "close window" hotkey.
+        Close();
     }
 
     /// <summary>
