@@ -80,10 +80,6 @@ public class ExtensiveMenu : UIBase {
 
     //---------------- Adjust anchor (you should do this befoare adda items!) -----------------
 
-    public void SetPivot(PivotPresets pivotPreset) {
-        this.GetRectTransform().SetPivot(pivotPreset);
-    }
-
     //嘗試新增一個選單選項 (這是給 Root 用的)
     public bool AddItem(string path, bool on, Action func) {
         //確保路徑不會有空白字元。

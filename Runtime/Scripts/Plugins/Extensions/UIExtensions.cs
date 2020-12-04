@@ -252,6 +252,31 @@ namespace CodeBaseExtensions {
             }
         }
 
+        //Convient way to get world LTRB positions of a rectTransform. 
+        public static float WorldLeft(this RectTransform source) {
+            Vector3[] corners = new Vector3[4];
+            source.GetWorldCorners(corners);
+            return corners[0].x;
+        }
+
+        public static float WorldTop(this RectTransform source) {
+            Vector3[] corners = new Vector3[4];
+            source.GetWorldCorners(corners);
+            return corners[2].y;
+        }
+
+        public static float WorldRight(this RectTransform source) {
+            Vector3[] corners = new Vector3[4];
+            source.GetWorldCorners(corners);
+            return corners[2].x;
+        }
+
+        public static float WorldBottom(this RectTransform source) {
+            Vector3[] corners = new Vector3[4];
+            source.GetWorldCorners(corners);
+            return corners[0].y;
+        }
+
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CodeBaseExtensions;
 
 /// <summary>
 /// This is a base class for general UI components. It contains the minimal and most useful functnios.
@@ -104,6 +105,154 @@ public class UIBase : MonoBehaviour {
     /// <param name="hasFocus"></param>
     protected void OnApplicationFocus(bool hasFocus) {
         m_hasApplicationFocus = hasFocus;
+    }
+
+    /// <summary>
+    /// Try get the RectTransform directly.
+    /// </summary>
+    /// <returns></returns>
+    public RectTransform GetRectTransform() {
+        return this.GetComponent<RectTransform>();
+    }
+
+    /// <summary>
+    /// Try get the Canvas of this object.
+    /// </summary>
+    /// <returns></returns>
+    public Canvas GetCanvas() {
+        return gameObject.GetComponentInParent<Canvas>();
+    }
+
+    /// <summary>
+    /// Set the anchor of this UI.
+    /// </summary>
+    /// <param name="allign"></param>
+    /// <param name="offsetX"></param>
+    /// <param name="offsetY"></param>
+    public void SetAnchor(AnchorPresets allign, int offsetX = 0, int offsetY = 0) {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            rectTransform.SetAnchor(allign, offsetX, offsetY);
+        }
+    }
+
+    /// <summary>
+    /// Set the pivot of this UI.
+    /// </summary>
+    /// <param name="preset"></param>
+    public void SetPivot(PivotPresets preset) {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            rectTransform.SetPivot(preset);
+        }
+    }
+
+    /// <summary>
+    /// Try get the Canvas RectTransform of this object.
+    /// </summary>
+    /// <returns></returns>
+    public RectTransform GetCanvasRectTransform() {
+        Canvas canvas = gameObject.GetComponentInParent<Canvas>();
+        if (canvas != null) {
+            return canvas.GetComponent<RectTransform>();
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Try get the render camera of the canvas of this object.
+    /// </summary>
+    /// <returns></returns>
+    public Camera GetCanvasRenderCamera() {
+        Canvas canvas = gameObject.GetComponentInParent<Canvas>();
+        if (canvas != null) {
+            return canvas.worldCamera;
+        } else {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Try get the view port rect of this UI object.
+    /// </summary>
+    /// <returns></returns>
+    public Rect GetViewPortRect() {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.GetViewPortRect();
+        } else {
+            return new Rect(0, 0, 0, 0);
+        }
+        
+    }
+
+    /// <summary>
+    /// Try get the view port rect of this UI object.
+    /// </summary>
+    /// <param name="marginTop"></param>
+    /// <param name="marginBottom"></param>
+    /// <param name="marginLeft"></param>
+    /// <param name="marginRight"></param>
+    /// <returns></returns>
+    public Rect GetViewPortRect(float marginTop, float marginBottom, float marginLeft, float marginRight) {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.GetViewPortRect(marginTop, marginBottom, marginLeft, marginRight);
+        } else {
+            return new Rect(0, 0, 0, 0);
+        }
+    }
+
+    /// <summary>
+    /// Get the world position of the left.
+    /// </summary>
+    /// <returns></returns>
+    public float WorldLeft() {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.WorldLeft();
+        } else {
+            return 0.0f;
+        }
+    }
+
+    /// <summary>
+    /// Get the world position of the top.
+    /// </summary>
+    /// <returns></returns>
+    public float WorldTop() {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.WorldTop();
+        } else {
+            return 0.0f;
+        }
+    }
+
+    /// <summary>
+    /// Get the world position of the right.
+    /// </summary>
+    /// <returns></returns>
+    public float WorldRight() {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.WorldRight();
+        } else {
+            return 0.0f;
+        }
+    }
+
+    /// <summary>
+    /// Get the world position of the bottom.
+    /// </summary>
+    /// <returns></returns>
+    public float WorldBottom() {
+        RectTransform rectTransform = GetRectTransform();
+        if (rectTransform != null) {
+            return rectTransform.WorldBottom();
+        } else {
+            return 0.0f;
+        }
     }
 
 }
