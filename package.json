@@ -2,7 +2,7 @@
   "name": "com.unity.teamuni.codebase",
   "displayName": "CodeBase",
   "version": "1.0.8",
-  "unity": "2020.16",
+  "unity": "2020.1",
   "description": "A general purpose code base package for my team.",
   "hideInEditor": false,
   "dependencies": {
