@@ -178,7 +178,7 @@ public class TyperPro : MonoBehaviour {
 
     private void InvokeProgress() {
         if (m_completeString.Length > 0) {
-            onTypeProgress.Invoke((float)m_typingString.Length / (float)m_completeString.Length);
+            onTypeProgress.Invoke((float)m_typingIndex / (float)m_completeString.Length);
         } else {
             onTypeProgress.Invoke(1.0f);
         }
