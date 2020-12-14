@@ -155,6 +155,10 @@ public class Typist : MonoBehaviour {
         }
     }
 
+    public void SetFontSize(int size) {
+        targetText.fontSize = size;
+    }
+
     //===========================================
 
     private void InvokeProgress() {

@@ -170,6 +170,10 @@ public class TyperPro : MonoBehaviour {
         }
     }
 
+    public void SetFontSize(int size) {
+        targetText.fontSize = size;
+    }
+
     //===========================================
 
     private void InvokeProgress() {
