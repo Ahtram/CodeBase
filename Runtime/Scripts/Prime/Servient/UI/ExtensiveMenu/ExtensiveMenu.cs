@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 /// <summary>
 /// 可展開式選單

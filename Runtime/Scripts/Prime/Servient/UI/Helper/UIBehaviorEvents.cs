@@ -1,8 +1,7 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine;
-using UBase;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 //A helper component which listen to UIBehavior events.
 public class UIBehaviorEvents : UIBehaviour {

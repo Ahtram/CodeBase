@@ -7,7 +7,7 @@ using System;
     using UnityEditor.Callbacks;
 #endif
 
-namespace UBase {
+namespace Teamuni.Codebase {
     //The customized version data which auto-increment ability.
     //The format: http://stackoverflow.com/questions/65718/what-do-the-numbers-in-a-version-typically-represent-i-e-v1-9-0-1
     [XmlType("VER")]

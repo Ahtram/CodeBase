@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 //We want ObjectPool can be seperate by scene. So instead of static class we decide to make it a gameObject in scene so it will live/die with the scene.
 //Put a ObjectPool gameObject in your scene if you want to use it.

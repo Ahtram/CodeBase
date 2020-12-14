@@ -30,6 +30,10 @@ public class TypistTester : MonoBehaviour {
         
     }
 
+    public void OnTypeProgress(float progress) {
+        Debug.Log("OnTypeProgress [" + progress + "]");
+    }
+
 	public void OnFrameDown() {
         typist.SetSpeedUp(true);
     }

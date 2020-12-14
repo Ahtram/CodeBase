@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace CodeBaseExtensions {
+namespace Teamuni.Codebase {
     public static class PrototypeExtensions {
         public static void SetLayer(this GameObject go, int layer) {
             go.layer = layer;

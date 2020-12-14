@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
+using Teamuni.Codebase;
 
 /// <summary>
 /// A simple effect component for typing effect for UGUI text.
@@ -15,6 +16,11 @@ public class Typer : MonoBehaviour {
     public UnityEvent onTypeStart;
     public UnityEvent onTypeText;
     public UnityEvent onTypeComplete;
+
+    /// <summary>
+    /// Typing Progress: 0.0 ~ 1.0
+    /// </summary>
+    public UnityEventFloat onTypeProgress;
 
     //Speed settings.
     public float typingTextIntervalNormal = 0.04f;
@@ -48,7 +54,8 @@ public class Typer : MonoBehaviour {
             m_completeString = str;
             m_typingString = string.Empty;
             m_isTypingText = true;
-            onTypeStart.Invoke();
+            onTypeStart?.Invoke();
+            InvokeProgress();
         }
     }
 
@@ -63,7 +70,7 @@ public class Typer : MonoBehaviour {
                 } else {
                     //No phrase left. End typing.
                     m_isTypingText = false;
-                    onTypeComplete.Invoke();
+                    onTypeComplete?.Invoke();
                 }
             } else {
                 //Check delay.
@@ -112,7 +119,8 @@ public class Typer : MonoBehaviour {
 
                         m_typingDelay = m_typingTextInterval + m_typingDelay;
 
-                        onTypeText.Invoke();
+                        onTypeText?.Invoke();
+                        InvokeProgress();
                     }//End while.
 
                     //Just delay and nothing.
@@ -147,7 +155,8 @@ public class Typer : MonoBehaviour {
             m_isTypingText = false;
             targetText.text = m_completeString;
             if (invokeTypeComplete) {
-                onTypeComplete.Invoke();
+                onTypeComplete?.Invoke();
+                InvokeProgress();
             }
             return true;
         }
@@ -162,6 +171,14 @@ public class Typer : MonoBehaviour {
     }
 
     //===========================================
+
+    private void InvokeProgress() {
+        if (m_completeString.Length > 0) {
+            onTypeProgress.Invoke((float)m_typingString.Length / (float)m_completeString.Length);
+        } else {
+            onTypeProgress.Invoke(1.0f);
+        }
+    }
 
     private void RefreshTypingTextInterval() {
         if (m_speedUp) {

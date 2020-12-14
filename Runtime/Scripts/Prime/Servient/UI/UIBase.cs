@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 /// <summary>
 /// This is a base class for general UI components. It contains the minimal and most useful functnios.

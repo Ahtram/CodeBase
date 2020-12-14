@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 /// <summary>
 /// For test ExtensiveMenu

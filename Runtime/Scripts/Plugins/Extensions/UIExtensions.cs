@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace CodeBaseExtensions {
+namespace Teamuni.Codebase {
 
     public enum AnchorPresets {
         TopLeft,

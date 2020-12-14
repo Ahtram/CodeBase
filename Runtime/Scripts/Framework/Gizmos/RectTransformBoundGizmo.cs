@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeBaseExtensions;
+using Teamuni.Codebase;
 
 //Draw a colored cube gizmo to visualize the bound of the attached RectTransform.
 [ExecuteInEditMode]

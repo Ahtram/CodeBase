@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
+using Teamuni.Codebase;
 
 /// <summary>
 /// A simple effect component for typing effect for UGUI text.
@@ -14,6 +15,11 @@ public class Typist : MonoBehaviour {
     public UnityEvent onTypeStart;
     public UnityEvent onTypeText;
     public UnityEvent onTypeComplete;
+
+    /// <summary>
+    /// Typing Progress: 0.0 ~ 1.0
+    /// </summary>
+    public UnityEventFloat onTypeProgress;
 
     //Speed settings.
     public float typingTextIntervalNormal = 0.04f;
@@ -42,6 +48,7 @@ public class Typist : MonoBehaviour {
             m_completeString = str;
             m_isTypingText = true;
             onTypeStart.Invoke();
+            InvokeProgress();
         }
     }
 
@@ -98,6 +105,7 @@ public class Typist : MonoBehaviour {
                         m_typingDelay = m_typingTextInterval + m_typingDelay;
 
                         onTypeText.Invoke();
+                        InvokeProgress();
                     }//End while.
 
                     //Just delay and nothing.
@@ -133,6 +141,7 @@ public class Typist : MonoBehaviour {
             targetText.text = m_completeString;
             if (invokeTypeComplete) {
                 onTypeComplete.Invoke();
+                InvokeProgress();
             }
             return true;
         }
@@ -147,6 +156,14 @@ public class Typist : MonoBehaviour {
     }
 
     //===========================================
+
+    private void InvokeProgress() {
+        if (m_completeString.Length > 0) {
+            onTypeProgress.Invoke((float)targetText.text.Length / (float)m_completeString.Length);
+        } else {
+            onTypeProgress.Invoke(1.0f);
+        }
+    }
 
     private void RefreshTypingTextInterval() {
         if (m_speedUp) {

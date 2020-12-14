@@ -5,7 +5,7 @@ using UnityEngine;
 /// Declare the most used UnityEvent type here for common usage.
 /// This may looks stupid but it'll work well.
 /// </summary>
-namespace UBase {
+namespace Teamuni.Codebase {
 
 	[System.Serializable]
     public class UnityEventBool : UnityEvent<bool> { }
