@@ -101,13 +101,14 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     }
 
     private void OnNotSupported() {
-
+        CloseExtensiveMenu();
     }
 
     private void OnCopySelected() {
 #if UNITY_EDITOR
         EditorGUIUtility.systemCopyBuffer = m_selectingAssetName;
 #endif
+        CloseExtensiveMenu();
     }
 
     private void OnItemSelected(object selectedAssetName) {

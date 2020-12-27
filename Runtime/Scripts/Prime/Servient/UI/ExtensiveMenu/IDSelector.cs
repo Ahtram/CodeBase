@@ -114,6 +114,7 @@ public class IDSelector : UIBase, IPointerClickHandler {
 #if UNITY_EDITOR
         EditorGUIUtility.systemCopyBuffer = m_selectingID;
 #endif
+        CloseExtensiveMenu();
     }
 
     private void OnItemSelected(object selectedID) {
