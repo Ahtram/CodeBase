@@ -34,6 +34,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     }
 
     public void Setup(List<string> contentList) {
+        m_contentList.Clear();
         m_contentList.AddRange(contentList);
     }
 
