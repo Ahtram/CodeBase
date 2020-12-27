@@ -8,40 +8,41 @@ using System.Collections.Generic;
 using UnityEditor;
 using System.IO;
 
-public class AssetNameSelector : UIBase, IPointerClickHandler {
+public class ContentSelector : UIBase, IPointerClickHandler {
+
 
 #if UNITY_EDITOR
-    static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/AssetNameSelector";
+    static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/ContentSelector";
 #endif
 
     public UnityEventString onIDChanged;
     public UnityEvent onClear;
 
-    public enum AssetType {
-        prefab,
-        texture2D,
-        audioClip,
-        font,
-        sprite,
-        script,
-    }
-
-    [Tooltip("Which type of asset we are targeting?")]
-    public AssetType assetType = AssetType.prefab;
-
-    [Tooltip("Start with \"Assets/\" and \"SHOULD NOT\" end with \" / \"")]
-    public string assetsFolderPath = "";
-
-    //To display the selected Asset.
-    public Text selectedAssetText;
+    //To display the selected Content.
+    public Text selectedContentNameText;
 
     //The opening ExtensiveMenu.
     private ExtensiveMenu m_extensiveMenu;
 
-    private string m_selectingAssetName = "";
+    private string m_selectingContentName = "";
+
+    //The content list we are using.
+    private List<string> m_contentList = new List<string>();
 
     void Awake() {
         UpdateSelectingDisplay();
+    }
+
+    public void Setup(List<string> contentList) {
+        m_contentList.AddRange(contentList);
+    }
+
+    public void Clear() {
+        m_contentList.Clear();
+        m_selectingContentName = "";
+        UpdateSelectingDisplay();
+        onClear.Invoke();
+        CloseExtensiveMenu();
     }
 
     /// <summary>
@@ -50,24 +51,16 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// <param name="localPos"></param>
     public void ToggleExtensiveMenu(Vector2 localPos = new Vector2()) {
         if (m_extensiveMenu == null) {
-#if UNITY_EDITOR
             m_extensiveMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", GetRectTransform(), localPos);
 
-            string[] guids = AssetDatabase.FindAssets("t:" + assetType.ToString(), new string[] { assetsFolderPath });
-            for (int i = 0; i < guids.Length; i++) {
-                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-                string assetName = Path.GetFileNameWithoutExtension(assetPath);
-                string extensiotn = Path.GetExtension(assetPath);
-                string displayGUIContent = assetPath.Remove(assetPath.Length - extensiotn.Length, extensiotn.Length).Remove(0, assetsFolderPath.Length + 1);
-                bool isSelection = (!string.IsNullOrEmpty(m_selectingAssetName) && m_selectingAssetName == assetName) ? (true) : (false);
-                m_extensiveMenu.AddItem(displayGUIContent, isSelection, OnItemSelected, assetName);
+            for (int i = 0; i < m_contentList.Count; i++) {
+                string path = m_contentList[i];
+                string name = Path.GetFileNameWithoutExtension(path);
+                bool isSelection = (!string.IsNullOrEmpty(m_selectingContentName) && m_selectingContentName == name) ? (true) : (false);
+                m_extensiveMenu.AddItem(path, isSelection, OnItemSelected, name);
             }
             m_extensiveMenu.AddItem("[Copy]", false, OnCopySelected);
             m_extensiveMenu.AddItem("[Clear]", false, OnClearSelected);
-#else
-            m_extensiveMenu.AddItem("[Not support on non editor env]", false, OnNotSupported);
-#endif
-
         } else {
             CloseExtensiveMenu();
         }
@@ -92,11 +85,11 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     }
 
     private void UpdateSelectingDisplay() {
-        if (selectedAssetText != null) {
-            if (!string.IsNullOrEmpty(m_selectingAssetName)) {
-                selectedAssetText.text = m_selectingAssetName;
+        if (selectedContentNameText != null) {
+            if (!string.IsNullOrEmpty(m_selectingContentName)) {
+                selectedContentNameText.text = m_selectingContentName;
             } else {
-                selectedAssetText.text = "[Empty]";
+                selectedContentNameText.text = "[Empty]";
             }
         }
     }
@@ -111,23 +104,23 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
 
     private void OnCopySelected() {
 #if UNITY_EDITOR
-        EditorGUIUtility.systemCopyBuffer = m_selectingAssetName;
+        EditorGUIUtility.systemCopyBuffer = m_selectingContentName;
 #endif
         CloseExtensiveMenu();
     }
 
     private void OnClearSelected() {
-        m_selectingAssetName = "";
+        m_selectingContentName = "";
         UpdateSelectingDisplay();
         onClear.Invoke();
         CloseExtensiveMenu();
     }
 
-    private void OnItemSelected(object selectedAssetName) {
-        if (m_selectingAssetName != selectedAssetName as string) {
-            m_selectingAssetName = selectedAssetName as string;
+    private void OnItemSelected(object selectedContent) {
+        if (m_selectingContentName != selectedContent as string) {
+            m_selectingContentName = selectedContent as string;
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingAssetName);
+            onIDChanged.Invoke(m_selectingContentName);
         }
         CloseExtensiveMenu();
     }
@@ -138,13 +131,10 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// Get all possible asset names.
     /// </summary>
     /// <returns></returns>
-    public List<string> GetAllAssetNames() {
+    public List<string> GetAllContentNames() {
         List<string> returnList = new List<string>();
-        string[] guids = AssetDatabase.FindAssets("t:" + assetType.ToString(), new string[] { assetsFolderPath });
-        for (int i = 0; i < guids.Length; i++) {
-            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-            string assetName = Path.GetFileNameWithoutExtension(assetPath);
-            returnList.Add(assetName);
+        for (int i = 0; i < m_contentList.Count; i++) {
+            returnList.Add(Path.GetFileNameWithoutExtension(m_contentList[i]));
         }
         return returnList;
     }
@@ -153,8 +143,8 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// Get the total count of the asset names.
     /// </summary>
     /// <returns></returns>
-    public int TotalAssetNameCount() {
-        return GetAllAssetNames().Count;
+    public int TotalContentCount() {
+        return GetAllContentNames().Count;
     }
 
     /// <summary>
@@ -163,8 +153,8 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// </summary>
     /// <returns></returns>
     public int SelectingIndex() {
-        List<string> allAssetNames = GetAllAssetNames();
-        return allAssetNames.IndexOf(m_selectingAssetName);
+        List<string> allContentNamess = GetAllContentNames();
+        return allContentNamess.IndexOf(m_selectingContentName);
     }
 
     /// <summary>
@@ -173,12 +163,12 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// <param name="index"></param>
     /// <returns></returns>
     public bool SelectIndex(int index) {
-        List<string> allAssetNames = GetAllAssetNames();
-        if (index >= 0 && index < allAssetNames.Count) {
+        List<string> allContentNamess = GetAllContentNames();
+        if (index >= 0 && index < allContentNamess.Count) {
             //Legal range
-            m_selectingAssetName = allAssetNames[index];
+            m_selectingContentName = allContentNamess[index];
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingAssetName);
+            onIDChanged.Invoke(m_selectingContentName);
         }
         return false;
     }
@@ -190,7 +180,7 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     public bool SelectNext() {
         int selectingIndex = SelectingIndex();
         selectingIndex += 1;
-        if (selectingIndex >= TotalAssetNameCount()) {
+        if (selectingIndex >= TotalContentCount()) {
             selectingIndex = 0;
         }
         return SelectIndex(selectingIndex);
@@ -204,7 +194,7 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
         int selectingIndex = SelectingIndex();
         selectingIndex -= 1;
         if (selectingIndex < 0) {
-            selectingIndex = TotalAssetNameCount() - 1;
+            selectingIndex = TotalContentCount() - 1;
         }
         return SelectIndex(selectingIndex);
     }
@@ -213,18 +203,18 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
 
 #if UNITY_EDITOR
 
-    [MenuItem("GameObject/UI/AssetNameSelector")]
-    static void SpwanAssetNameSelector() {
+    [MenuItem("GameObject/UI/ContentSelector")]
+    static void SpwanContentSelector() {
         if (Selection.activeGameObject != null) {
             RectTransform rt = Selection.activeGameObject.GetRectTransform();
             if (rt != null) {
-                Util.InstantiateModule<AssetNameSelector>(PREFAB_PATH, rt);
+                Util.InstantiateModule<ContentSelector>(PREFAB_PATH, rt);
             }
         }
     }
 
-    [MenuItem("GameObject/UI/AssetNameSelector", true)]
-    static bool ValidateSpwanAssetNameSelector() {
+    [MenuItem("GameObject/UI/ContentSelector", true)]
+    static bool ValidateSpwanContentSelector() {
         if (Selection.activeGameObject != null) {
             RectTransform rt = Selection.activeGameObject.GetRectTransform();
             if (rt != null) {
@@ -235,6 +225,5 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     }
 
 #endif
-
 
 }

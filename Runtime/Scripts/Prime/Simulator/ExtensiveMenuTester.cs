@@ -7,18 +7,33 @@ using Teamuni.Codebase;
 /// <summary>
 /// For test ExtensiveMenu
 /// </summary>
-public class ExtensiveMenuTester : MonoBehaviour {
+public class ExtensiveMenuTester : UIControllable {
     public RectTransform mountPoint;
     public IDSelector iDSelector;
     public AssetNameSelector assetNameSelector;
+    public ContentSelector contentSelector;
 
     private ExtensiveMenu extensiveMenu;
+
+    void Awake() {
+        StartListenToAmphitrite();
+        List<string> testContent = new List<string>() {
+            "ABC/DEF/BBB",
+            "ABC/DEF/CCC",
+            "ABC/123/111",
+            "ABC/123/222",
+            "ABC/123/333",
+        };
+        contentSelector.Setup(testContent);
+    }
 
     public void OnMountPointClicked(BaseEventData baseEventData) {
         if (iDSelector.IsOpeningAnExtensiveMenu()) {
             iDSelector.CloseExtensiveMenu();
         } else if (assetNameSelector.IsOpeningAnExtensiveMenu()) {
             assetNameSelector.CloseExtensiveMenu();
+        } else if (contentSelector.IsOpeningAnExtensiveMenu()) {
+            contentSelector.CloseExtensiveMenu();
         } else {
             PointerEventData pointerEventData = (PointerEventData)baseEventData;
             if (extensiveMenu == null) {
@@ -81,6 +96,58 @@ public class ExtensiveMenuTester : MonoBehaviour {
         if (extensiveMenu != null) {
             ExtensiveMenu.DestroyUnder(mountPoint);
             extensiveMenu = null;
+        }
+    }
+
+    override protected void OnAmphitriteKeyDown(KeyConfig.Key key) {
+        if (key == KeyConfig.Key.Down) {
+            iDSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Up) {
+            iDSelector.SelectPrevious();
+        }
+
+        if (key == KeyConfig.Key.Left) {
+            assetNameSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Right) {
+            assetNameSelector.SelectPrevious();
+        }
+
+        if (key == KeyConfig.Key.Next) {
+            contentSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Previous) {
+            contentSelector.SelectPrevious();
+        }
+    }
+
+    override protected void OnAmphitriteKeyKeep(KeyConfig.Key key) {
+        if (key == KeyConfig.Key.Down) {
+            iDSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Up) {
+            iDSelector.SelectPrevious();
+        }
+
+        if (key == KeyConfig.Key.Left) {
+            assetNameSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Right) {
+            assetNameSelector.SelectPrevious();
+        }
+
+        if (key == KeyConfig.Key.Next) {
+            contentSelector.SelectNext();
+        }
+
+        if (key == KeyConfig.Key.Previous) {
+            contentSelector.SelectPrevious();
         }
     }
 

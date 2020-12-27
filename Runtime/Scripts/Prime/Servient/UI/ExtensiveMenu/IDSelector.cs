@@ -2,6 +2,8 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Teamuni.Codebase;
+using UnityEngine.Events;
+using System.Collections.Generic;
 
 using UnityEditor;
 
@@ -10,6 +12,9 @@ public class IDSelector : UIBase, IPointerClickHandler {
 #if UNITY_EDITOR
     static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/IDSelector";
 #endif
+
+    public UnityEventString onIDChanged;
+    public UnityEvent onClear;
 
     [Tooltip("Input a IDCollection file name under your [Resources//Data//Trivial//] without extenstion file name.")]
     public string initIDCollectionFileName = "";
@@ -29,7 +34,7 @@ public class IDSelector : UIBase, IPointerClickHandler {
         //Try load the initial IDCollection.
         if (!string.IsNullOrEmpty(initIDCollectionFileName)) {
             LoadIDCollection(initIDCollectionFileName);
-            UpdateSelectingIDDisplay();
+            UpdateSelectingDisplay();
         }
     }
 
@@ -71,7 +76,7 @@ public class IDSelector : UIBase, IPointerClickHandler {
                     }
                 }
                 m_extensiveMenu.AddItem("[Copy]", false, OnCopySelected);
-                m_extensiveMenu.AddItem("[Clear]", false, OnItemSelected, "");
+                m_extensiveMenu.AddItem("[Clear]", false, OnClearSelected);
             }
         } else {
             CloseExtensiveMenu();
@@ -96,7 +101,7 @@ public class IDSelector : UIBase, IPointerClickHandler {
         }
     }
 
-    private void UpdateSelectingIDDisplay() {
+    private void UpdateSelectingDisplay() {
         if (selectedIDText != null) {
             if (!string.IsNullOrEmpty(m_selectingID)) {
                 selectedIDText.text = m_selectingID;
@@ -117,13 +122,96 @@ public class IDSelector : UIBase, IPointerClickHandler {
         CloseExtensiveMenu();
     }
 
-    private void OnItemSelected(object selectedID) {
-        m_selectingID = selectedID as string;
-        UpdateSelectingIDDisplay();
+    private void OnClearSelected() {
+        m_selectingID = "";
+        UpdateSelectingDisplay();
+        onClear.Invoke();
         CloseExtensiveMenu();
     }
 
-    //---------- 
+    private void OnItemSelected(object selectedID) {
+        if (m_selectingID != selectedID as string) {
+            m_selectingID = selectedID as string;
+            UpdateSelectingDisplay();
+            onIDChanged.Invoke(m_selectingID);
+        }
+        CloseExtensiveMenu();
+    }
+
+    //---------- index relative
+
+    /// <summary>
+    /// Get all possible IDs.
+    /// </summary>
+    /// <returns></returns>
+    public List<string> GetAllIDs() {
+        if (m_loadedIDCollection != null) {
+            return m_loadedIDCollection.GetAllIDs();
+        }
+        return new List<string>();
+    }
+
+    /// <summary>
+    /// Get the total count of the IDs.
+    /// </summary>
+    /// <returns></returns>
+    public int TotalIDCount() {
+        return GetAllIDs().Count;
+    }
+
+    /// <summary>
+    /// The selecting ID in flat index.
+    /// Returns -1 if not exist.
+    /// </summary>
+    /// <returns></returns>
+    public int SelectingIndex() {
+        List<string> allIDs = GetAllIDs();
+        return allIDs.IndexOf(m_selectingID);
+    }
+
+    /// <summary>
+    /// Select an ID by index.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public bool SelectIndex(int index) {
+        List<string> allIDs = GetAllIDs();
+        if (index >= 0 && index < allIDs.Count) {
+            //Legal range
+            m_selectingID = allIDs[index];
+            UpdateSelectingDisplay();
+            onIDChanged.Invoke(m_selectingID);
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Select the next index.
+    /// </summary>
+    /// <returns></returns>
+    public bool SelectNext() {
+        int selectingIndex = SelectingIndex();
+        selectingIndex += 1;
+        if (selectingIndex >= TotalIDCount()) {
+            selectingIndex = 0;
+        }
+        return SelectIndex(selectingIndex);
+    }
+
+    /// <summary>
+    /// Select the previous index.
+    /// </summary>
+    /// <returns></returns>
+    public bool SelectPrevious() {
+        int selectingIndex = SelectingIndex();
+        selectingIndex -= 1;
+        if (selectingIndex < 0) {
+            selectingIndex = TotalIDCount() - 1;
+        }
+        return SelectIndex(selectingIndex);
+    }
+
+    //----------
 
 #if UNITY_EDITOR
 
