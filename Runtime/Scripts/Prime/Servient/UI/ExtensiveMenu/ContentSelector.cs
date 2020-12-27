@@ -10,7 +10,6 @@ using System.IO;
 
 public class ContentSelector : UIBase, IPointerClickHandler {
 
-
 #if UNITY_EDITOR
     static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/ContentSelector";
 #endif
@@ -124,6 +123,14 @@ public class ContentSelector : UIBase, IPointerClickHandler {
             onIDChanged.Invoke(m_selectingContentName);
         }
         CloseExtensiveMenu();
+    }
+
+    /// <summary>
+    /// The thing we are selecting.
+    /// </summary>
+    /// <returns></returns>
+    public string SelectingItem() {
+        return m_selectingContentName;
     }
 
     //---------- index relative

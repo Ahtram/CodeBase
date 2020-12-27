@@ -132,6 +132,14 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
         CloseExtensiveMenu();
     }
 
+    /// <summary>
+    /// The thing we are selecting.
+    /// </summary>
+    /// <returns></returns>
+    public string SelectingItem() {
+        return m_selectingAssetName;
+    }
+
     //---------- index relative
 
     /// <summary>

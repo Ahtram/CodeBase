@@ -138,6 +138,14 @@ public class IDSelector : UIBase, IPointerClickHandler {
         CloseExtensiveMenu();
     }
 
+    /// <summary>
+    /// The thing we are selecting.
+    /// </summary>
+    /// <returns></returns>
+    public string SelectingItem() {
+        return m_selectingID;
+    }
+
     //---------- index relative
 
     /// <summary>
