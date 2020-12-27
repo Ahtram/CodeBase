@@ -9,15 +9,23 @@ using Teamuni.Codebase;
 /// </summary>
 public class ExtensiveMenuTester : MonoBehaviour {
     public RectTransform mountPoint;
+    public IDSelector iDSelector;
+    public AssetNameSelector assetNameSelector;
 
     private ExtensiveMenu extensiveMenu;
 
     public void OnMountPointClicked(BaseEventData baseEventData) {
-        PointerEventData pointerEventData = (PointerEventData)baseEventData;
-        if (extensiveMenu == null) {
-            OpenMenu(mountPoint.InverseTransformPoint(pointerEventData.pointerCurrentRaycast.worldPosition));
+        if (iDSelector.IsOpeningAnExtensiveMenu()) {
+            iDSelector.CloseExtensiveMenu();
+        } else if (assetNameSelector.IsOpeningAnExtensiveMenu()) {
+            assetNameSelector.CloseExtensiveMenu();
         } else {
-            CloseMenu();
+            PointerEventData pointerEventData = (PointerEventData)baseEventData;
+            if (extensiveMenu == null) {
+                OpenMenu(mountPoint.InverseTransformPoint(pointerEventData.pointerCurrentRaycast.worldPosition));
+            } else {
+                CloseMenu();
+            }
         }
     }
 

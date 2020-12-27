@@ -434,12 +434,12 @@ static public class Util {
         if (prefab != null) {
             GameObject uiGO = GameObject.Instantiate(prefab) as GameObject;
             if (uiGO != null) {
+                uiGO.name = prefab.name;
                 RectTransform rt = uiGO.GetRectTransform();
                 rt.SetParent(parentRectTransform);
                 rt.anchoredPosition3D = Vector3.zero;
                 rt.localRotation = Quaternion.identity;
                 rt.localScale = Vector3.one;
-                rt.sizeDelta = parentRectTransform.sizeDelta;
                 uiGO.layer = parentRectTransform.gameObject.layer;
 
                 T returnComponent = uiGO.GetComponent<T>();
@@ -468,6 +468,7 @@ static public class Util {
         if (resourceRequest.asset != null) {
             GameObject uiGO = GameObject.Instantiate(resourceRequest.asset) as GameObject;
             if (uiGO != null) {
+                uiGO.name = resourceRequest.asset.name;
                 RectTransform rt = uiGO.GetRectTransform();
                 rt.SetParent(parentRectTransform);
                 rt.anchoredPosition3D = Vector3.zero;

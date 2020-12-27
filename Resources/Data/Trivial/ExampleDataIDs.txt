@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<IDCO xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IDXL>
+    <IDX>
+      <IDL>
+        <ID>0_1</ID>
+        <ID>0_2</ID>
+        <ID>0_3</ID>
+      </IDL>
+      <N>Cat0</N>
+    </IDX>
+    <IDX>
+      <IDL>
+        <ID>1_1</ID>
+        <ID>1_2</ID>
+        <ID>1_3</ID>
+      </IDL>
+      <N />
+    </IDX>
+    <IDX>
+      <IDL>
+        <ID>2_1</ID>
+        <ID>2_2</ID>
+        <ID>2_3</ID>
+        <ID>2_4</ID>
+      </IDL>
+      <N />
+    </IDX>
+    <IDX>
+      <IDL>
+        <ID>3_1</ID>
+        <ID>3_2</ID>
+        <ID>3_3</ID>
+      </IDL>
+      <N />
+    </IDX>
+  </IDXL>
+</IDCO>

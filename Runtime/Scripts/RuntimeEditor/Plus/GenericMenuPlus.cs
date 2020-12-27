@@ -118,7 +118,7 @@ static public class GenericMenuPlus {
     }
 
     /// <summary>
-    /// 
+    /// Create a GenericMenu to list all stuffs under an input asset path. (By Using FindAssets)
     /// </summary>
     /// <param name="assetsFolderPath">Start with "Assets/" and "SHOULD NOT" end with "/"</param>
     /// <param name="targetTerm">prefab/texture2D/audioClip/font/sprite/script etc.</param>
