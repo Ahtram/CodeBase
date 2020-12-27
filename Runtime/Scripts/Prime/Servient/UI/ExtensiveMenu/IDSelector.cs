@@ -44,6 +44,9 @@ public class IDSelector : UIBase, IPointerClickHandler {
     /// <param name="IDColelctionFilename"></param>
     public void LoadIDCollection(string IDColelctionFilename) {
         m_loadedIDCollection = DataUtil.GetDataFromResource<IDCollection>(SysPath.TrivialDataPath + IDColelctionFilename);
+        m_selectingID = "";
+        UpdateSelectingDisplay();
+        CloseExtensiveMenu();
     }
 
     /// <summary>
@@ -52,6 +55,9 @@ public class IDSelector : UIBase, IPointerClickHandler {
     /// <param name="idCollection"></param>
     public void LoadIDCollection(IDCollection idCollection) {
         m_loadedIDCollection = idCollection;
+        m_selectingID = "";
+        UpdateSelectingDisplay();
+        CloseExtensiveMenu();
     }
 
     /// <summary>
@@ -59,6 +65,9 @@ public class IDSelector : UIBase, IPointerClickHandler {
     /// </summary>
     public void UnloadIDCollection() {
         m_loadedIDCollection = null;
+        m_selectingID = "";
+        UpdateSelectingDisplay();
+        CloseExtensiveMenu();
     }
 
     /// <summary>

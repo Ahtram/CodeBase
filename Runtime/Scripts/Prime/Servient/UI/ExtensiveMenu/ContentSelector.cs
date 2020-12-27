@@ -35,6 +35,10 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     public void Setup(List<string> contentList) {
         m_contentList.Clear();
         m_contentList.AddRange(contentList);
+
+        m_contentList.Clear();
+        m_selectingContentName = "";
+        CloseExtensiveMenu();
     }
 
     public void Clear() {
