@@ -34,51 +34,51 @@ abstract public class Shape {
     //Implement this to make the shape be able to apply a collider2D to a gameobject. (like BoxCollider2D or PolyCollider2D)
     //Possible return null.
     virtual public Collider2D AttachCollider2D(GameObject go, bool isTrigger = true, bool attachRigidbody2D = false) {
-        //Destroy exist stuff.
-        PolygonCollider2D existPolygonCollider2D = go.GetComponent<PolygonCollider2D>();
-        if (existPolygonCollider2D != null) {
-            Debug.Log("existPolygonCollider2D detected!");
-        }
+        // //Destroy exist stuff.
+        // PolygonCollider2D existPolygonCollider2D = go.GetComponent<PolygonCollider2D>();
+        // if (existPolygonCollider2D != null) {
+        //     Debug.Log("existPolygonCollider2D detected!");
+        // }
 
-        //Destroy exist stuff.
-        BoxCollider2D existBoxCollider2D = go.GetComponent<BoxCollider2D>();
-        if (existBoxCollider2D != null) {
-            Debug.Log("existBoxCollider2D detected!");
-        }
+        // //Destroy exist stuff.
+        // BoxCollider2D existBoxCollider2D = go.GetComponent<BoxCollider2D>();
+        // if (existBoxCollider2D != null) {
+        //     Debug.Log("existBoxCollider2D detected!");
+        // }
 
-        //Destroy exist stuff.
-        Rigidbody2D rigidbody2D = go.GetComponent<Rigidbody2D>();
-        if (rigidbody2D != null) {
-            Debug.Log("rigidbody2D detected!");
-        }
+        // //Destroy exist stuff.
+        // Rigidbody2D rigidbody2D = go.GetComponent<Rigidbody2D>();
+        // if (rigidbody2D != null) {
+        //     Debug.Log("rigidbody2D detected!");
+        // }
 
         return null;
     }
 
     //Attach a MeshRenderer and MeshFilter for this shape.
     virtual public MeshRenderer AttachMeshRenderer(GameObject go) {
-        //Destroy exist stuff.
-        MeshRenderer existMeshRenderer = go.GetComponent<MeshRenderer>();
-        if (existMeshRenderer != null) {
-            Debug.Log("existMeshRenderer detected!");
-        }
+        // //Destroy exist stuff.
+        // MeshRenderer existMeshRenderer = go.GetComponent<MeshRenderer>();
+        // if (existMeshRenderer != null) {
+        //     Debug.Log("existMeshRenderer detected!");
+        // }
 
-        //Destroy exist stuff.
-        MeshFilter existMeshFilter = go.GetComponent<MeshFilter>();
-        if (existMeshFilter != null) {
-            Debug.Log("existMeshFilter detected!");
-        }
+        // //Destroy exist stuff.
+        // MeshFilter existMeshFilter = go.GetComponent<MeshFilter>();
+        // if (existMeshFilter != null) {
+        //     Debug.Log("existMeshFilter detected!");
+        // }
 
         return null;
     }
 
     //Attach a LineRenderer for this shape.
     virtual public LineRenderer AttachLineRenderer(GameObject go) {
-        //Destroy exist stuff.
-        LineRenderer existLineRenderer = go.GetComponent<LineRenderer>();
-        if (existLineRenderer != null) {
-            Debug.Log("existLineRenderer detected!");
-        }
+        // //Destroy exist stuff.
+        // LineRenderer existLineRenderer = go.GetComponent<LineRenderer>();
+        // if (existLineRenderer != null) {
+        //     Debug.Log("existLineRenderer detected!");
+        // }
 
         return null;
     }
