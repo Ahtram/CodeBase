@@ -2,6 +2,10 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 //使用UGUI系統製作的Console類別，可用在執行階段於銀幕上顯示字串。您不需要手動新增這個Component，請愛用Project內的Console Prefab。
 public class Console : MonoBehaviour {
 
@@ -58,7 +62,16 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorPlus.DarkGreen) + ">" + strIn + "</color>";
+            Color useColor = Color.white;
+#if UNITY_EDITOR
+            if (EditorGUIUtility.isProSkin) {
+                useColor = ColorPlus.Chartreuse;
+            } else {
+                useColor = ColorPlus.CadmiumGreen;
+            }
+#endif
+
+            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
             m_consoleStrings.Enqueue(strIn);
 
             if (instance.unityConsoleLog) {
@@ -76,7 +89,16 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorPlus.Olive) + ">" + strIn + "</color>";
+            Color useColor = Color.white;
+#if UNITY_EDITOR
+            if (EditorGUIUtility.isProSkin) {
+                useColor = ColorPlus.ElectricYellow;
+            } else {
+                useColor = ColorPlus.LightBrown;
+            }
+#endif
+
+            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
             m_consoleStrings.Enqueue(strIn);
 
             if (instance.unityConsoleLog) {
@@ -94,7 +116,16 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorPlus.DarkRed) + ">" + strIn + "</color>";
+            Color useColor = Color.white;
+#if UNITY_EDITOR
+            if (EditorGUIUtility.isProSkin) {
+                useColor = ColorPlus.Folly;
+            } else {
+                useColor = ColorPlus.Cardinal;
+            }
+#endif
+
+            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
             m_consoleStrings.Enqueue(strIn);
 
             if (instance.unityConsoleLog) {
