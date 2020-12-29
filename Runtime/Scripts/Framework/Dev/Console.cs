@@ -43,7 +43,17 @@ public class Console : MonoBehaviour {
             if (m_consoleStrings.Count >= MAXCONSOLELINE) {
                 m_consoleStrings.Dequeue();
             }
-            //加入這個顯示字串。
+
+            Color useColor = Color.white;
+#if UNITY_EDITOR
+            if (EditorGUIUtility.isProSkin) {
+                useColor = ColorPlus.WhiteSmoke;
+            } else {
+                useColor = ColorPlus.DimGray;
+            }
+#endif
+
+            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
             m_consoleStrings.Enqueue(strIn);
 
             if (instance.unityConsoleLog) {
