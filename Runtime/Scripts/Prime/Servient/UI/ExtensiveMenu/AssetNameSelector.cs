@@ -148,12 +148,14 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// <returns></returns>
     public List<string> GetAllAssetNames() {
         List<string> returnList = new List<string>();
+#if UNITY_EDITOR
         string[] guids = AssetDatabase.FindAssets("t:" + assetType.ToString(), new string[] { assetsFolderPath });
         for (int i = 0; i < guids.Length; i++) {
             string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
             string assetName = Path.GetFileNameWithoutExtension(assetPath);
             returnList.Add(assetName);
         }
+#endif
         return returnList;
     }
 
