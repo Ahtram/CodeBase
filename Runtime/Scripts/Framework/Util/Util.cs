@@ -429,7 +429,7 @@ static public class Util {
         return returnFloats;
     }
 
-    public static T InstantiateModule<T>(string modulePath, RectTransform parentRectTransform) {
+    public static T InstantiateModule<T>(string modulePath, RectTransform parentRectTransform, bool matchSizeDelta = false) {
         UnityEngine.Object prefab = Resources.Load(modulePath);
         if (prefab != null) {
             GameObject uiGO = GameObject.Instantiate(prefab) as GameObject;
@@ -440,6 +440,9 @@ static public class Util {
                 rt.anchoredPosition3D = Vector3.zero;
                 rt.localRotation = Quaternion.identity;
                 rt.localScale = Vector3.one;
+                if (matchSizeDelta) {
+                    rt.sizeDelta = parentRectTransform.sizeDelta;
+                }
                 uiGO.layer = parentRectTransform.gameObject.layer;
 
                 T returnComponent = uiGO.GetComponent<T>();
@@ -460,7 +463,7 @@ static public class Util {
         }
     }
 
-    public static IEnumerator InstantiateModuleAsync<T>(string modulePath, RectTransform parentRectTransform, System.Action<T> onFinish) {
+    public static IEnumerator InstantiateModuleAsync<T>(string modulePath, RectTransform parentRectTransform, bool matchSizeDelta, System.Action<T> onFinish) {
         ResourceRequest resourceRequest = Resources.LoadAsync(modulePath);
         while (!resourceRequest.isDone) {
             yield return null;
@@ -474,7 +477,9 @@ static public class Util {
                 rt.anchoredPosition3D = Vector3.zero;
                 rt.localRotation = Quaternion.identity;
                 rt.localScale = Vector3.one;
-                rt.sizeDelta = parentRectTransform.sizeDelta;
+                if (matchSizeDelta) {
+                    rt.sizeDelta = parentRectTransform.sizeDelta;
+                }
                 uiGO.layer = parentRectTransform.gameObject.layer;
 
                 T returnComponent = uiGO.GetComponent<T>();
