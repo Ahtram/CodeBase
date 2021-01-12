@@ -173,6 +173,16 @@ public class IDCollection {
         return false;
     }
 
+    public bool MoveIDToCatIndex(int originalCatIndex, int originalIDIndex, int targetCatIndex, int targetIndex) {
+        if (originalCatIndex < IDIndexes.Count && originalIDIndex < IDIndexes[originalCatIndex].ids.Count && targetCatIndex < IDIndexes.Count && targetIndex < IDIndexes[targetCatIndex].ids.Count) {
+            string ID = IDIndexes[originalCatIndex].ids[originalIDIndex];
+            IDIndexes[originalCatIndex].ids.RemoveAt(originalIDIndex);
+            IDIndexes[targetCatIndex].ids.Insert(targetIndex, ID);
+            return true;
+        }
+        return false;
+    }
+
     public bool IDExist(int catIndex, int index) {
         if (catIndex >= 0 && catIndex < IDIndexes.Count) {
             if (index >= 0 && index < IDIndexes[catIndex].ids.Count) {

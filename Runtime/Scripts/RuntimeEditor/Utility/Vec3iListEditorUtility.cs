@@ -30,7 +30,6 @@ public class Vec3iListEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         if (editingVecList != null) {
             EditorGUILayout.BeginVertical("FrameBox");
             {
@@ -42,6 +41,7 @@ public class Vec3iListEditorUtility : UniEditorWindow {
             }
             EditorGUILayout.EndVertical();
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {

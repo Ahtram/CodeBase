@@ -16,7 +16,7 @@ public class IntEditorUtility : UniEditorWindow {
     private Action<int> onEditing = null;
     private Action<int> onCompleteEditing = null;
 
-    public static IntEditorUtility Open(string titleInput, int editingIntInput, Action<int> onEditingInput , Action<int> onCompleteEditingInput = null) {
+    public static IntEditorUtility Open(string titleInput, int editingIntInput, Action<int> onEditingInput, Action<int> onCompleteEditingInput = null) {
         // Get existing open window or if none, make a new one:
         IntEditorUtility instance = (IntEditorUtility)ShowWindow<IntEditorUtility>();
         instance.stringTitle = titleInput;
@@ -27,7 +27,6 @@ public class IntEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         EditorGUILayout.BeginVertical("FrameBox");
         {
             EditorGUILayout.LabelField(stringTitle);
@@ -45,16 +44,19 @@ public class IntEditorUtility : UniEditorWindow {
             switch (Event.current.keyCode) {
                 case KeyCode.Return:
                 case KeyCode.KeypadEnter:
-                    //Send complete editing.
-                    if (onCompleteEditing != null) {
-                        onCompleteEditing(editingInt);
-                    }
+                    Close();
                     break;
             }
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {
+        //Send complete editing.
+        if (onCompleteEditing != null) {
+            onCompleteEditing(editingInt);
+        }
+
         editingInt = 0;
         stringTitle = "";
         onEditing = null;

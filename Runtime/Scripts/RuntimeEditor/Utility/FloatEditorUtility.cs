@@ -25,7 +25,6 @@ public class FloatEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         EditorGUILayout.BeginVertical("FrameBox");
         {
             EditorGUILayout.LabelField(stringTitle);
@@ -43,16 +42,19 @@ public class FloatEditorUtility : UniEditorWindow {
             switch (Event.current.keyCode) {
                 case KeyCode.Return:
                 case KeyCode.KeypadEnter:
-                    //Send complete editing.
-                    if (onCompleteEditing != null) {
-                        onCompleteEditing(editingFloat);
-                    }
+                    Close();
                     break;
             }
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {
+        //Send complete editing.
+        if (onCompleteEditing != null) {
+            onCompleteEditing(editingFloat);
+        }
+
         editingFloat = 0;
         stringTitle = "";
         onEditing = null;

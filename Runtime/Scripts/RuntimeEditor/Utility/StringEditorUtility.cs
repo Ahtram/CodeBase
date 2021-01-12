@@ -16,7 +16,7 @@ public class StringEditorUtility : UniEditorWindow {
     private Action<string> onEditing = null;
     private Action<string> onCompleteEditing = null;
 
-    public static StringEditorUtility Open(string titleInput, string editingStringInput, Action<string> onEditingInput , Action<string> onCompleteEditingInput = null) {
+    public static StringEditorUtility Open(string titleInput, string editingStringInput, Action<string> onEditingInput, Action<string> onCompleteEditingInput = null) {
         // Get existing open window or if none, make a new one:
         StringEditorUtility instance = (StringEditorUtility)ShowWindow<StringEditorUtility>();
         instance.stringTitle = titleInput;
@@ -27,7 +27,6 @@ public class StringEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         EditorGUILayout.BeginVertical("FrameBox");
         {
             EditorGUILayout.LabelField(stringTitle);
@@ -49,6 +48,7 @@ public class StringEditorUtility : UniEditorWindow {
                     break;
             }
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {

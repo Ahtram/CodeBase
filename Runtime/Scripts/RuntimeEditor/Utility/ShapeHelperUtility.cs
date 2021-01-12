@@ -18,7 +18,6 @@ public class ShapeHelperUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         EditorGUILayout.BeginVertical("FrameBox");
         {
             //Edit the shape data.
@@ -50,6 +49,7 @@ public class ShapeHelperUtility : UniEditorWindow {
             }
         }
         EditorGUILayout.EndVertical();
+        base.OnGUI();
     }
 
 }

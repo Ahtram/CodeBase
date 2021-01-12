@@ -20,7 +20,7 @@ public class IntSliderEditorUtility : UniEditorWindow {
     private Action<int> onEditing = null;
     private Action<int> onCompleteEditing = null;
 
-    public static IntSliderEditorUtility Open(string titleInput, int editingIntInput, int sliderMin, int sliderMax, Action<int> onEditingInput , Action<int> onCompleteEditingInput = null) {
+    public static IntSliderEditorUtility Open(string titleInput, int editingIntInput, int sliderMin, int sliderMax, Action<int> onEditingInput, Action<int> onCompleteEditingInput = null) {
         // Get existing open window or if none, make a new one:
         IntSliderEditorUtility instance = (IntSliderEditorUtility)ShowWindow<IntSliderEditorUtility>();
         instance.stringTitle = titleInput;
@@ -33,7 +33,6 @@ public class IntSliderEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         EditorGUILayout.BeginVertical("FrameBox");
         {
             EditorGUILayout.LabelField(stringTitle);
@@ -51,16 +50,19 @@ public class IntSliderEditorUtility : UniEditorWindow {
             switch (Event.current.keyCode) {
                 case KeyCode.Return:
                 case KeyCode.KeypadEnter:
-                    //Send complete editing.
-                    if (onCompleteEditing != null) {
-                        onCompleteEditing(editingInt);
-                    }
+                    Close();
                     break;
             }
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {
+        //Send complete editing.
+        if (onCompleteEditing != null) {
+            onCompleteEditing(editingInt);
+        }
+
         editingInt = 0;
         stringTitle = "";
         onEditing = null;

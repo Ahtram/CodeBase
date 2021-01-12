@@ -44,7 +44,7 @@ abstract public class IDCollectionDataEditor<T> : UniEditorWindow where T : Base
     private string newIDStr = "";
     private int renameingCatIndex = -1;
     private int renameingIDIndex = -1;
-    private int movingCatIndex = -1;
+    private int movingCat = -1;
     private int movingIDIndex = -1;
 
     private bool editMode = false;
@@ -184,13 +184,13 @@ abstract public class IDCollectionDataEditor<T> : UniEditorWindow where T : Base
                     if (!minimizeIDView) {
                         //IDCollection editing interface.
                         IDCollectionEditor.Draw(mode, editingIDCollection, ref selectingCatIndex, ref selectingIDIndex, ref newIDStr
-                        , ref renameingCatIndex, ref renameingIDIndex, ref movingCatIndex, ref movingIDIndex, ref editMode, foldOutCats
+                        , ref renameingCatIndex, ref renameingIDIndex, ref movingCat, ref movingIDIndex, ref editMode, foldOutCats
                         , OnNewCat, OnPreDeleteCat, OnPostDeleteCat
                         , OnInsertNewID, OnInsertNewIDs
                         , OnPreDeleteID, OnPreDeleteIDs
                         , OnPostDeleteID, OnPostDeleteIDs
                         , OnMoveIDUp, OnMoveIDDown, OnMoveCatUp, OnMoveCatDown
-                        , OnMoveToCat, OnDuplicateID, OnSelectIndex, OnRenameID, OnVerifyIDs, OnSave, OnRevert, ref scrollPos, OnGetIDComment
+                        , OnMoveToCatIndex, OnDuplicateID, OnSelectIndex, OnRenameID, OnVerifyIDs, OnSave, OnRevert, ref scrollPos, OnGetIDComment
                         , ref filterString, ref selectingFilteredIDIndex, filteredIDs);
 
                         //Draw additional buttons after the IDCollection editor interface. Customized by derived classes.
@@ -502,9 +502,17 @@ abstract public class IDCollectionDataEditor<T> : UniEditorWindow where T : Base
     }
 
     private void OnMoveToCat(int targetCatIndex) {
-        T moving = editingDataList[movingCatIndex][movingIDIndex];
-        editingDataList[movingCatIndex].Remove(moving);
+        T moving = editingDataList[movingCat][movingIDIndex];
+        editingDataList[movingCat].Remove(moving);
         editingDataList[targetCatIndex].Add(moving);
+        Repaint();
+    }
+
+    private void OnMoveToCatIndex(int targetCat, int index) {
+        T moving = editingDataList[movingCat][movingIDIndex];
+        editingDataList[movingCat].Remove(moving);
+        editingDataList[targetCat].Insert(index, moving);
+        Repaint();
     }
 
     private void OnDuplicateID(int catIndex, int index, string newID) {

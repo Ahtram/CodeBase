@@ -35,7 +35,6 @@ public class ToggleListEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         if (editingBoolList != null) {
             EditorGUILayout.BeginVertical("FrameBox");
             {
@@ -47,6 +46,7 @@ public class ToggleListEditorUtility : UniEditorWindow {
             }
             EditorGUILayout.EndVertical();
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {

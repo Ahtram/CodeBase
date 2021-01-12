@@ -56,7 +56,6 @@ public class IDListEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         if (editingIDList != null) {
             EditorGUILayout.BeginVertical("FrameBox");
             {
@@ -72,6 +71,7 @@ public class IDListEditorUtility : UniEditorWindow {
             }
             EditorGUILayout.EndVertical();
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {

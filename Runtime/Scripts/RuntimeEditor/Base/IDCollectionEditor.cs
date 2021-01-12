@@ -44,7 +44,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
     //<catIndex>
     public Action<int> onMoveCatDown = null;
     //<targetCat>
-    public Action<int> onMoveToCat = null;
+    public Action<int, int> onMoveToCatIndex = null;
     //<selectingCat, selectingIndex, newID>
     public Action<int, int, string> onDuplicateID = null;
     //<catIndex, IDIndexInCat>
@@ -118,7 +118,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
             , onPreDeleteID, onPreDeleteIDs
             , onPostDeleteID, onPostDeleteIDs
             , onMoveIDUp, onMoveIDDown
-            , onMoveCatUp, onMoveCatDown, onMoveToCat, onDuplicateID, onSelectIndex, onRenameID, onVerifyIDs, onSave, onRevert, ref scrollPos, getIDComment
+            , onMoveCatUp, onMoveCatDown, onMoveToCatIndex, onDuplicateID, onSelectIndex, onRenameID, onVerifyIDs, onSave, onRevert, ref scrollPos, getIDComment
             , ref filterString, ref selectingFilteredIDIndex, filteredIDs);
 
             //Hot key for quick switching cat/IDIndex.
@@ -309,7 +309,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
     , Action<int, int> onPreDeleteID, Action<List<string>> onPreDeleteIDs
     , Action<int, int> onPostDeleteID, Action<List<string>, int, int> onPostDeleteIDs
     , Action<int, int> onMoveIDUp, Action<int, int> onMoveIDDown
-    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int> onMoveToCat, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
+    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int, int> onMoveToCatIndex, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
     , Action<string> onRenameID, Action onVerifyIDs, Action onSave, Action onRevert, ref Vector2 vScollPos, Func<string, string> getIDComment
     , ref string filterString, ref int selectingFilteredIDIndex, List<string> filteredIDs) {
 
@@ -381,7 +381,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                         , onPreDeleteID, onPreDeleteIDs
                         , onPostDeleteID, onPostDeleteIDs
                         , onMoveIDUp, onMoveIDDown
-                        , onMoveCatUp, onMoveCatDown, onMoveToCat, onDuplicateID, onSelectIndex
+                        , onMoveCatUp, onMoveCatDown, onMoveToCatIndex, onDuplicateID, onSelectIndex
                         , onRenameID, onVerifyIDs, onSave, onRevert, ref vScollPos, getIDComment);
                         break;
                     case Mode.ButtonMenu:
@@ -392,7 +392,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                         , onPreDeleteID, onPreDeleteIDs
                         , onPostDeleteID, onPostDeleteIDs
                         , onMoveIDUp, onMoveIDDown
-                        , onMoveCatUp, onMoveCatDown, onMoveToCat, onDuplicateID, onSelectIndex
+                        , onMoveCatUp, onMoveCatDown, onMoveToCatIndex, onDuplicateID, onSelectIndex
                         , onRenameID, onVerifyIDs, onSave, onRevert, ref vScollPos, getIDComment);
                         break;
                 }
@@ -469,7 +469,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
     , Action<int, int> onPreDeleteID, Action<List<string>> onPreDeleteIDs
     , Action<int, int> onPostDeleteID, Action<List<string>, int, int> onPostDeleteIDs
     , Action<int, int> onMoveIDUp, Action<int, int> onMoveIDDown
-    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int> onMoveToCat, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
+    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int, int> onMoveToCatIndex, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
     , Action<string> onRenameID, Action onVerifyIDs, Action onSave, Action onRevert, ref Vector2 vScollPos, Func<string, string> getIDComment) {
 
         EditorGUILayout.BeginVertical("HelpBox", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
@@ -628,7 +628,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                 }
 
                                                 string IDComment = (getIDComment == null) ? ("") : (getIDComment(idCollection.IDIndexes[c].ids[i]));
-                                                if (GUILayout.Toggle(thisToggleIsOn, idCollection.IDIndexes[c].ids[i] + IDComment)) {
+                                                if (GUILayout.Toggle(thisToggleIsOn, "[" + i + "] " + idCollection.IDIndexes[c].ids[i] + IDComment)) {
                                                     if (!thisToggleIsOn) {
                                                         newSelectingCatIndex = c;
                                                         newSelectingIndex = i;
@@ -705,9 +705,18 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         int catIndex = movingCatIndex;
                                                         int IDIndex = movingIDIndex;
                                                         //Open editor utility for moving to cat.
-                                                        IntEditorUtility.Open("Moving [" + idCollection.IDIndexes[c].ids[i] + "] to cat: ", movingCatIndex, null, (x) => {
-                                                            if (idCollection.MoveIDToCat(catIndex, IDIndex, x)) {
-                                                                onMoveToCat?.Invoke(x);
+                                                        IntPairEditorUtility.Open("Cat", "Index", catIndex, IDIndex, null, (intPair) => {
+                                                            //Prevent from moving to the same cat.
+                                                            if (intPair != null) {
+                                                                if (intPair.index != catIndex || intPair.value != IDIndex) {
+                                                                    if (idCollection.MoveIDToCatIndex(catIndex, IDIndex, intPair.index, intPair.value)) {
+                                                                        onMoveToCatIndex?.Invoke(intPair.index, intPair.value);
+                                                                    } else {
+                                                                        Debug.LogWarning("Oops! MoveIDToCatIndex() failed: [" + catIndex + "][" + IDIndex + "] to [" + intPair.index + "][" + intPair.value + "]");
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                Debug.LogWarning("Oops! Return intPair is null!");
                                                             }
                                                         });
                                                     }
@@ -778,7 +787,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
     , Action<int, int> onPreDeleteID, Action<List<string>> onPreDeleteIDs
     , Action<int, int> onPostDeleteID, Action<List<string>, int, int> onPostDeleteIDs
     , Action<int, int> onMoveIDUp, Action<int, int> onMoveIDDown
-    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int> onMoveToCat, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
+    , Action<int> onMoveCatUp, Action<int> onMoveCatDown, Action<int, int> onMoveToCatIndex, Action<int, int, string> onDuplicateID, Action<int, int> onSelectIndex
     , Action<string> onRenameID, Action onVerifyIDs, Action onSave, Action onRevert, ref Vector2 vScollPos, Func<string, string> getIDComment) {
 
         EditorGUILayout.BeginVertical("HelpBox", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
@@ -916,7 +925,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                 if (editMode) {
                                                     GUI.color = Color.white;
                                                     string IDComment = (getIDComment == null) ? ("") : (getIDComment(idCollection.IDIndexes[c].ids[i]));
-                                                    if (GUILayout.Button(idCollection.IDIndexes[c].ids[i] + IDComment, "ControlLabel")) {
+                                                    if (GUILayout.Button("[" + i + "] " + idCollection.IDIndexes[c].ids[i] + IDComment, "ControlLabel")) {
                                                         newSelectingCatIndex = c;
                                                         newSelectingIndex = i;
                                                     }
@@ -978,9 +987,18 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         int catIndex = movingCatIndex;
                                                         int IDIndex = movingIDIndex;
                                                         //Open editor utility for moving to cat.
-                                                        IntEditorUtility.Open("Moving [" + idCollection.IDIndexes[c].ids[i] + "] to cat: ", movingCatIndex, null, (x) => {
-                                                            if (idCollection.MoveIDToCat(catIndex, IDIndex, x)) {
-                                                                onMoveToCat?.Invoke(x);
+                                                        IntPairEditorUtility.Open("Cat", "Index", catIndex, IDIndex, null, (intPair) => {
+                                                            //Prevent from moving to the same cat.
+                                                            if (intPair != null) {
+                                                                if (intPair.index != catIndex || intPair.value != IDIndex) {
+                                                                    if (idCollection.MoveIDToCatIndex(catIndex, IDIndex, intPair.index, intPair.value)) {
+                                                                        onMoveToCatIndex?.Invoke(intPair.index, intPair.value);
+                                                                    } else {
+                                                                        Debug.LogWarning("Oops! MoveIDToCatIndex() failed: [" + catIndex + "][" + IDIndex + "] to [" + intPair.index + "][" + intPair.value + "]");
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                Debug.LogWarning("Oops! Return intPair is null!");
                                                             }
                                                         });
                                                     }

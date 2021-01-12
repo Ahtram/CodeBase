@@ -30,7 +30,6 @@ public class IntListEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         if (editingIntList != null) {
             EditorGUILayout.BeginVertical("FrameBox");
             {
@@ -42,6 +41,7 @@ public class IntListEditorUtility : UniEditorWindow {
             }
             EditorGUILayout.EndVertical();
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {

@@ -30,7 +30,6 @@ public class StringListEditorUtility : UniEditorWindow {
     }
 
     public override void OnGUI() {
-        base.OnGUI();
         if (editingStringList != null) {
             EditorGUILayout.BeginVertical("FrameBox");
             {
@@ -42,6 +41,7 @@ public class StringListEditorUtility : UniEditorWindow {
             }
             EditorGUILayout.EndVertical();
         }
+        base.OnGUI();
     }
 
     private void OnDestroy() {
