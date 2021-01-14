@@ -277,6 +277,16 @@ namespace Teamuni.Codebase {
             return corners[0].y;
         }
 
+        /// <summary>
+        /// Return the same color with different opacity.
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        public static Color WithOpacity(this Color color, float a) {
+            return new Color(color.r, color.g, color.b, a);
+        }
+
     }
 
 }
