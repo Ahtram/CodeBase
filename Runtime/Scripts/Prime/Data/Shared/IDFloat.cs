@@ -11,10 +11,10 @@ using System;
 public class IDFloat {
 
     [XmlElement("ID")]
-    public string ID;
+    public string ID = "";
 
     [XmlElement("V")]
-    public float value;
+    public float value = 1.0f;
 
     public IDFloat() {
 

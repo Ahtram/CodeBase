@@ -11,10 +11,10 @@ using System;
 public class IDInt {
 
     [XmlElement("ID")]
-    public string ID;
+    public string ID = "";
 
     [XmlElement("V")]
-    public int value;
+    public int value = 1;
 
     public IDInt() {
 
