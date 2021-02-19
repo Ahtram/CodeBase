@@ -266,4 +266,14 @@ public class IDCollection {
         return originalID;
     }
 
+    public void SortCats() {
+        IDIndexes.Sort();
+    }
+
+    public void SortIDsInCat(int catIndex) {
+        if (catIndex >= 0 && catIndex < IDIndexes.Count) {
+            IDIndexes[catIndex].SortIDs();
+        }
+    }
+
 }

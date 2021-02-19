@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 [XmlRoot("IDX")]
 [XmlType("IDX")]
 [Serializable]
-public class IDIndex {
+public class IDIndex : IComparable<IDIndex> {
 
     [XmlArray("IDL")]
     [XmlArrayItem("ID", typeof(string))]
@@ -32,7 +32,7 @@ public class IDIndex {
     }
 
     public bool IsLegalToAddID(string ID) {
-        if (!IDExist(ID) &&  Util.IsLegalIDString(ID)) {
+        if (!IDExist(ID) && Util.IsLegalIDString(ID)) {
             return true;
         }
         return false;
@@ -68,20 +68,20 @@ public class IDIndex {
         if (index >= 0 && index < ids.Count) {
             ids.RemoveAt(index);
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public bool RenameID(int index, string newID) {
         if (index >= 0 && index < ids.Count) {
-            if(!IDExist(newID)) {
+            if (!IDExist(newID)) {
                 ids[index] = newID;
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }else {
+        } else {
             return false;
         }
     }
@@ -147,5 +147,14 @@ public class IDIndex {
         } else {
             return false;
         }
+    }
+
+    //This will sort all IDs in this IDIndex.
+    public void SortIDs() {
+        ids.Sort();
+    }
+
+    public int CompareTo(IDIndex idIndex) {
+        return string.Compare(name, idIndex.name);
     }
 }

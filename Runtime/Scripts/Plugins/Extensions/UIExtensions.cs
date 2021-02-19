@@ -16,7 +16,6 @@ namespace Teamuni.Codebase {
         BottomLeft,
         BottonCenter,
         BottomRight,
-        BottomStretch,
 
         VertStretchLeft,
         VertStretchRight,

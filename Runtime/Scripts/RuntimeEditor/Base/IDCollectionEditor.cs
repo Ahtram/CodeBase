@@ -488,6 +488,8 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                     int newSelectingCatIndex = -1;
                     int newSelectingIndex = -1;
 
+                    int sortIDsInCat = -1;
+
                     for (int c = 0; c < idCollection.IDIndexes.Count; c++) {
                         EditorGUILayout.BeginVertical();
                         {
@@ -509,6 +511,12 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                 Debug.LogWarning("Append ID failed! [" + newID + "] [" + catIndex + "] [" + addTargetIndex + "]");
                                             }
                                         });
+                                    }
+
+                                    GUI.color = ColorPlus.BallBlue;
+                                    if (GUILayout.Button("s", EditorStyles.miniButton, GUILayout.Width(17.0f))) {
+                                        //Sort the cat by ID name.
+                                        sortIDsInCat = c;
                                     }
 
                                     GUI.color = ColorPlus.SpringGreen;
@@ -567,7 +575,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                         int catIndex = c;
                                         StringEditorUtility.Open("Edit Category Name", idCollection.IDIndexes[c].name, (x) => idCollection.IDIndexes[catIndex].name = x);
                                     }
-                                    GUI.color = ColorPlus.Lavender;
+                                    GUI.color = ColorPlus.GhostWhite;
                                     if (GUILayout.Button("↑", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                         if (idCollection.MoveUpIDIndex(c)) {
                                             onMoveCatUp?.Invoke(c);
@@ -578,7 +586,6 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                             }
                                         }
                                     }
-                                    GUI.color = ColorPlus.Lavender;
                                     if (GUILayout.Button("↓", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                         if (idCollection.MoveDownIDIndex(c)) {
                                             onMoveCatDown?.Invoke(c);
@@ -675,7 +682,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         }
                                                     }
 
-                                                    GUI.color = ColorPlus.Azure;
+                                                    GUI.color = ColorPlus.GhostWhite;
                                                     if (GUILayout.Button("↑", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                                         if (idCollection.IDIndexes[c].MoveUp(i)) {
                                                             onMoveIDUp?.Invoke(c, i);
@@ -757,14 +764,27 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                     }
 
                     if (editMode) {
-                        GUI.color = Color.yellow;
-                        if (GUILayout.Button("New Cat (T)", EditorStyles.miniButton)) {
-                            //Add a new category to collection.
-                            idCollection.NewIDIndex();
+                        EditorGUILayout.BeginHorizontal();
+                        {
+                            GUI.color = Color.yellow;
+                            if (GUILayout.Button("New Cat (T)", EditorStyles.miniButtonLeft)) {
+                                //Add a new category to collection.
+                                idCollection.NewIDIndex();
 
-                            onNewCat?.Invoke();
+                                onNewCat?.Invoke();
+                            }
+                            GUI.color = ColorPlus.BallBlue;
+                            if (GUILayout.Button("Sort Cats", EditorStyles.miniButtonRight)) {
+                                idCollection.SortCats();
+                            }
+                            GUI.color = Color.white;
                         }
-                        GUI.color = Color.white;
+                        EditorGUILayout.EndHorizontal();
+                    }
+
+                    if (sortIDsInCat != -1) {
+                        //Sort the cat in idCollection
+                        idCollection.SortIDsInCat(sortIDsInCat);
                     }
 
                     if (newSelectingIndex != -1 || newSelectingCatIndex != -1) {
@@ -806,6 +826,8 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                     int newSelectingCatIndex = -1;
                     int newSelectingIndex = -1;
 
+                    int sortIDsInCat = -1;
+
                     for (int c = 0; c < idCollection.IDIndexes.Count; c++) {
                         EditorGUILayout.BeginVertical();
                         {
@@ -827,6 +849,12 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                 Debug.LogWarning("Append ID failed! [" + newID + "] [" + catIndex + "] [" + addTargetIndex + "]");
                                             }
                                         });
+                                    }
+
+                                    GUI.color = ColorPlus.BallBlue;
+                                    if (GUILayout.Button("s", EditorStyles.miniButton, GUILayout.Width(17.0f))) {
+                                        //Sort the cat by ID name.
+                                        sortIDsInCat = c;
                                     }
 
                                     GUI.color = ColorPlus.SpringGreen;
@@ -884,13 +912,12 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                         int catIndex = c;
                                         StringEditorUtility.Open("Edit Category Name", idCollection.IDIndexes[c].name, (x) => idCollection.IDIndexes[catIndex].name = x);
                                     }
-                                    GUI.color = ColorPlus.Lavender;
+                                    GUI.color = ColorPlus.GhostWhite;
                                     if (GUILayout.Button("↑", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                         if (idCollection.MoveUpIDIndex(c)) {
                                             onMoveCatUp?.Invoke(c);
                                         }
                                     }
-                                    GUI.color = ColorPlus.Lavender;
                                     if (GUILayout.Button("↓", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                         if (idCollection.MoveDownIDIndex(c)) {
                                             onMoveCatDown?.Invoke(c);
@@ -967,7 +994,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                                         }
                                                     }
 
-                                                    GUI.color = ColorPlus.Azure;
+                                                    GUI.color = ColorPlus.GhostWhite;
                                                     if (GUILayout.Button("↑", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                                         if (idCollection.IDIndexes[c].MoveUp(i)) {
                                                             onMoveIDUp?.Invoke(c, i);
@@ -1049,14 +1076,27 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                     }
 
                     if (editMode) {
-                        GUI.color = Color.yellow;
-                        if (GUILayout.Button("New Cat (T)", EditorStyles.miniButton)) {
-                            //Add a new category to collection.
-                            idCollection.NewIDIndex();
+                        EditorGUILayout.BeginHorizontal();
+                        {
+                            GUI.color = Color.yellow;
+                            if (GUILayout.Button("New Cat (T)", EditorStyles.miniButtonLeft)) {
+                                //Add a new category to collection.
+                                idCollection.NewIDIndex();
 
-                            onNewCat?.Invoke();
+                                onNewCat?.Invoke();
+                            }
+                            GUI.color = ColorPlus.BallBlue;
+                            if (GUILayout.Button("Sort Cats", EditorStyles.miniButtonRight)) {
+                                idCollection.SortCats();
+                            }
+                            GUI.color = Color.white;
                         }
-                        GUI.color = Color.white;
+                        EditorGUILayout.EndHorizontal();
+                    }
+
+                    if (sortIDsInCat != -1) {
+                        //Sort the cat in idCollection
+                        idCollection.SortIDsInCat(sortIDsInCat);
                     }
 
                     if (newSelectingIndex != -1 || newSelectingCatIndex != -1) {
