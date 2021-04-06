@@ -513,7 +513,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                         });
                                     }
 
-                                    GUI.color = ColorPlus.BallBlue;
+                                    GUI.color = ColorPlus.BlueViolet;
                                     if (GUILayout.Button("s", EditorStyles.miniButton, GUILayout.Width(17.0f))) {
                                         //Sort the cat by ID name.
                                         sortIDsInCat = c;
@@ -773,7 +773,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
 
                                 onNewCat?.Invoke();
                             }
-                            GUI.color = ColorPlus.BallBlue;
+                            GUI.color = ColorPlus.BlueViolet;
                             if (GUILayout.Button("Sort Cats", EditorStyles.miniButtonRight)) {
                                 idCollection.SortCats();
                             }
@@ -851,7 +851,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
                                         });
                                     }
 
-                                    GUI.color = ColorPlus.BallBlue;
+                                    GUI.color = ColorPlus.BlueViolet;
                                     if (GUILayout.Button("s", EditorStyles.miniButton, GUILayout.Width(17.0f))) {
                                         //Sort the cat by ID name.
                                         sortIDsInCat = c;
@@ -1085,7 +1085,7 @@ abstract public class IDCollectionEditor : UniEditorWindow {
 
                                 onNewCat?.Invoke();
                             }
-                            GUI.color = ColorPlus.BallBlue;
+                            GUI.color = ColorPlus.BlueViolet;
                             if (GUILayout.Button("Sort Cats", EditorStyles.miniButtonRight)) {
                                 idCollection.SortCats();
                             }

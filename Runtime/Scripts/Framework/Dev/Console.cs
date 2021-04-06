@@ -49,7 +49,7 @@ public class Console : MonoBehaviour {
             if (EditorGUIUtility.isProSkin) {
                 useColor = ColorPlus.WhiteSmoke;
             } else {
-                useColor = ColorPlus.Charcoal;
+                useColor = ColorPlus.DarkGray;
             }
 #endif
 
@@ -77,7 +77,7 @@ public class Console : MonoBehaviour {
             if (EditorGUIUtility.isProSkin) {
                 useColor = ColorPlus.Chartreuse;
             } else {
-                useColor = ColorPlus.CadmiumGreen;
+                useColor = ColorPlus.DarkGreen;
             }
 #endif
 
@@ -102,9 +102,9 @@ public class Console : MonoBehaviour {
             Color useColor = Color.white;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.ElectricYellow;
+                useColor = ColorPlus.LightGoldenrodYellow;
             } else {
-                useColor = ColorPlus.LightBrown;
+                useColor = ColorPlus.Brown;
             }
 #endif
 
@@ -129,9 +129,9 @@ public class Console : MonoBehaviour {
             Color useColor = Color.white;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.Folly;
+                useColor = ColorPlus.PaleVioletRed;
             } else {
-                useColor = ColorPlus.Cardinal;
+                useColor = ColorPlus.DarkRed;
             }
 #endif
 

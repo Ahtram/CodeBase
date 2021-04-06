@@ -1194,7 +1194,7 @@ static public class EditorGUILayoutPlus {
                 hasChanged = true;
             }
 
-            GUI.color = ColorPlus.Honeydew;
+            GUI.color = ColorPlus.HoneyDew;
             if (GUILayout.Button("All", EditorStyles.miniButtonLeft, GUILayout.Width(45.0f))) {
                 for (int i = 0; i < editingToggleList.Count; i++) {
                     editingToggleList[i] = true;
