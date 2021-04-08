@@ -49,7 +49,7 @@ public class Console : MonoBehaviour {
             if (EditorGUIUtility.isProSkin) {
                 useColor = ColorPlus.WhiteSmoke;
             } else {
-                useColor = ColorPlus.DarkGray;
+                useColor = ColorPlus.DimGray;
             }
 #endif
 
