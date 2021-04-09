@@ -38,7 +38,7 @@ public class Typist : MonoBehaviour {
     void Awake() {
         targetText = GetComponent<Text>();
         if (targetText == null) {
-            Debug.LogWarning("Typist need to be with a UGUI Text to work properly!");
+            Debug.LogWarning("Typist need to be with an UGUI Text to work properly!");
         }
     }
 

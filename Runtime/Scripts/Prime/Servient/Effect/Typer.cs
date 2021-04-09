@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System;
 using Teamuni.Codebase;
 
 /// <summary>
@@ -43,7 +41,7 @@ public class Typer : MonoBehaviour {
     void Awake() {
         targetText = GetComponent<Text>();
         if (targetText == null) {
-            Debug.LogWarning("Typer need to be with a UGUI Text to work properly!");
+            Debug.LogWarning("Typer need to be with an UGUI Text to work properly!");
         }
     }
 
