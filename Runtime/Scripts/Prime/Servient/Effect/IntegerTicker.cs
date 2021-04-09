@@ -5,15 +5,15 @@ using Teamuni.Codebase;
 
 /// <summary>
 /// A simple effect component for tick a number text component.
+/// This component can work independently without a Text.
 /// </summary>
-[RequireComponent(typeof(Text))]
 public class IntegerTicker : MonoBehaviour {
 
     public UnityEventInt onTickStart;
     public UnityEventInt onTick;
     public UnityEventInt onTickComplete;
 
-    private Text targetText;
+    public Text targetText;
 
     private int m_initialNumber = 0;
     private int m_goalNumber = 100;
@@ -36,9 +36,6 @@ public class IntegerTicker : MonoBehaviour {
 
     void Awake() {
         targetText = GetComponent<Text>();
-        if (targetText == null) {
-            Debug.LogWarning("IntegerTicker need to be with an UGUI Text to work properly!");
-        }
     }
 
     /// <summary>
