@@ -62,6 +62,8 @@ public class TagsEditor : EditorWindow {
             if (itemsPerRow > 0) {
                 EditorGUILayout.BeginVertical();
                 {
+                    // int moveUpIndex = -1;
+                    // int moveDownIndex = -1;
                     int rowCount = (tags.items.Count / itemsPerRow) + ((tags.items.Count % itemsPerRow != 0) ? (1) : (0));
                     for (int j = 0; j < rowCount; j++) {
                         EditorGUILayout.BeginHorizontal();
@@ -73,8 +75,27 @@ public class TagsEditor : EditorWindow {
                                     {
 
                                         Color tempColor = GUI.color;
+
+                                        // GUI.color = ColorPlus.GhostWhite;
+                                        // if (GUILayout.Button("<", EditorStyles.miniButtonLeft, GUILayout.Width(17.0f))) {
+                                        //     moveUpIndex = i;
+                                        // }
+
+                                        GUI.color = ColorPlus.LightSalmon;
+                                        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                                            EditorGUIUtility.systemCopyBuffer = tags.items[j];
+                                        }
+
+                                        GUI.color = ColorPlus.LightBlue;
+                                        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                                            if (EditorGUIUtility.systemCopyBuffer != null) {
+                                                tags.items[j] = EditorGUIUtility.systemCopyBuffer;
+                                                hasChanged = true;
+                                            }
+                                        }
+
                                         GUI.color = Util.GetMagicColorLighten(tags.items[usingItemIndex]);
-                                        if (GUILayout.Button(tags.items[usingItemIndex], EditorStyles.miniButtonLeft, GUILayout.Width(EditorGUILayoutPlus.CalcLabelWidth(tags.items[usingItemIndex]) + 6.0f))) {
+                                        if (GUILayout.Button(tags.items[usingItemIndex], EditorStyles.miniButtonMid, GUILayout.Width(EditorGUILayoutPlus.CalcLabelWidth(tags.items[usingItemIndex]) + 6.0f))) {
                                             editingTags = tags;
                                             editingTagIndex = i;
                                             StringEditorUtility.Open("Edit tag item", tags.items[usingItemIndex], OnStringEditUtilEditing);
@@ -84,6 +105,12 @@ public class TagsEditor : EditorWindow {
                                         if (GUILayout.Button("-", EditorStyles.miniButtonRight, GUILayout.Width(15.0f))) {
                                             removeIndex = i;
                                         }
+
+                                        // GUI.color = ColorPlus.GhostWhite;
+                                        // if (GUILayout.Button(">", EditorStyles.miniButtonRight, GUILayout.Width(15.0f))) {
+                                        //     moveDownIndex = i;
+                                        // }
+
                                         GUI.color = tempColor;
                                     }
                                     EditorGUILayout.EndHorizontal();
@@ -94,6 +121,14 @@ public class TagsEditor : EditorWindow {
                         }
                         EditorGUILayout.EndHorizontal();
                     }
+
+                    // if (moveUpIndex != -1) {
+                    //     tags.MoveUpIndex(moveUpIndex);
+                    // }
+
+                    // if (moveDownIndex != -1) {
+                    //     tags.MoveDownIndex(moveDownIndex);
+                    // }
                 }
                 EditorGUILayout.EndVertical();
             }

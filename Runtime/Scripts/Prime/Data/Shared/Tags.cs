@@ -70,4 +70,26 @@ public class Tags {
         return true;
     }
 
+    //往前移動一個Tag
+    public bool MoveUpIndex(int index) {
+        if (index > 0 && index < items.Count) {
+            string moving = items[index];
+            items.RemoveAt(index);
+            items.Insert(index - 1, moving);
+            return true;
+        }
+        return false;
+    }
+
+    //往後移動一個Tag
+    public bool MoveDownIndex(int index) {
+        if (index >= 0 && index < items.Count - 1) {
+            string moving = items[index];
+            items.RemoveAt(index);
+            items.Insert(index + 1, moving);
+            return true;
+        }
+        return false;
+    }
+
 }
