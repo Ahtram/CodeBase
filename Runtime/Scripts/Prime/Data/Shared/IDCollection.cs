@@ -149,7 +149,7 @@ public class IDCollection {
     }
 
     public bool MoveIDToCat(string ID, int originalCatIndex, int targetCatIndex) {
-        if (originalCatIndex < IDIndexes.Count && targetCatIndex < IDIndexes.Count) {
+        if (originalCatIndex < IDIndexes.Count && targetCatIndex <= IDIndexes.Count) {
             foreach (string id in IDIndexes[originalCatIndex].ids) {
                 if (id == ID) {
                     IDIndexes[originalCatIndex].ids.Remove(ID);
@@ -164,7 +164,7 @@ public class IDCollection {
     }
 
     public bool MoveIDToCat(int originalCatIndex, int originalIDIndex, int targetCatIndex) {
-        if (originalCatIndex < IDIndexes.Count && originalIDIndex < IDIndexes[originalCatIndex].ids.Count && targetCatIndex < IDIndexes.Count) {
+        if (originalCatIndex < IDIndexes.Count && originalIDIndex < IDIndexes[originalCatIndex].ids.Count && targetCatIndex <= IDIndexes.Count) {
             string ID = IDIndexes[originalCatIndex].ids[originalIDIndex];
             IDIndexes[originalCatIndex].ids.RemoveAt(originalIDIndex);
             IDIndexes[targetCatIndex].ids.Add(ID);
@@ -174,7 +174,7 @@ public class IDCollection {
     }
 
     public bool MoveIDToCatIndex(int originalCatIndex, int originalIDIndex, int targetCatIndex, int targetIndex) {
-        if (originalCatIndex < IDIndexes.Count && originalIDIndex < IDIndexes[originalCatIndex].ids.Count && targetCatIndex < IDIndexes.Count && targetIndex < IDIndexes[targetCatIndex].ids.Count) {
+        if (originalCatIndex < IDIndexes.Count && originalIDIndex < IDIndexes[originalCatIndex].ids.Count && targetCatIndex < IDIndexes.Count && targetIndex <= IDIndexes[targetCatIndex].ids.Count) {
             string ID = IDIndexes[originalCatIndex].ids[originalIDIndex];
             IDIndexes[originalCatIndex].ids.RemoveAt(originalIDIndex);
             IDIndexes[targetCatIndex].ids.Insert(targetIndex, ID);
