@@ -89,7 +89,7 @@ public class TagsEditor : EditorWindow {
                                         GUI.color = ColorPlus.LightBlue;
                                         if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
                                             if (EditorGUIUtility.systemCopyBuffer != null) {
-                                                tags.items[j] = EditorGUIUtility.systemCopyBuffer;
+                                                tags.items[usingItemIndex] = EditorGUIUtility.systemCopyBuffer;
                                                 hasChanged = true;
                                             }
                                         }
