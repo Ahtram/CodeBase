@@ -7,10 +7,10 @@ using System;
 public class IDPair {
 
     [XmlElement("ID1")]
-    public string ID1;
+    public string ID1 = "";
 
     [XmlElement("ID2")]
-    public string ID2;
+    public string ID2 = "";
 
     public IDPair() {
 
