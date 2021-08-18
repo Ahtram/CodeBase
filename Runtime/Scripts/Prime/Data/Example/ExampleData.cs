@@ -43,6 +43,10 @@ public class ExampleData : BaseData<ExampleData> {
     [XmlArrayItem("B", typeof(bool))]
     public List<bool> boolList = new List<bool>();
 
+    [XmlArray("IDPL")]
+    [XmlArrayItem("IDP", typeof(IDPair))]
+    public List<IDPair> IDPairList = new List<IDPair>();
+
     [XmlElement("SS")]
     public Shape shapeStuff = new NoneShape();
 

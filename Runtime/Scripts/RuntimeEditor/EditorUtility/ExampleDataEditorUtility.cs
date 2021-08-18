@@ -71,6 +71,12 @@ public class ExampleDataEditorUtility : UniEditorWindow {
             EditorGUILayoutPlus.AssetNameSelection("Select a test prefab name", "Assets/CodeBase/Resources/Prefabs", exampleData.PrefabNameField, "prefab", (selectedPrefabName) => exampleData.PrefabNameField = (string)selectedPrefabName);
 
             EditorGUILayoutPlus.EditToggleLeftList("ToggleList", "Toggle", exampleData.boolList);
+
+            EditorGUILayout.BeginVertical("FrameBox");
+            {
+                IDPairEditor.EditIDPairs("Test IDPair", "Label1", "Label2", exampleData.IDPairList, ExampleData.GetIDCollection(), ExampleData.GetIDCollection(), null, null, null, null);
+            }
+            EditorGUILayout.EndVertical();
         }
         EditorGUILayout.EndVertical();
 

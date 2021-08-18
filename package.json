@@ -1,9 +1,9 @@
 {
   "name": "com.unity.teamuni.codebase",
   "displayName": "CodeBase",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "unity": "2020.3",
-  "description": "A general purpose code base package for my team.",
+  "description": "A general purpose code base package for {uni} team.",
   "hideInEditor": false,
   "dependencies": {
     "com.unity.textmeshpro": "2.1.1",
