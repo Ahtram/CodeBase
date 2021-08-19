@@ -3,10 +3,14 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
 
     public List<ExampleDataEditorUtility> accessingEditorUtilities = new List<ExampleDataEditorUtility>();
+
+    public string TEST_GOOGLE_API_KET = "AIzaSyAFHcWJFO5cuzlM4M0Qa__GNmUdGFTCAVM";
+    public string TEST_GOOGLE_SPREADSHEETS_ID = "1P-VeVsc6cky0RkPPFNSwTz4nmS-VIe_69oL3nDUDXsQ";
 
     override protected void DrawTitle() {
         GUI.color = ColorPlus.GhostWhite;
@@ -98,6 +102,23 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
                 }
             }
         }
+    }
+
+    override protected void DrawAdditionUtilityButtons() {
+        GUI.color = ColorPlus.DeepPink;
+
+        if (GUILayout.Button("Test GDataHelper")) {
+            GDataHelper.SpreadsheetsMetadata metaData = GDataHelper.requestSpreadsheetsMetadata(TEST_GOOGLE_SPREADSHEETS_ID, TEST_GOOGLE_API_KET);
+            Debug.Log(string.Join(",", metaData.sheets.Select((sheet) => sheet.properties.title).ToList()));
+
+            for (int i = 0; i < metaData.sheets.Count; ++i) {
+                //This is the range.
+                GDataHelper.SheetValueRangeMetadata valueRangeMetadata = GDataHelper.requestSheetValueRangeMetadata(TEST_GOOGLE_SPREADSHEETS_ID, TEST_GOOGLE_API_KET, metaData.sheets[i].properties.title);
+                Debug.Log("[" + i + "] " + valueRangeMetadata.values.Count);
+            }
+        }
+
+        GUI.color = Color.white;
     }
 
     private bool RefocusEditorUtility(ExampleData data) {
