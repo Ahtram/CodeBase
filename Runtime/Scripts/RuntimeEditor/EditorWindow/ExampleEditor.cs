@@ -9,8 +9,8 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
 
     public List<ExampleDataEditorUtility> accessingEditorUtilities = new List<ExampleDataEditorUtility>();
 
-    public string TEST_GOOGLE_API_KET = "AIzaSyAFHcWJFO5cuzlM4M0Qa__GNmUdGFTCAVM";
-    public string TEST_GOOGLE_SPREADSHEETS_ID = "1P-VeVsc6cky0RkPPFNSwTz4nmS-VIe_69oL3nDUDXsQ";
+    public string GOOGLE_API_KEY = "AIzaSyAFHcWJFO5cuzlM4M0Qa__GNmUdGFTCAVM";
+    public string GOOGLE_SPREADSHEETS_ID = "1P-VeVsc6cky0RkPPFNSwTz4nmS-VIe_69oL3nDUDXsQ";
 
     override protected void DrawTitle() {
         GUI.color = ColorPlus.GhostWhite;
@@ -107,18 +107,77 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
     override protected void DrawAdditionUtilityButtons() {
         GUI.color = ColorPlus.DeepPink;
 
-        if (GUILayout.Button("Test GDataHelper")) {
-            GDataHelper.SpreadsheetsMetadata metaData = GDataHelper.requestSpreadsheetsMetadata(TEST_GOOGLE_SPREADSHEETS_ID, TEST_GOOGLE_API_KET);
-            Debug.Log(string.Join(",", metaData.sheets.Select((sheet) => sheet.properties.title).ToList()));
-
-            for (int i = 0; i < metaData.sheets.Count; ++i) {
-                //This is the range.
-                GDataHelper.SheetValueRangeMetadata valueRangeMetadata = GDataHelper.requestSheetValueRangeMetadata(TEST_GOOGLE_SPREADSHEETS_ID, TEST_GOOGLE_API_KET, metaData.sheets[i].properties.title);
-                Debug.Log("[" + i + "] " + valueRangeMetadata.values.Count);
-            }
+        if (GUILayout.Button("Test FetchAndUpdate")) {
+            //An example of how to fetch all tab contents.
+            FetchAndUpdate();
         }
 
         GUI.color = Color.white;
+    }
+
+    private void FetchAndUpdate() {
+        if (EditorApplication.isPlaying) {
+            ShowNotify("Cannot sync in play mode! Stop the game first!");
+            return;
+        }
+
+        float progress = 0.0f;
+        EditorUtility.DisplayProgressBar("Updating", "Getting spreadsheets metadata...", progress);
+
+        //Get the spreadsheets metadata.
+        GDataHelper.SpreadsheetsMetadata spreadsheetsMetadata = GDataHelper.requestPublicSpreadsheetsMetadata(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY);
+
+        if (spreadsheetsMetadata == null) {
+            //Something went wrong. Stop the progress.
+            EditorUtility.ClearProgressBar();
+        } else {
+            //Get all cell feed content for each category (Sheet tab).
+            //[Category][Cell string table]
+            List<GDataHelper.WorkSheetData> workSheetDatas = new List<GDataHelper.WorkSheetData>();
+
+            float progressStep = spreadsheetsMetadata.sheets.Count > 0.0f ? 1.0f / (float)spreadsheetsMetadata.sheets.Count : 0.0f;
+            for (int i = 0; i < spreadsheetsMetadata.sheets.Count; ++i) {
+                progress += progressStep;
+                EditorUtility.DisplayProgressBar("Updating", "Getting sheet (" + i + "/" + spreadsheetsMetadata.sheets.Count + ") [" + spreadsheetsMetadata.sheets[i].properties.title + "]", progress);
+
+                GDataHelper.WorkSheetData workSheetData = GDataHelper.requestPublicWorkSheetData(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY, spreadsheetsMetadata.sheets[i].properties);
+                if (workSheetData != null) {
+                    workSheetDatas.Add(workSheetData);
+                } else {
+                    //Oops! Something went wrong!
+                    break;
+                }
+            }
+
+            EditorUtility.ClearProgressBar();
+
+            //Now workSheetDatas contains all cell data in all workSheets. We gonna clear all exist data and use these new data.
+            // for (int i = 0; i < editingDataList.Count; ++i) {
+            //     for (int j = 0; j < editingDataList[i].Count; j++) {
+            //         if (editingDataList[i][j] != null) {
+            //             editingDataList[i][j].CleanUpFiles();
+            //         }
+            //     }
+            // }
+
+            // //Clear ID data.
+            // editingIDCollection.IDIndexes.Clear();
+            // //Clear editings.
+            // editingDataList.Clear();
+            // //Reset this for good. (Or the editor will get errors after update)
+            // selectingCatIndex = -1;
+            // selectingIDIndex = -1;
+
+            // //Magic paste the worksheet data to our game data.
+            // for (int i = 0; i < workSheetDatas.Count; i++) {
+            //     //Add a new cat for data containers.
+            //     editingIDCollection.IDIndexes.Add(new IDIndex(workSheetDatas[i].title));
+            //     editingDataList.Add(new List<DialogueRoll>());
+            //     FeedCat(i, workSheetDatas[i]);
+            // }
+            // Save();
+            // DialogueRoll.ClearCache();
+        }
     }
 
     private bool RefocusEditorUtility(ExampleData data) {

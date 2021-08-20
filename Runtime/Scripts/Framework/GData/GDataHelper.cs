@@ -59,13 +59,17 @@ public class GDataHelper {
         public BackgroundColorStyle backgroundColorStyle { get; set; }
     }
 
-    public class Properties {
+    public class SpreadsheetProperties {
         public string title { get; set; }
         public string locale { get; set; }
         public string autoRecalc { get; set; }
         public string timeZone { get; set; }
         public DefaultFormat defaultFormat { get; set; }
+    }
+
+    public class SheetProperties {
         public int sheetId { get; set; }
+        public string title { get; set; }
         public int index { get; set; }
         public string sheetType { get; set; }
         public GridProperties gridProperties { get; set; }
@@ -78,13 +82,13 @@ public class GDataHelper {
     }
 
     public class Sheet {
-        public Properties properties { get; set; }
+        public SheetProperties properties { get; set; }
     }
 
     //The metadate object class for the main spreadsheets.
     public class SpreadsheetsMetadata {
         public string spreadsheetId { get; set; }
-        public Properties properties { get; set; }
+        public SpreadsheetProperties properties { get; set; }
         public List<Sheet> sheets { get; set; }
         public string spreadsheetUrl { get; set; }
     }
@@ -100,7 +104,7 @@ public class GDataHelper {
 
     //--
 
-    //A structure for output data.
+    //A structure for minmal and convenient output data. Only contains the essential needs.
     public class WorkSheetData {
         public string title = "";
         public List<List<string>> stringTable = new List<List<string>>();
@@ -135,6 +139,63 @@ public class GDataHelper {
     //--
 
     /// <summary>
+    /// A generic get request method for getting metadata.
+    /// </summary>
+    /// <param name="url"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    static private T getRequestPublicSpreadsheetsUrl<T>(string url) {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
+
+        //WWW cannot do yield in editor. This is stupid but we can only do this.
+        while (!asyncOperation.isDone) ;
+
+        if (www.error != null) {
+            Debug.LogError(www.error);
+            return default(T);
+        } else {
+            return JsonConvert.DeserializeObject<T>(www.downloadHandler.text);
+        }
+    }
+
+    /// <summary>
+    /// A generic get request method for getting metadata.
+    /// </summary>
+    /// <param name="url"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    static private IEnumerator getRequestPublicSpreadsheetsUrlAsync<T>(string url, Action<T> onComplete) {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
+
+        while (!asyncOperation.isDone) {
+            yield return null;
+        }
+
+        if (www.error != null) {
+            Debug.LogError(www.error);
+            onComplete?.Invoke(default(T));
+        } else {
+            onComplete?.Invoke(JsonConvert.DeserializeObject<T>(www.downloadHandler.text));
+        }
+    }
+
+
+    //--
+
+    /// <summary>
+    /// Form the spreadsheet url for opening in the browser.
+    /// </summary>
+    /// <param name="spreadsheetsId"></param>
+    /// <returns></returns>
+    static public string getSpreadsheetsUrl(string spreadsheetsId) {
+        return "https://docs.google.com/spreadsheets/d/" + spreadsheetsId;
+    }
+
+    //--
+
+    /// <summary>
     /// Form a url for a public Google spreadsheet metadata.
     /// </summary>
     /// <param name="spreadsheetsId"></param>
@@ -150,20 +211,8 @@ public class GDataHelper {
     /// <param name="spreadsheetsId"></param>
     /// <param name="apiKey"></param>
     /// <returns></returns>
-    static public SpreadsheetsMetadata requestSpreadsheetsMetadata(string spreadsheetsId, string apiKey) {
-        string url = getSpreadsheetsMetadataUrl(spreadsheetsId, apiKey);
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
-
-        //WWW cannot do yield in editor. This is stupid but we can only do this.
-        while (!asyncOperation.isDone) ;
-
-        if (www.error != null) {
-            Debug.LogError(www.error);
-            return null;
-        } else {
-            return JsonConvert.DeserializeObject<SpreadsheetsMetadata>(www.downloadHandler.text);
-        }
+    static public SpreadsheetsMetadata requestPublicSpreadsheetsMetadata(string spreadsheetsId, string apiKey) {
+        return getRequestPublicSpreadsheetsUrl<SpreadsheetsMetadata>(getSpreadsheetsMetadataUrl(spreadsheetsId, apiKey));
     }
 
     /// <summary>
@@ -173,21 +222,8 @@ public class GDataHelper {
     /// <param name="apiKey"></param>
     /// <param name="onComplete"></param>
     /// <returns></returns>
-    static public IEnumerator requestSpreadsheetsMetadataAsync(string spreadsheetsId, string apiKey, Action<SpreadsheetsMetadata> onComplete) {
-        string url = getSpreadsheetsMetadataUrl(spreadsheetsId, apiKey);
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
-
-        while (!asyncOperation.isDone) {
-            yield return null;
-        }
-
-        if (www.error != null) {
-            Debug.LogError(www.error);
-            onComplete?.Invoke(null);
-        } else {
-            onComplete?.Invoke(JsonConvert.DeserializeObject<SpreadsheetsMetadata>(www.downloadHandler.text));
-        }
+    static public IEnumerator requestPublicSpreadsheetsMetadataAsync(string spreadsheetsId, string apiKey, Action<SpreadsheetsMetadata> onComplete) {
+        yield return getRequestPublicSpreadsheetsUrlAsync<SpreadsheetsMetadata>(getSpreadsheetsMetadataUrl(spreadsheetsId, apiKey), onComplete);
     }
 
     //--
@@ -210,20 +246,8 @@ public class GDataHelper {
     /// <param name="apiKey"></param>
     /// <param name="range"></param>
     /// <returns></returns>
-    static public SheetValueRangeMetadata requestSheetValueRangeMetadata(string spreadsheetsId, string apiKey, string range) {
-        string url = getSheetValueRangeUrl(spreadsheetsId, apiKey, range);
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
-
-        //WWW cannot do yield in editor. This is stupid but we can only do this.
-        while (!asyncOperation.isDone) ;
-
-        if (www.error != null) {
-            Debug.LogError(www.error);
-            return null;
-        } else {
-            return JsonConvert.DeserializeObject<SheetValueRangeMetadata>(www.downloadHandler.text);
-        }
+    static public SheetValueRangeMetadata requestPublicSheetValueRangeMetadata(string spreadsheetsId, string apiKey, string range) {
+        return getRequestPublicSpreadsheetsUrl<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, range));
     }
 
     /// <summary>
@@ -234,21 +258,49 @@ public class GDataHelper {
     /// <param name="range"></param>
     /// <param name="onComplete"></param>
     /// <returns></returns>
-    static public IEnumerator requestSheetValueRangeMetadataAsync(string spreadsheetsId, string apiKey, string range, Action<SheetValueRangeMetadata> onComplete) {
-        string url = getSheetValueRangeUrl(spreadsheetsId, apiKey, range);
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        UnityWebRequestAsyncOperation asyncOperation = www.SendWebRequest();
+    static public IEnumerator requestPublicSheetValueRangeMetadataAsync(string spreadsheetsId, string apiKey, string range, Action<SheetValueRangeMetadata> onComplete) {
+        yield return getRequestPublicSpreadsheetsUrlAsync<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, range), onComplete);
+    }
 
-        while (!asyncOperation.isDone) {
-            yield return null;
-        }
+    //--
 
-        if (www.error != null) {
-            Debug.LogError(www.error);
-            onComplete?.Invoke(null);
-        } else {
-            onComplete?.Invoke(JsonConvert.DeserializeObject<SheetValueRangeMetadata>(www.downloadHandler.text));
+    /// <summary>
+    /// Get the WorkSheetData from a set of sheetProperties.
+    /// </summary>
+    /// <param name="spreadsheetsId"></param>
+    /// <param name="apiKey"></param>
+    /// <param name="sheetProperties"></param>
+    /// <returns></returns>
+    static public WorkSheetData requestPublicWorkSheetData(string spreadsheetsId, string apiKey, SheetProperties sheetProperties) {
+        SheetValueRangeMetadata metadata = getRequestPublicSpreadsheetsUrl<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title));
+        if (metadata != null) {
+            return new WorkSheetData() {
+                title = sheetProperties.title,
+                stringTable = metadata.values,
+            };
         }
+        return null;
+    }
+
+    /// <summary>
+    /// Get the WorkSheetData from a set of sheetProperties.
+    /// </summary>
+    /// <param name="spreadsheetsId"></param>
+    /// <param name="apiKey"></param>
+    /// <param name="sheetProperties"></param>
+    /// <param name="onComplete"></param>
+    /// <returns></returns>
+    static public IEnumerator requestPublicWorkSheetDataAsync(string spreadsheetsId, string apiKey, SheetProperties sheetProperties, Action<WorkSheetData> onComplete) {
+        yield return getRequestPublicSpreadsheetsUrlAsync<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title), (metadata) => {
+            if (metadata != null) {
+                onComplete?.Invoke(new WorkSheetData() {
+                    title = sheetProperties.title,
+                    stringTable = metadata.values,
+                });
+            } else {
+                onComplete?.Invoke(null);
+            }
+        });
     }
 
     //--
