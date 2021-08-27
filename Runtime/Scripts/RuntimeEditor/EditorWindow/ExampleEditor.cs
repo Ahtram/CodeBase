@@ -115,6 +115,7 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
         GUI.color = Color.white;
     }
 
+    //Example for no tabs.
     private void FetchAndUpdate() {
         if (EditorApplication.isPlaying) {
             ShowNotify("Cannot sync in play mode! Stop the game first!");
@@ -138,7 +139,7 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
             float progressStep = spreadsheetsMetadata.sheets.Count > 0.0f ? 1.0f / (float)spreadsheetsMetadata.sheets.Count : 0.0f;
             for (int i = 0; i < spreadsheetsMetadata.sheets.Count; ++i) {
                 progress += progressStep;
-                EditorUtility.DisplayProgressBar("Updating", "Getting sheet (" + i + "/" + spreadsheetsMetadata.sheets.Count + ") [" + spreadsheetsMetadata.sheets[i].properties.title + "]", progress);
+                EditorUtility.DisplayProgressBar("Updating", "Getting sheet (" + (i + 1) + "/" + spreadsheetsMetadata.sheets.Count + ") [" + spreadsheetsMetadata.sheets[i].properties.title + "]", progress);
 
                 GDataHelper.WorkSheetData workSheetData = GDataHelper.requestPublicWorkSheetData(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY, spreadsheetsMetadata.sheets[i].properties);
                 if (workSheetData != null) {
@@ -177,6 +178,95 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
             // }
             // Save();
             // DialogueRoll.ClearCache();
+        }
+    }
+
+    //Example for specify tabs.
+    private bool FetchAndUpdate(List<bool> tabs) {
+        if (tabs.Count > 0) {
+            if (EditorApplication.isPlaying) {
+                ShowNotify("Cannot sync in play mode! Stop the game first!");
+                return false;
+            }
+
+            float progress = 0.0f;
+            EditorUtility.DisplayProgressBar("Updating", "Getting spreadsheets metadata...", progress);
+
+            //Get the spreadsheets metadata.
+            GDataHelper.SpreadsheetsMetadata spreadsheetsMetadata = GDataHelper.requestPublicSpreadsheetsMetadata(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY);
+
+            if (spreadsheetsMetadata == null) {
+                //Something went wrong. Stop the progress.
+                EditorUtility.ClearProgressBar();
+            } else {
+                //Get all cell feed content for each category (Sheet tab).
+                //[Category][Cell string table]
+                List<GDataHelper.WorkSheetData> workSheetDatas = new List<GDataHelper.WorkSheetData>();
+
+                float progressStep = spreadsheetsMetadata.sheets.Count > 0.0f ? 1.0f / (float)spreadsheetsMetadata.sheets.Count : 0.0f;
+                for (int i = 0; i < spreadsheetsMetadata.sheets.Count; ++i) {
+                    progress += progressStep;
+                    EditorUtility.DisplayProgressBar("Updating", "Getting sheet (" + (i + 1) + "/" + spreadsheetsMetadata.sheets.Count + ") [" + spreadsheetsMetadata.sheets[i].properties.title + "]", progress);
+
+                    if (i < tabs.Count) {
+                        if (tabs[i]) {
+                            //需要同步
+                            GDataHelper.WorkSheetData workSheetData = GDataHelper.requestPublicWorkSheetData(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY, spreadsheetsMetadata.sheets[i].properties);
+                            if (workSheetData != null) {
+                                workSheetDatas.Add(workSheetData);
+                            } else {
+                                //Oops! Something went wrong!
+                                break;
+                            }
+                        } else {
+                            //不需要同步
+                            workSheetDatas.Add(null);
+                        }
+                    } else {
+                        //這代表這個Tab還沒有被同步過。強制同步它。
+                        GDataHelper.WorkSheetData workSheetData = GDataHelper.requestPublicWorkSheetData(GOOGLE_SPREADSHEETS_ID, GOOGLE_API_KEY, spreadsheetsMetadata.sheets[i].properties);
+                        if (workSheetData != null) {
+                            workSheetDatas.Add(workSheetData);
+                        } else {
+                            //Oops! Something went wrong!
+                            break;
+                        }
+                    }
+                }
+
+                EditorUtility.ClearProgressBar();
+
+                //Now workSheetDatas contains all cell data in all workSheets. We gonna clear all exist data and use these new data.
+                // for (int i = 0; i < editingDataList.Count; ++i) {
+                //     for (int j = 0; j < editingDataList[i].Count; j++) {
+                //         if (editingDataList[i][j] != null) {
+                //             editingDataList[i][j].CleanUpFiles();
+                //         }
+                //     }
+                // }
+
+                // //Clear ID data.
+                // editingIDCollection.IDIndexes.Clear();
+                // //Clear editings.
+                // editingDataList.Clear();
+                // //Reset this for good. (Or the editor will get errors after update)
+                // selectingCatIndex = -1;
+                // selectingIDIndex = -1;
+
+                // //Magic paste the worksheet data to our game data.
+                // for (int i = 0; i < workSheetDatas.Count; i++) {
+                //     //Add a new cat for data containers.
+                //     editingIDCollection.IDIndexes.Add(new IDIndex(workSheetDatas[i].title));
+                //     editingDataList.Add(new List<DialogueRoll>());
+                //     FeedCat(i, workSheetDatas[i]);
+                // }
+                // Save();
+                // DialogueRoll.ClearCache();
+            }
+            return true;
+        } else {
+            Debug.LogWarning("Illegal tab target count: [" + tabs.Count + "]. Please make sure the tab already exist!");
+            return false;
         }
     }
 

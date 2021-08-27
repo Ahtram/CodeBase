@@ -204,13 +204,11 @@ abstract public class IDCollectionDataEditor<T> : UniEditorWindow where T : Base
                     if (selectingCatIndex != -1 && selectingIDIndex != -1 && selectingCatIndex < editingDataList.Count && selectingIDIndex < editingDataList[selectingCatIndex].Count && editingDataList[selectingCatIndex][selectingIDIndex] != null) {
                         EditorGUILayout.BeginVertical();
                         {
-                            detailScrollPos = EditorGUILayout.BeginScrollView(detailScrollPos, "FrameBox");
+                            detailScrollPos = EditorGUILayout.BeginScrollView(detailScrollPos, "FrameBox", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
                             {
                                 //The editing detail will be drawen here...
                                 //Customized by derived classes.
                                 DrawDetail(editingDataList[selectingCatIndex][selectingIDIndex]);
-
-                                GUILayout.FlexibleSpace();
                             }
                             EditorGUILayout.EndScrollView();
 
