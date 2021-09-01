@@ -367,6 +367,9 @@ static public class Util {
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static bool ListIsEqual<T>(List<T> list1, List<T> list2) where T : struct, Enum, IConvertible {
+        if (list1.Count != list2.Count) {
+            return false;
+        }
         List<T> list1ExceptList2 = list1.Except(list2).ToList();
         List<T> list2ExceptList1 = list2.Except(list1).ToList();
         return !list1ExceptList2.Any() && !list2ExceptList1.Any();
@@ -379,6 +382,9 @@ static public class Util {
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static bool ListIsEqual(List<string> list1, List<string> list2) {
+        if (list1.Count != list2.Count) {
+            return false;
+        }
         List<string> list1ExceptList2 = list1.Except(list2).ToList();
         List<string> list2ExceptList1 = list2.Except(list1).ToList();
         return !list1ExceptList2.Any() && !list2ExceptList1.Any();
