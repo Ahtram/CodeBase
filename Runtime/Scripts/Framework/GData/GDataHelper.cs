@@ -272,7 +272,7 @@ public class GDataHelper {
     /// <param name="sheetProperties"></param>
     /// <returns></returns>
     static public WorkSheetData requestPublicWorkSheetData(string spreadsheetsId, string apiKey, SheetProperties sheetProperties) {
-        SheetValueRangeMetadata metadata = getRequestPublicSpreadsheetsUrl<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title));
+        SheetValueRangeMetadata metadata = getRequestPublicSpreadsheetsUrl<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title + "!A1:" + sheetProperties.gridProperties.rowCount));
         if (metadata != null) {
             return new WorkSheetData() {
                 title = sheetProperties.title,
@@ -291,7 +291,7 @@ public class GDataHelper {
     /// <param name="onComplete"></param>
     /// <returns></returns>
     static public IEnumerator requestPublicWorkSheetDataAsync(string spreadsheetsId, string apiKey, SheetProperties sheetProperties, Action<WorkSheetData> onComplete) {
-        yield return getRequestPublicSpreadsheetsUrlAsync<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title), (metadata) => {
+        yield return getRequestPublicSpreadsheetsUrlAsync<SheetValueRangeMetadata>(getSheetValueRangeUrl(spreadsheetsId, apiKey, sheetProperties.title + "!A1:" + sheetProperties.gridProperties.rowCount), (metadata) => {
             if (metadata != null) {
                 onComplete?.Invoke(new WorkSheetData() {
                     title = sheetProperties.title,
