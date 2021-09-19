@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 /// <summary>
 /// The data interface class for integrate to data editor class.
@@ -16,6 +17,7 @@ public class BaseData<T> : Cloneable<T> {
     public string ID = "";
 
     [XmlIgnore]
+    [JsonIgnore]
     //Is this data is changed and currently in an unsaved state?
     //The actual save logic can take advantage of this flag and skip the actual serialize bahvior when save.
     //This flag should be set to false after a deserialize and set to ture when editing.
