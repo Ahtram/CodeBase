@@ -88,7 +88,7 @@ namespace Teamuni.Codebase {
         }
 
         public void Serialize() {
-            DataUtil.SaveData(Application.dataPath + "/Resources/" + SysPath.UniqueDataPath + SysPath.VersionFileName + ".txt", this);
+            DataUtil.SaveData(Application.dataPath + "/Resources/" + SysPath.UniqueDataPath + SysPath.VersionFileName, this);
         }
 
 #if UNITY_EDITOR
