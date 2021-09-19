@@ -21,6 +21,7 @@ public class BaseConfig {
     //Which data type should we serialize to?
     public enum DataType {
         XML,
+        Json,
         Binary
     };
 
