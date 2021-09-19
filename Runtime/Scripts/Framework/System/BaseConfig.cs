@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Xml.Serialization;
 using System;
 
@@ -26,10 +25,10 @@ public class BaseConfig {
     };
 
     [XmlElement("ST")]
-    public DataType dataSerializeType = DataType.XML;
+    public DataType dataSerializeType = DataType.Json;
 
     [XmlElement("DT")]
-    public DataType dataDeserializeType = DataType.XML;
+    public DataType dataDeserializeType = DataType.Json;
 
     /// <summary>
     /// Get the base config and Cache it. This should be use in runtime to prevent from redundent loading.
@@ -93,7 +92,7 @@ public class BaseConfig {
             Debug.LogWarning("OOps! BaseConfig not loaded yet! Return a default value!");
             return DataType.XML;
         }
-    } 
+    }
 
     /// <summary>
     /// Get the data deserialize type setting in config file.
