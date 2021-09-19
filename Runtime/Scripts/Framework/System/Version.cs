@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Xml.Serialization;
-using System.Collections.Generic;
 using System;
+using Newtonsoft.Json;
 
 #if UNITY_EDITOR
-    using UnityEditor.Callbacks;
+using UnityEditor.Callbacks;
 #endif
 
 namespace Teamuni.Codebase {
@@ -29,12 +29,14 @@ namespace Teamuni.Codebase {
         public DateTime buildTime = DateTime.MinValue;
 
         //Loaded data.
+        [XmlIgnore]
+        [JsonIgnore]
         static private Version version = null;
 
         static public Version Get() {
             if (version == null) {
                 //Try load from xml first.
-                version = XMLUtil.GetXMLDataFromResource<Version>(SysPath.UniqueDataPath + SysPath.VersionFileName);
+                version = DataUtil.GetDataFromResource<Version>(SysPath.UniqueDataPath + SysPath.VersionFileName);
 
                 //If no data exist, generate a new one.
                 if (version == null) {
@@ -86,7 +88,7 @@ namespace Teamuni.Codebase {
         }
 
         public void Serialize() {
-            XMLUtil.SaveXMLData(Application.dataPath + "/Resources/" + SysPath.UniqueDataPath + SysPath.VersionFileName + ".txt", this);
+            DataUtil.SaveData(Application.dataPath + "/Resources/" + SysPath.UniqueDataPath + SysPath.VersionFileName + ".txt", this);
         }
 
 #if UNITY_EDITOR
