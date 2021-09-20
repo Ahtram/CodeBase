@@ -1,14 +1,14 @@
 {
   "name": "com.unity.teamuni.codebase",
   "displayName": "CodeBase",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "unity": "2020.3",
   "description": "A general purpose code base package for {uni} team.",
   "hideInEditor": false,
   "dependencies": {
     "com.unity.textmeshpro": "2.1.1",
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm"
+    "jillejr.newtonsoft.json-for-unity": "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git"
   },
   "type": "tool"
 }
