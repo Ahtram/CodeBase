@@ -2,9 +2,11 @@
 using System.Xml.Serialization;
 using System;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 #if UNITY_EDITOR
 using UnityEditor.Callbacks;
+using UnityEditor;
 #endif
 
 namespace Teamuni.Codebase {
@@ -94,7 +96,9 @@ namespace Teamuni.Codebase {
 #if UNITY_EDITOR
         //This will update the build num and build time.
         [DidReloadScripts]
-        public static void UpdateBuild() {
+        public static async void UpdateBuild() {
+            //Tricky! I have to do a bit delay for whatever after a rebuild you cannot read from Resources immediately.
+            await Task.Delay(330);
             //Do auto increment by config.
             bool autoIncrement = Util.IntToBool(PlayerPrefs.GetInt("AutoIncrementBuild", 0));
             if (autoIncrement) {
@@ -102,6 +106,7 @@ namespace Teamuni.Codebase {
                 version.build += 1;
                 version.buildTime = DateTime.Now;
                 version.Serialize();
+                AssetDatabase.Refresh();
                 //Also update bundle version.
                 UnityEditor.PlayerSettings.bundleVersion = BundleVersion();
                 ClearCache();
