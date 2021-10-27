@@ -1,23 +1,14 @@
 {
   "name": "com.unity.teamuni.codebase",
   "displayName": "CodeBase",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "unity": "2020.3",
   "description": "A general purpose code base package for {uni} team.",
   "hideInEditor": false,
-  "scopedRegistries": [
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": [
-        "jillejr"
-      ]
-    }
-  ],
   "dependencies": {
     "com.unity.textmeshpro": "2.1.1",
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "13.0.102"
+    "com.unity.nuget.newtonsoft-json": "2.0.0"
   },
   "type": "tool"
 }
