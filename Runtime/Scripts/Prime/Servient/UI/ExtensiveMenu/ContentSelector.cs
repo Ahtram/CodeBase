@@ -67,9 +67,8 @@ public class ContentSelector : UIBase, IPointerClickHandler {
 
             for (int i = 0; i < m_contentList.Count; i++) {
                 string path = m_contentList[i];
-                string name = Path.GetFileNameWithoutExtension(path);
-                bool isSelection = (!string.IsNullOrEmpty(m_selectingContentName) && m_selectingContentName == name) ? (true) : (false);
-                m_extensiveMenu.AddItem(path, isSelection, OnItemSelected, name);
+                bool isSelection = (!string.IsNullOrEmpty(m_selectingContentName) && m_selectingContentName == path) ? (true) : (false);
+                m_extensiveMenu.AddItem(path, isSelection, OnItemSelected, path);
             }
             m_extensiveMenu.AddItem("[Copy]", false, OnCopySelected);
             m_extensiveMenu.AddItem("[Clear]", false, OnClearSelected);
