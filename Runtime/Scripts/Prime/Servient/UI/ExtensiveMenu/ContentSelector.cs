@@ -14,11 +14,14 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/ContentSelector";
 #endif
 
-    public UnityEventString onIDChanged;
+    public UnityEventString onContentChanged;
     public UnityEvent onClear;
 
     //To display the selected Content.
     public Text selectedContentNameText;
+
+    //Auto select the first item when setup?
+    public bool selectFirstWhenSetup = true;
 
     //The opening ExtensiveMenu.
     private ExtensiveMenu m_extensiveMenu;
@@ -35,8 +38,14 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     public void Setup(List<string> contentList) {
         m_contentList.Clear();
         m_contentList.AddRange(contentList);
-        m_selectingContentName = "";
-        UpdateSelectingDisplay();
+        if (selectFirstWhenSetup && m_contentList.Count > 0) {
+            m_selectingContentName = m_contentList[0];
+            UpdateSelectingDisplay();
+            onContentChanged.Invoke(m_selectingContentName);
+        } else {
+            m_selectingContentName = "";
+            UpdateSelectingDisplay();
+        }
         CloseExtensiveMenu();
     }
 
@@ -123,7 +132,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
         if (m_selectingContentName != selectedContent as string) {
             m_selectingContentName = selectedContent as string;
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingContentName);
+            onContentChanged.Invoke(m_selectingContentName);
         }
         CloseExtensiveMenu();
     }
@@ -179,7 +188,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
             //Legal range
             m_selectingContentName = allContentNamess[index];
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingContentName);
+            onContentChanged.Invoke(m_selectingContentName);
         }
         return false;
     }
