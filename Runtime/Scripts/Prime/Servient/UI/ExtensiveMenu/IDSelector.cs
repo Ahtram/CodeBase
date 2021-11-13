@@ -22,6 +22,9 @@ public class IDSelector : UIBase, IPointerClickHandler {
     //To display the selected ID.
     public Text selectedIDText;
 
+    //This will be use if assigned.
+    public RectTransform customMountPoint;
+
     //The temp IDCollection loaded on this selector.
     private IDCollection m_loadedIDCollection;
 
@@ -78,6 +81,10 @@ public class IDSelector : UIBase, IPointerClickHandler {
         if (m_extensiveMenu == null) {
             if (m_loadedIDCollection != null) {
                 m_extensiveMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", GetRectTransform(), localPos);
+                if (customMountPoint != null) {
+                    m_extensiveMenu.transform.SetParent(customMountPoint);
+                }
+
                 for (int i = 0; i < m_loadedIDCollection.IDIndexes.Count; i++) {
                     for (int j = 0; j < m_loadedIDCollection.IDIndexes[i].ids.Count; j++) {
                         m_extensiveMenu.AddItem("[" + i + "](" + m_loadedIDCollection.IDIndexes[i].ids.Count + ") " + m_loadedIDCollection.IDIndexes[i].name + "/" + m_loadedIDCollection.IDIndexes[i].ids[j],
@@ -86,10 +93,18 @@ public class IDSelector : UIBase, IPointerClickHandler {
                 }
                 m_extensiveMenu.AddItem("[Copy]", false, OnCopySelected);
                 m_extensiveMenu.AddItem("[Clear]", false, OnClearSelected);
+                m_extensiveMenu.EnableOnBackgroundClickEventListener(OnRootMenuBackgroundClick);
             }
         } else {
             CloseExtensiveMenu();
         }
+    }
+
+    public RectTransform GetMountPoint() {
+        if (customMountPoint != null) {
+            return customMountPoint;
+        }
+        return GetRectTransform();
     }
 
     /// <summary>
@@ -105,9 +120,13 @@ public class IDSelector : UIBase, IPointerClickHandler {
     /// </summary>
     public void CloseExtensiveMenu() {
         if (m_extensiveMenu != null) {
-            ExtensiveMenu.DestroyUnder(GetRectTransform());
+            ExtensiveMenu.DestroyUnder(GetMountPoint());
             m_extensiveMenu = null;
         }
+    }
+
+    private void OnRootMenuBackgroundClick() {
+        CloseExtensiveMenu();
     }
 
     private void UpdateSelectingDisplay() {

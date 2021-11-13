@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Linq;
 using Teamuni.Codebase;
 
@@ -12,6 +13,10 @@ using Teamuni.Codebase;
 public class ExtensiveMenu : UIBase {
 
     public const string PATH = "Prefabs/ExtensiveMenu/ExtensiveMenu";
+
+    public UnityEvent onBackgroundClick;
+
+    public GameObject superBackground;
 
     //代表一個節點用的資料
     public class ItemContent {
@@ -76,9 +81,16 @@ public class ExtensiveMenu : UIBase {
     public void Setup(Dictionary<string, ItemContent> contents) {
         _parsedContents = new Dictionary<string, ItemContent>(contents);
         Rebuild(_parsedContents);
+        superBackground.SetActive(false);
     }
 
     //---------------- Adjust anchor (you should do this befoare adda items!) -----------------
+
+    //如果需要聽取背景點擊事件則必須要用這個。
+    public void EnableOnBackgroundClickEventListener(UnityAction onBackgroundClick) {
+        this.onBackgroundClick.AddListener(onBackgroundClick);
+        superBackground.SetActive(true);
+    }
 
     //嘗試新增一個選單選項 (這是給 Root 用的)
     public bool AddItem(string path, bool on, Action func) {
@@ -114,6 +126,8 @@ public class ExtensiveMenu : UIBase {
         _rawContents.Clear();
         _parsedContents.Clear();
         Rebuild(_parsedContents);
+        onBackgroundClick.RemoveAllListeners();
+        superBackground.SetActive(false);
     }
 
     //用輸入資料建立當前選單 (會先清掉舊的 UIItem )
@@ -176,6 +190,11 @@ public class ExtensiveMenu : UIBase {
             //開啟ScrollRect自動縮放
             scrollRectContentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         }
+    }
+
+    //有點笨但是應該可以解決點擊背景關閉的問題。
+    public void OnSuperBackgroundClick() {
+        onBackgroundClick?.Invoke();
     }
 
     //---------------- Sub Menu -----------------

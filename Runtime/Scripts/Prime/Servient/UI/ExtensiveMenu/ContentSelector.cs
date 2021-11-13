@@ -20,6 +20,9 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     //To display the selected Content.
     public Text selectedContentNameText;
 
+    //This will be use if assigned.
+    public RectTransform customMountPoint;
+
     //Auto select the first item when setup?
     public bool selectFirstWhenSetup = true;
 
@@ -64,6 +67,9 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     public void ToggleExtensiveMenu(Vector2 localPos = new Vector2()) {
         if (m_extensiveMenu == null) {
             m_extensiveMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", GetRectTransform(), localPos);
+            if (customMountPoint != null) {
+                m_extensiveMenu.transform.SetParent(customMountPoint);
+            }
 
             for (int i = 0; i < m_contentList.Count; i++) {
                 string path = m_contentList[i];
@@ -72,9 +78,17 @@ public class ContentSelector : UIBase, IPointerClickHandler {
             }
             m_extensiveMenu.AddItem("[Copy]", false, OnCopySelected);
             m_extensiveMenu.AddItem("[Clear]", false, OnClearSelected);
+            m_extensiveMenu.EnableOnBackgroundClickEventListener(OnRootMenuBackgroundClick);
         } else {
             CloseExtensiveMenu();
         }
+    }
+
+    public RectTransform GetMountPoint() {
+        if (customMountPoint != null) {
+            return customMountPoint;
+        }
+        return GetRectTransform();
     }
 
     /// <summary>
@@ -90,9 +104,13 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     /// </summary>
     public void CloseExtensiveMenu() {
         if (m_extensiveMenu != null) {
-            ExtensiveMenu.DestroyUnder(GetRectTransform());
+            ExtensiveMenu.DestroyUnder(GetMountPoint());
             m_extensiveMenu = null;
         }
+    }
+
+    private void OnRootMenuBackgroundClick() {
+        CloseExtensiveMenu();
     }
 
     private void UpdateSelectingDisplay() {

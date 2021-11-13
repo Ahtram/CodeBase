@@ -29,11 +29,11 @@ public class ExtensiveMenuTester : UIControllable {
 
     public void OnMountPointClicked(BaseEventData baseEventData) {
         if (iDSelector.IsOpeningAnExtensiveMenu()) {
-            iDSelector.CloseExtensiveMenu();
+            // iDSelector.CloseExtensiveMenu();
         } else if (assetNameSelector.IsOpeningAnExtensiveMenu()) {
-            assetNameSelector.CloseExtensiveMenu();
+            // assetNameSelector.CloseExtensiveMenu();
         } else if (contentSelector.IsOpeningAnExtensiveMenu()) {
-            contentSelector.CloseExtensiveMenu();
+            // contentSelector.CloseExtensiveMenu();
         } else {
             PointerEventData pointerEventData = (PointerEventData)baseEventData;
             if (extensiveMenu == null) {

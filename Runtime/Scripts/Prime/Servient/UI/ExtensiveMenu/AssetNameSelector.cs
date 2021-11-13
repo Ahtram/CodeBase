@@ -48,6 +48,9 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     //To display the selected Asset.
     public Text selectedAssetText;
 
+    //This will be use if assigned.
+    public RectTransform customMountPoint;
+
     //The opening ExtensiveMenu.
     private ExtensiveMenu m_extensiveMenu;
 
@@ -63,9 +66,11 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// <param name="localPos"></param>
     public void ToggleExtensiveMenu(Vector2 localPos = new Vector2()) {
         if (m_extensiveMenu == null) {
-#if UNITY_EDITOR
             m_extensiveMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", GetRectTransform(), localPos);
-
+            if (customMountPoint != null) {
+                m_extensiveMenu.transform.SetParent(customMountPoint);
+            }
+#if UNITY_EDITOR
             string[] guids = AssetDatabase.FindAssets("t:" + assetType.ToString(), new string[] { assetsFolderPath });
             for (int i = 0; i < guids.Length; i++) {
                 string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
@@ -80,10 +85,18 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
 #else
             m_extensiveMenu.AddItem("[Not support on non editor env]", false, OnNotSupported);
 #endif
+            m_extensiveMenu.EnableOnBackgroundClickEventListener(OnRootMenuBackgroundClick);
 
         } else {
             CloseExtensiveMenu();
         }
+    }
+
+    public RectTransform GetMountPoint() {
+        if (customMountPoint != null) {
+            return customMountPoint;
+        }
+        return GetRectTransform();
     }
 
     /// <summary>
@@ -99,9 +112,14 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     /// </summary>
     public void CloseExtensiveMenu() {
         if (m_extensiveMenu != null) {
-            ExtensiveMenu.DestroyUnder(GetRectTransform());
+            ExtensiveMenu.DestroyUnder(GetMountPoint());
             m_extensiveMenu = null;
         }
+    }
+
+    private void OnRootMenuBackgroundClick() {
+        Debug.Log("OnRootMenuBackgroundClick");
+        CloseExtensiveMenu();
     }
 
     private void UpdateSelectingDisplay() {
