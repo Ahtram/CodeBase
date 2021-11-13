@@ -18,16 +18,29 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     public UnityEvent onClear;
 
     public enum AssetType {
-        prefab,
-        texture2D,
-        audioClip,
-        font,
-        sprite,
-        script,
+        AnimationClip,
+        AudioClip,
+        AudioMixer,
+        ComputeShader,
+        Font,
+        GUISkin,
+        Material,
+        Mesh,
+        Model,
+        PhysicMaterial,
+        Prefab,
+        Scene,
+        Script,
+        Shader,
+        Sprite,
+        Texture,
+        VideoClip,
+        Texture2D,
+        TextAsset
     }
 
     [Tooltip("Which type of asset we are targeting?")]
-    public AssetType assetType = AssetType.prefab;
+    public AssetType assetType = AssetType.Prefab;
 
     [Tooltip("Start with \"Assets/\" and \"SHOULD NOT\" end with \" / \"")]
     public string assetsFolderPath = "";
