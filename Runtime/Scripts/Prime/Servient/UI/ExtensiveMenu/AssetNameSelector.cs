@@ -14,7 +14,7 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/AssetNameSelector";
 #endif
 
-    public UnityEventString onIDChanged;
+    public UnityEventString onAssetNameChanged;
     public UnityEvent onClear;
 
     public enum AssetType {
@@ -158,7 +158,7 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
         if (m_selectingAssetName != selectedAssetName as string) {
             m_selectingAssetName = selectedAssetName as string;
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingAssetName);
+            onAssetNameChanged.Invoke(m_selectingAssetName);
         }
         CloseExtensiveMenu();
     }
@@ -219,7 +219,7 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
             //Legal range
             m_selectingAssetName = allAssetNames[index];
             UpdateSelectingDisplay();
-            onIDChanged.Invoke(m_selectingAssetName);
+            onAssetNameChanged.Invoke(m_selectingAssetName);
         }
         return false;
     }

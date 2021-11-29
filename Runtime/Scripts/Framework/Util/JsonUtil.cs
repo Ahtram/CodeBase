@@ -21,8 +21,13 @@ public class JsonUtil {
         //Load text asset.
         TextAsset dataJSON = Resources.Load(resPath, typeof(TextAsset)) as TextAsset;
         if (dataJSON != null) {
-            T returnData = JsonConvert.DeserializeObject<T>(dataJSON.text, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-            return returnData;
+            try {
+                T returnData = JsonConvert.DeserializeObject<T>(dataJSON.text, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                return returnData;
+            } catch (Exception e) {
+                Debug.LogError(e.ToString());
+                return default(T);
+            }
         } else {
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + resPath);
@@ -51,8 +56,13 @@ public class JsonUtil {
         //Get the json text asset.
         TextAsset dataJSON = (TextAsset)resourceRequest.asset;
         if (dataJSON != null) {
-            T returnData = JsonConvert.DeserializeObject<T>(dataJSON.text, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-            onFinish?.Invoke(returnData);
+            try {
+                T returnData = JsonConvert.DeserializeObject<T>(dataJSON.text, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                onFinish?.Invoke(returnData);
+            } catch (Exception e) {
+                Debug.LogError(e.ToString());
+                onFinish?.Invoke(default(T));
+            }
         } else {
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + resPath);
@@ -76,7 +86,8 @@ public class JsonUtil {
             StreamReader streamReader = new StreamReader(fullPath, Encoding.UTF8);
             T returnData = JsonConvert.DeserializeObject<T>(streamReader.ReadToEnd(), new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
             return returnData;
-        } catch {
+        } catch (Exception e) {
+            Debug.LogError(e.ToString());
             if (logErrorIfFailed) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + fullPath);
             } else {
@@ -101,7 +112,8 @@ public class JsonUtil {
             StreamReader streamReader = new StreamReader(fullPath, Encoding.UTF8);
             T returnData = JsonConvert.DeserializeObject<T>(streamReader.ReadToEnd(), new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
             onFinish?.Invoke(returnData, true);
-        } catch {
+        } catch (Exception e) {
+            Debug.LogError(e.ToString());
             if (logErrorIfFailed) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + fullPath);
             } else {
@@ -144,8 +156,13 @@ public class JsonUtil {
         TextAsset dataJSON64 = Resources.Load(resPath, typeof(TextAsset)) as TextAsset;
         if (dataJSON64 != null) {
             string content = Util.BytesToString(Convert.FromBase64String(dataJSON64.text));
-            T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-            return returnData;
+            try {
+                T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                return returnData;
+            } catch (Exception e) {
+                Debug.LogError(e.ToString());
+                return default(T);
+            }
         } else {
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + resPath);
@@ -174,8 +191,13 @@ public class JsonUtil {
         TextAsset dataJSON64 = (TextAsset)resourceRequest.asset;
         if (dataJSON64 != null) {
             string content = Util.BytesToString(Convert.FromBase64String(dataJSON64.text));
-            T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-            onFinish?.Invoke(returnData);
+            try {
+                T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                onFinish?.Invoke(returnData);
+            } catch (Exception e) {
+                Debug.LogError(e.ToString());
+                onFinish?.Invoke(default(T));
+            }
         } else {
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + resPath);
@@ -211,7 +233,8 @@ public class JsonUtil {
             T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
 
             return returnData;
-        } catch {
+        } catch (Exception e) {
+            Debug.LogError(e.ToString());
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + fullPath);
             } else {
@@ -243,7 +266,8 @@ public class JsonUtil {
             fileStream.Dispose();
 
             readSucces = true;
-        } catch {
+        } catch (Exception e) {
+            Debug.LogError(e.ToString());
             if (logErrorIfNullData) {
                 Debug.LogError("Oops! json is null? Return a default constructor data. [Path]: " + fullPath);
             } else {
@@ -258,9 +282,14 @@ public class JsonUtil {
             string content = Util.BytesToString(Convert.FromBase64String(content64));
             yield return null;
 
-            T returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            T returnData;
+            try {
+                returnData = JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            } catch (Exception e) {
+                Debug.LogError(e.ToString());
+                returnData = default(T);
+            }
             yield return null;
-
             onFinish?.Invoke(returnData, true);
         } else {
             yield return default(T);

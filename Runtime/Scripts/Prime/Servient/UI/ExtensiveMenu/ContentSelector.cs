@@ -38,6 +38,10 @@ public class ContentSelector : UIBase, IPointerClickHandler {
         UpdateSelectingDisplay();
     }
 
+    /// <summary>
+    /// The content string support sub file pathes as sub menus.
+    /// </summary>
+    /// <param name="contentList"></param>
     public void Setup(List<string> contentList) {
         m_contentList.Clear();
         m_contentList.AddRange(contentList);
@@ -190,8 +194,8 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     /// </summary>
     /// <returns></returns>
     public int SelectingIndex() {
-        List<string> allContentNamess = GetAllContentNames();
-        return allContentNamess.IndexOf(m_selectingContentName);
+        List<string> allContentNames = GetAllContentNames();
+        return allContentNames.IndexOf(m_selectingContentName);
     }
 
     /// <summary>
@@ -200,10 +204,10 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     /// <param name="index"></param>
     /// <returns></returns>
     public bool SelectIndex(int index) {
-        List<string> allContentNamess = GetAllContentNames();
-        if (index >= 0 && index < allContentNamess.Count) {
+        List<string> allContentNames = GetAllContentNames();
+        if (index >= 0 && index < allContentNames.Count) {
             //Legal range
-            m_selectingContentName = allContentNamess[index];
+            m_selectingContentName = allContentNames[index];
             UpdateSelectingDisplay();
             onContentChanged.Invoke(m_selectingContentName);
         }

@@ -18,11 +18,11 @@ public class ExtensiveMenuTester : UIControllable {
     void Awake() {
         StartListenToAmphitrite();
         List<string> testContent = new List<string>() {
-            "ABC/DEF/BBB",
-            "ABC/DEF/CCC",
-            "ABC/123/111",
-            "ABC/123/222",
-            "ABC/123/333",
+            "ABC/DEF/BBB.txt",
+            "ABC/DEF/CCC.txt",
+            "ABC/123/111.txt",
+            "ABC/123/222.txt",
+            "ABC/123/333.json",
         };
         contentSelector.Setup(testContent);
     }
