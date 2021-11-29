@@ -118,7 +118,6 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
     }
 
     private void OnRootMenuBackgroundClick() {
-        Debug.Log("OnRootMenuBackgroundClick");
         CloseExtensiveMenu();
     }
 

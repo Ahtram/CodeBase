@@ -24,9 +24,6 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     //This will be use if assigned.
     public RectTransform customMountPoint;
 
-    //Auto select the first item when setup?
-    public bool selectFirstWhenSetup = true;
-
     //The opening ExtensiveMenu.
     private ExtensiveMenu m_extensiveMenu;
 
@@ -43,7 +40,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     /// The content string support sub file pathes as sub menus.
     /// </summary>
     /// <param name="contentList"></param>
-    public void Setup(List<string> contentList) {
+    public void Setup(List<string> contentList, bool selectFirstWhenSetup = true) {
         m_contentList.Clear();
         m_contentList.AddRange(contentList);
         if (selectFirstWhenSetup && m_contentList.Count > 0) {
