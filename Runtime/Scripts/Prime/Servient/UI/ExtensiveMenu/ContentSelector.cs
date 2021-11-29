@@ -43,10 +43,12 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     public void Setup(List<string> contentList, bool selectFirstWhenSetup = true) {
         m_contentList.Clear();
         m_contentList.AddRange(contentList);
-        if (selectFirstWhenSetup && m_contentList.Count > 0) {
-            m_selectingContentName = m_contentList[0];
-            UpdateSelectingDisplay();
-            onContentChanged.Invoke(m_selectingContentName);
+        if (m_contentList.Count > 0) {
+            if (selectFirstWhenSetup) {
+                m_selectingContentName = m_contentList[0];
+                UpdateSelectingDisplay();
+                onContentChanged.Invoke(m_selectingContentName);
+            }
         } else {
             m_selectingContentName = "";
             UpdateSelectingDisplay();
