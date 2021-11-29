@@ -14,6 +14,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     static private string PREFAB_PATH = "Prefabs/ExtensiveMenu/ContentSelector";
 #endif
 
+    public UnityEvent onPreToggle;
     public UnityEventString onContentChanged;
     public UnityEvent onClear;
 
@@ -70,6 +71,7 @@ public class ContentSelector : UIBase, IPointerClickHandler {
     /// <param name="localPos"></param>
     public void ToggleExtensiveMenu(Vector2 localPos = new Vector2()) {
         if (m_extensiveMenu == null) {
+            onPreToggle?.Invoke();
             m_extensiveMenu = ExtensiveMenu.Instantiate("[ExtensiveMenu]", GetRectTransform(), localPos);
             if (customMountPoint != null) {
                 m_extensiveMenu.transform.SetParent(customMountPoint);
