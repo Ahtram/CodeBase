@@ -1525,7 +1525,7 @@ static public class EditorGUILayoutPlus {
         string[] names = Enum.GetNames(selected.GetType());
         int selectedIndex = new List<string>(names).IndexOf(selected.ToString());
         List<string> displayOptions = new List<string>(names).Select((name) => name + " (" + commentFunc((Enum)Enum.Parse(selected.GetType(), name)) + ")").ToList();
-        int newSelectIndex = EditorGUILayout.Popup(selectedIndex, displayOptions.ToArray());
+        int newSelectIndex = EditorGUILayout.Popup(selectedIndex, displayOptions.ToArray(), options);
         return Enum.Parse(selected.GetType(), names[newSelectIndex]) as Enum;
     }
 
