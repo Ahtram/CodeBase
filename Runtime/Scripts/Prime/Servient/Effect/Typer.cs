@@ -163,6 +163,7 @@ public class Typer : MonoBehaviour {
 
     public void Clear() {
         m_isTypingText = false;
+        m_speedUp = false;
         if (targetText != null) {
             targetText.text = string.Empty;
         }
