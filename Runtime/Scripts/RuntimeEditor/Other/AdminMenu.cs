@@ -91,7 +91,6 @@ public class AdminMenu : UniEditorWindow {
                     {
                         if (GUILayout.Button(editorMenu[i].name, EditorStyles.miniButton)) {
                             openEditorIndex = i;
-                            break;
                         }
 
                         GUILayout.Label(editorMenu[i].key.ToString(), EditorStyles.miniLabel, GUILayout.Width(25.0f));
@@ -108,7 +107,6 @@ public class AdminMenu : UniEditorWindow {
                     {
                         if (GUILayout.Button(viewerMenu[i].name, EditorStyles.miniButton)) {
                             openViewerIndex = i;
-                            break;
                         }
 
                         GUILayout.Label(viewerMenu[i].key.ToString(), EditorStyles.miniLabel, GUILayout.Width(25.0f));
@@ -125,7 +123,6 @@ public class AdminMenu : UniEditorWindow {
                     {
                         if (GUILayout.Button(helperMenu[i].name, EditorStyles.miniButton)) {
                             useHelperIndex = i;
-                            break;
                         }
 
                         GUILayout.Label(helperMenu[i].key.ToString(), EditorStyles.miniLabel, GUILayout.Width(25.0f));
@@ -142,7 +139,6 @@ public class AdminMenu : UniEditorWindow {
                     {
                         if (GUILayout.Button(exampleMenu[i].name, EditorStyles.miniButton)) {
                             openExampleIndex = i;
-                            break;
                         }
 
                         GUILayout.Label(exampleMenu[i].key.ToString(), EditorStyles.miniLabel, GUILayout.Width(25.0f));
