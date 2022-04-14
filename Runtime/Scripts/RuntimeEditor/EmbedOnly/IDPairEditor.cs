@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System;
 
 public class IDPairEditor : EditorWindow {
-    
+
     static public bool EditIDPair(IDPair idPair, IDCollection IDCollectionInput1, IDCollection IDCollectionInput2, Action onOpenEditorClick1, Action onOpenEditorClick2, Action<string> onGreenLitClick1 = null, Action<string> onGreenLitClick2 = null) {
         bool hasChanged = false;
 
@@ -143,7 +143,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -213,7 +213,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -285,7 +285,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -355,7 +355,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -427,7 +427,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -497,7 +497,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -569,7 +569,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }
@@ -639,7 +639,7 @@ public class IDPairEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idPairs.Add(new IDPair());
                 }

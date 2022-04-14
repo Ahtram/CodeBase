@@ -81,7 +81,7 @@ public class IDBoolEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idBools.Add(new IDBool());
                 }
@@ -151,7 +151,7 @@ public class IDBoolEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idBools.Add(new IDBool());
                 }
@@ -221,7 +221,7 @@ public class IDBoolEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idBools.Add(new IDBool());
                 }
@@ -266,7 +266,7 @@ public class IDBoolEditor : EditorWindow {
             {
                 Color tempColor1 = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+                if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                     hasChanged = true;
                     idBools.Add(new IDBool());
                 }

@@ -125,7 +125,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 objectList.Add(new T());
                 hasChanged = true;
             }
@@ -235,7 +235,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingStringList.Add("");
                 hasChanged = true;
             }
@@ -458,7 +458,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingIntList.Add(0);
                 hasChanged = true;
             }
@@ -604,7 +604,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingFloatList.Add(0);
                 hasChanged = true;
             }
@@ -1168,7 +1168,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingToggleList.Add(false);
                 hasChanged = true;
             }
@@ -1329,7 +1329,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingToggleLeftList.Add(false);
                 hasChanged = true;
             }
@@ -1441,7 +1441,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                 editingEnumList.Add(default(T));
                 hasChanged = true;
             }
@@ -1604,7 +1604,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingVec2List.Add(Vec2.Zero);
                 hasChanged = true;
             }
@@ -1740,7 +1740,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingVec2iList.Add(Vec2i.Zero);
                 hasChanged = true;
             }
@@ -1876,7 +1876,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingVec3List.Add(Vec3.Zero);
                 hasChanged = true;
             }
@@ -2012,7 +2012,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingVec3iList.Add(Vec3i.Zero);
                 hasChanged = true;
             }
@@ -2239,7 +2239,7 @@ static public class EditorGUILayoutPlus {
         {
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButton, GUILayout.Width(66.0f))) {
                 editingRectList.Add(new Rect());
             }
             GUI.color = tempColor1;
@@ -2586,7 +2586,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingIDList.Add("");
                 hasChanged = true;
             }
@@ -2825,7 +2825,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingIDList.Add("");
                 hasChanged = true;
             }
@@ -3088,7 +3088,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingAssetNameList.Add("");
                 hasChanged = true;
             }
@@ -3372,7 +3372,7 @@ static public class EditorGUILayoutPlus {
             GUILayout.FlexibleSpace();
             Color tempColor1 = GUI.color;
             GUI.color = Color.yellow;
-            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(62.0f))) {
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
                 editingAssetNameList.Add("");
                 hasChanged = true;
             }
