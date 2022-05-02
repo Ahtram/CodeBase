@@ -50,6 +50,18 @@ public class ExampleData : BaseData<ExampleData> {
     [XmlElement("SS")]
     public Shape shapeStuff = new NoneShape();
 
+    [XmlElement("V3S")]
+    public Vector3 vector3Stuff;
+
+    [XmlElement("V2S")]
+    public Vector2 vector2Stuff;
+
+    [XmlElement("V4S")]
+    public Vector4 vector4Stuff;
+
+    [XmlElement("QS")]
+    public Quaternion quaternionStuff;
+
     [XmlIgnore]
     static private IDCollection m_IDCollection = null;
 

@@ -14,6 +14,7 @@ static public class EditorGUILayoutPlus {
     //For the copy/paste tricks.
     static public Vector3 vector3CopyBuffer;
     static public Vector2 vector2CopyBuffer;
+    static public Vector4 vector4CopyBuffer;
     static public Vec2 vec2CopyBuffer;
     static public List<Vec2> vec2ListCopyBuffer;
     static public Vec3 vec3CopyBuffer;
@@ -792,6 +793,131 @@ static public class EditorGUILayoutPlus {
         }
         EditorGUILayout.EndHorizontal();
         return vec3;
+    }
+
+    /// <summary>
+    /// A vector field with copy/paste button.
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="vec2"></param>
+    /// <returns></returns>
+    static public Vector2 Vector2Field(string title, Vector2 vec2, params GUILayoutOption[] options) {
+        return Vector2Field(new GUIContent(title), vec2, options);
+    }
+
+    /// <summary>
+    /// A vector field with copy/paste button.
+    /// </summary>
+    /// <param name="guiContent"></param>
+    /// <param name="vec2"></param>
+    /// <returns></returns>
+    static public Vector2 Vector2Field(GUIContent guiContent, Vector2 vec2, params GUILayoutOption[] options) {
+        EditorGUILayout.BeginHorizontal(options);
+        {
+            EditorGUILayout.BeginVertical(GUILayout.MaxWidth(16.0f));
+            {
+                Color tempColor = GUI.color;
+                GUI.color = ColorPlus.LightSalmon;
+                if (GUILayout.Button("c", EditorStyles.miniButton)) {
+                    vector2CopyBuffer = vec2;
+                }
+                GUI.color = ColorPlus.LightBlue;
+                if (GUILayout.Button("p", EditorStyles.miniButton)) {
+                    vec2 = vector2CopyBuffer;
+                }
+                GUI.color = tempColor;
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUIUtility.labelWidth = CalcLabelWidth(guiContent.text);
+            vec2 = EditorGUILayout.Vector2Field(guiContent, vec2);
+            EditorGUIUtility.labelWidth = 0;
+        }
+        EditorGUILayout.EndHorizontal();
+        return vec2;
+    }
+
+    /// <summary>
+    /// A vector field with copy/paste button.
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="vec4"></param>
+    /// <returns></returns>
+    static public Vector4 Vector4Field(string title, Vector4 vec4, params GUILayoutOption[] options) {
+        return Vector4Field(new GUIContent(title), vec4, options);
+    }
+
+    /// <summary>
+    /// A vector field with copy/paste button.
+    /// </summary>
+    /// <param name="guiContent"></param>
+    /// <param name="vec4"></param>
+    /// <returns></returns>
+    static public Vector4 Vector4Field(GUIContent guiContent, Vector4 vec4, params GUILayoutOption[] options) {
+        EditorGUILayout.BeginHorizontal(options);
+        {
+            EditorGUILayout.BeginVertical(GUILayout.MaxWidth(16.0f));
+            {
+                Color tempColor = GUI.color;
+                GUI.color = ColorPlus.LightSalmon;
+                if (GUILayout.Button("c", EditorStyles.miniButton)) {
+                    vector4CopyBuffer = vec4;
+                }
+                GUI.color = ColorPlus.LightBlue;
+                if (GUILayout.Button("p", EditorStyles.miniButton)) {
+                    vec4 = vector4CopyBuffer;
+                }
+                GUI.color = tempColor;
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUIUtility.labelWidth = CalcLabelWidth(guiContent.text);
+            vec4 = EditorGUILayout.Vector4Field(guiContent, vec4);
+            EditorGUIUtility.labelWidth = 0;
+        }
+        EditorGUILayout.EndHorizontal();
+        return vec4;
+    }
+
+    /// <summary>
+    /// A quaternion field with copy/paste button.
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="quaternion"></param>
+    /// <returns></returns>
+    static public Quaternion QuaternionField(string title, Quaternion quaternion, params GUILayoutOption[] options) {
+        return QuaternionField(new GUIContent(title), quaternion, options);
+    }
+
+    /// <summary>
+    /// A quaternion field with copy/paste button.
+    /// </summary>
+    /// <param name="guiContent"></param>
+    /// <param name="quaternion"></param>
+    /// <returns></returns>
+    static public Quaternion QuaternionField(GUIContent guiContent, Quaternion quaternion, params GUILayoutOption[] options) {
+        EditorGUILayout.BeginHorizontal(options);
+        {
+            EditorGUILayout.BeginVertical(GUILayout.MaxWidth(16.0f));
+            {
+                Color tempColor = GUI.color;
+                GUI.color = ColorPlus.LightSalmon;
+                if (GUILayout.Button("c", EditorStyles.miniButton)) {
+                    vector4CopyBuffer = new Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+                }
+                GUI.color = ColorPlus.LightBlue;
+                if (GUILayout.Button("p", EditorStyles.miniButton)) {
+                    quaternion = new Quaternion(vector4CopyBuffer.x, vector4CopyBuffer.y, vector4CopyBuffer.z, vector4CopyBuffer.w);
+                }
+                GUI.color = tempColor;
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUIUtility.labelWidth = CalcLabelWidth(guiContent.text);
+            Vector4 quaternoinVec4 = new Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+            quaternoinVec4 = EditorGUILayout.Vector4Field(guiContent, quaternoinVec4);
+            quaternion = new Quaternion(quaternoinVec4.x, quaternoinVec4.y, quaternoinVec4.z, quaternoinVec4.w);
+            EditorGUIUtility.labelWidth = 0;
+        }
+        EditorGUILayout.EndHorizontal();
+        return quaternion;
     }
 
     /// <summary>
