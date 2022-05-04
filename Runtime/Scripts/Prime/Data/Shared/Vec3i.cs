@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [XmlType("V3I")]
 [Serializable]
 public class Vec3i : IEquatable<Vec3i> {
-    
+
     [XmlElement("X")]
     public int x = 0;
 
@@ -45,7 +45,7 @@ public class Vec3i : IEquatable<Vec3i> {
 
     static public Vec3i One {
         get {
-            return new Vec3i(1, 1, 0);
+            return new Vec3i(1, 1, 1);
         }
     }
 

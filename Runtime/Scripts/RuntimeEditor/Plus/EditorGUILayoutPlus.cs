@@ -19,6 +19,8 @@ static public class EditorGUILayoutPlus {
     static public List<Vec2> vec2ListCopyBuffer;
     static public Vec3 vec3CopyBuffer;
     static public List<Vec3> vec3ListCopyBuffer;
+    static public Vec4 vec4CopyBuffer;
+    static public List<Vec4> vec4ListCopyBuffer;
     static public Rect rectCopyBuffer;
     static public List<string> stringListBuffer;
     static public List<int> intListBuffer;
@@ -2218,6 +2220,280 @@ static public class EditorGUILayoutPlus {
             Vec3i moving = new Vec3i(editingVec3iList[moveIndexDown]);
             editingVec3iList.RemoveAt(moveIndexDown);
             editingVec3iList.Insert(moveIndexDown + 1, moving);
+            hasChanged = true;
+        }
+
+        return hasChanged;
+    }
+
+    /// <summary>
+    /// Edit Vec4.
+    /// </summary>
+    static public Vec4 Vec4Field(Vec4 vec4) {
+        Vec4 newVec4 = new Vec4(vec4);
+        EditorGUILayout.BeginHorizontal();
+        {
+            Color tempColor = GUI.color;
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec4CopyBuffer = newVec4;
+            }
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                newVec4 = new Vec4(vec4CopyBuffer);
+            }
+            GUI.color = tempColor;
+            EditorGUIUtility.labelWidth = 15;
+            newVec4.x = EditorGUILayout.FloatField("x", newVec4.x, GUILayout.MinWidth(30.0f));
+            newVec4.y = EditorGUILayout.FloatField("y", newVec4.y, GUILayout.MinWidth(30.0f));
+            newVec4.z = EditorGUILayout.FloatField("z", newVec4.z, GUILayout.MinWidth(30.0f));
+            newVec4.w = EditorGUILayout.FloatField("w", newVec4.w, GUILayout.MinWidth(30.0f));
+            EditorGUIUtility.labelWidth = 0;
+        }
+        EditorGUILayout.EndHorizontal();
+        return newVec4;
+    }
+
+    /// <summary>
+    /// A convenient Vec4 list editor.
+    /// </summary>
+    /// <param name="title">An optional title string.</param>
+    /// <param name="editingVec4List">The Vec4 list we are editing.</param>
+    static public bool EditVec4List(string title, List<Vec4> editingVec4List) {
+        return EditVec4List(new GUIContent(title), editingVec4List);
+    }
+
+    /// <summary>
+    /// A convenient Vec4 list editor.
+    /// </summary>
+    /// <param name="guiContent">An optional title string.</param>
+    /// <param name="editingVec4List">The Vec4 list we are editing.</param>
+    static public bool EditVec4List(GUIContent guiContent, List<Vec4> editingVec4List) {
+        bool hasChanged = false;
+
+        EditorGUILayout.BeginHorizontal();
+        {
+            EditorGUILayout.LabelField(guiContent, EditorStyles.boldLabel, GUILayout.Width(CalcBoldLabelWidth(guiContent.text)));
+            GUILayout.FlexibleSpace();
+            Color tempColor1 = GUI.color;
+            GUI.color = Color.yellow;
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
+                editingVec4List.Add(Vec4.Zero);
+                hasChanged = true;
+            }
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                vec4ListCopyBuffer = new List<Vec4>(editingVec4List.ToArray());
+            }
+
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
+                    editingVec4List.Clear();
+                    for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
+                        editingVec4List.Add(vec4ListCopyBuffer[i]);
+                    }
+                    hasChanged = true;
+                }
+            }
+
+            GUI.color = Color.magenta;
+            if (GUILayout.Button("CLR", EditorStyles.miniButton, GUILayout.Width(35.0f))) {
+                editingVec4List.Clear();
+                hasChanged = true;
+            }
+            GUI.color = tempColor1;
+        }
+        EditorGUILayout.EndHorizontal();
+
+        int removeIndex = -1;
+        int moveIndexUp = -1;
+        int moveIndexDown = -1;
+
+        for (int i = 0; i < editingVec4List.Count; ++i) {
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
+
+                Color tempColor = GUI.color;
+                GUI.color = ColorPlus.Lavender;
+                if (GUILayout.Button("↑", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                    moveIndexUp = i;
+                }
+                GUI.color = ColorPlus.Lavender;
+                if (GUILayout.Button("↓", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                    moveIndexDown = i;
+                }
+                GUI.color = tempColor;
+
+                Vec4 newVec4 = Vec4Field(editingVec4List[i]);
+                if (!newVec4.Equals(editingVec4List[i])) {
+                    editingVec4List[i] = newVec4;
+                    hasChanged = true;
+                }
+
+                GUI.color = Color.red;
+                if (GUILayout.Button("-", EditorStyles.miniButton, GUILayout.Width(15.0f))) {
+                    removeIndex = i;
+                }
+                GUI.color = tempColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        if (removeIndex != -1) {
+            editingVec4List.RemoveAt(removeIndex);
+            hasChanged = true;
+        }
+
+        if (moveIndexUp != -1 && moveIndexUp > 0) {
+            Vec4 moving = new Vec4(editingVec4List[moveIndexUp]);
+            editingVec4List.RemoveAt(moveIndexUp);
+            editingVec4List.Insert(moveIndexUp - 1, moving);
+            hasChanged = true;
+        }
+
+        if (moveIndexDown != -1 && moveIndexDown < editingVec4List.Count - 1) {
+            Vec4 moving = new Vec4(editingVec4List[moveIndexDown]);
+            editingVec4List.RemoveAt(moveIndexDown);
+            editingVec4List.Insert(moveIndexDown + 1, moving);
+            hasChanged = true;
+        }
+
+        return hasChanged;
+    }
+
+    /// <summary>
+    /// Edit Vec4i.
+    /// </summary>
+    static public Vec4i Vec4iField(Vec4i vec4) {
+        Vec4i newVec4i = new Vec4i(vec4);
+        EditorGUILayout.BeginHorizontal();
+        {
+            Color tempColor = GUI.color;
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec4CopyBuffer = new Vec4(newVec4i);
+            }
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                newVec4i = new Vec4i(vec4CopyBuffer);
+            }
+            GUI.color = tempColor;
+            EditorGUIUtility.labelWidth = 15;
+            newVec4i.x = EditorGUILayout.IntField("x", newVec4i.x, GUILayout.MinWidth(30.0f));
+            newVec4i.y = EditorGUILayout.IntField("y", newVec4i.y, GUILayout.MinWidth(30.0f));
+            newVec4i.z = EditorGUILayout.IntField("z", newVec4i.z, GUILayout.MinWidth(30.0f));
+            newVec4i.w = EditorGUILayout.IntField("w", newVec4i.w, GUILayout.MinWidth(30.0f));
+            EditorGUIUtility.labelWidth = 0;
+        }
+        EditorGUILayout.EndHorizontal();
+        return newVec4i;
+    }
+
+    /// <summary>
+    /// A convenient Vec4i list editor.
+    /// </summary>
+    /// <param name="title">An optional title string.</param>
+    /// <param name="editingVec4iList">The Vec4i list we are editing.</param>
+    static public bool EditVec4iList(string title, List<Vec4i> editingVec4iList) {
+        return EditVec4iList(new GUIContent(title), editingVec4iList);
+    }
+
+    /// <summary>
+    /// A convenient Vec4i list editor.
+    /// </summary>
+    /// <param name="guiContent">An optional title string.</param>
+    /// <param name="editingVec4iList">The Vec4i list we are editing.</param>
+    static public bool EditVec4iList(GUIContent guiContent, List<Vec4i> editingVec4iList) {
+        bool hasChanged = false;
+
+        EditorGUILayout.BeginHorizontal();
+        {
+            EditorGUILayout.LabelField(guiContent, EditorStyles.boldLabel, GUILayout.Width(CalcBoldLabelWidth(guiContent.text)));
+            GUILayout.FlexibleSpace();
+            Color tempColor1 = GUI.color;
+            GUI.color = Color.yellow;
+            if (GUILayout.Button("Add New", EditorStyles.miniButtonLeft, GUILayout.Width(66.0f))) {
+                editingVec4iList.Add(Vec4i.Zero);
+                hasChanged = true;
+            }
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                vec4ListCopyBuffer = new List<Vec4>(editingVec4iList.Select(x => new Vec4(x)).ToArray());
+            }
+
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
+                    editingVec4iList.Clear();
+                    for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
+                        editingVec4iList.Add(new Vec4i(vec4ListCopyBuffer[i]));
+                    }
+                    hasChanged = true;
+                }
+            }
+
+            GUI.color = Color.magenta;
+            if (GUILayout.Button("CLR", EditorStyles.miniButton, GUILayout.Width(35.0f))) {
+                editingVec4iList.Clear();
+                hasChanged = true;
+            }
+            GUI.color = tempColor1;
+        }
+        EditorGUILayout.EndHorizontal();
+
+        int removeIndex = -1;
+        int moveIndexUp = -1;
+        int moveIndexDown = -1;
+
+        for (int i = 0; i < editingVec4iList.Count; ++i) {
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
+
+                Color tempColor = GUI.color;
+                GUI.color = ColorPlus.Lavender;
+                if (GUILayout.Button("↑", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                    moveIndexUp = i;
+                }
+                GUI.color = ColorPlus.Lavender;
+                if (GUILayout.Button("↓", EditorStyles.miniButtonRight, GUILayout.Width(16.0f))) {
+                    moveIndexDown = i;
+                }
+                GUI.color = tempColor;
+
+                Vec4i newVec4i = Vec4iField(editingVec4iList[i]);
+                if (!newVec4i.Equals(editingVec4iList[i])) {
+                    editingVec4iList[i] = newVec4i;
+                    hasChanged = true;
+                }
+
+                GUI.color = Color.red;
+                if (GUILayout.Button("-", EditorStyles.miniButton, GUILayout.Width(15.0f))) {
+                    removeIndex = i;
+                }
+                GUI.color = tempColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        if (removeIndex != -1) {
+            editingVec4iList.RemoveAt(removeIndex);
+            hasChanged = true;
+        }
+
+        if (moveIndexUp != -1 && moveIndexUp > 0) {
+            Vec4i moving = new Vec4i(editingVec4iList[moveIndexUp]);
+            editingVec4iList.RemoveAt(moveIndexUp);
+            editingVec4iList.Insert(moveIndexUp - 1, moving);
+            hasChanged = true;
+        }
+
+        if (moveIndexDown != -1 && moveIndexDown < editingVec4iList.Count - 1) {
+            Vec4i moving = new Vec4i(editingVec4iList[moveIndexDown]);
+            editingVec4iList.RemoveAt(moveIndexDown);
+            editingVec4iList.Insert(moveIndexDown + 1, moving);
             hasChanged = true;
         }
 
