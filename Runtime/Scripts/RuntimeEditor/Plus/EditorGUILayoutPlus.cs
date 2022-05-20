@@ -400,7 +400,7 @@ static public class EditorGUILayoutPlus {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
-                EditorGUILayoutPlus.TextField(editingStringList[i]);
+                EditorGUILayoutPlus.LabelField(editingStringList[i]);
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -431,7 +431,7 @@ static public class EditorGUILayoutPlus {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
-                EditorGUILayoutPlus.TextField(editingStringArray[i]);
+                EditorGUILayoutPlus.LabelField(editingStringArray[i]);
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -577,7 +577,7 @@ static public class EditorGUILayoutPlus {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
-                EditorGUILayoutPlus.TextField(editingIntList[i].ToString());
+                EditorGUILayoutPlus.LabelField(editingIntList[i].ToString());
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -723,7 +723,7 @@ static public class EditorGUILayoutPlus {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("[" + i.ToString("00") + "]", GUILayout.Width(CalcLabelWidth("[" + i.ToString("00") + "]")));
-                EditorGUILayoutPlus.TextField(editingFloatList[i].ToString());
+                EditorGUILayoutPlus.LabelField(editingFloatList[i].ToString());
             }
             EditorGUILayout.EndHorizontal();
         }
