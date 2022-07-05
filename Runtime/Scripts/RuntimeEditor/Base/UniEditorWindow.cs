@@ -57,14 +57,17 @@ abstract public class UniEditorWindow : EditorWindow {
                 //     cmdDown = true;
                 // }
 
-                if (Event.current.keyCode == KeyCode.W) {
-                    if (ctrlDown || cmdDown) {
-                        OnCtrlCmdW();
+                //Only when the editor is focused!
+                if (hasFocus) {
+                    if (Event.current.keyCode == KeyCode.W) {
+                        if (ctrlDown) {
+                            OnCtrlW();
+                        }
                     }
-                }
-                if (Event.current.keyCode == KeyCode.D) {
-                    if (ctrlDown || cmdDown) {
-                        OnCtrlCmdD();
+                    if (Event.current.keyCode == KeyCode.D) {
+                        if (ctrlDown) {
+                            OnCtrlD();
+                        }
                     }
                 }
 
@@ -118,7 +121,7 @@ abstract public class UniEditorWindow : EditorWindow {
     /// <summary>
     /// General convenient hotkey. Override this to make your own good.
     /// </summary>
-    virtual protected void OnCtrlCmdW() {
+    virtual protected void OnCtrlW() {
         //This hotkey is the default "close window" hotkey.
         Close();
     }
@@ -126,7 +129,7 @@ abstract public class UniEditorWindow : EditorWindow {
     /// <summary>
     /// General convenient hotkey. Override this to make your own good.
     /// </summary>
-    virtual protected void OnCtrlCmdD() {
+    virtual protected void OnCtrlD() {
 
     }
 
@@ -246,6 +249,7 @@ abstract public class UniEditorWindow : EditorWindow {
     /// Close this window.
     /// </summary>
     public void CloseWindow() {
+        Debug.Log("CloseWindow");
         Close();
     }
 

@@ -173,7 +173,7 @@ public class AdminMenu : UniEditorWindow {
         }
 
         //Hotkeys: read the correspond hotkey from EditorMenuItem data and open the editor.
-        if (!ctrlDown) {
+        if (!ctrlDown && !cmdDown) {
             switch (Event.current.type) {
                 case EventType.KeyDown:
                     if (Event.current.keyCode == KeyCode.Clear)
