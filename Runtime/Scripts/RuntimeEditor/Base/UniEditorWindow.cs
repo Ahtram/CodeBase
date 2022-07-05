@@ -10,6 +10,8 @@ abstract public class UniEditorWindow : EditorWindow {
 
     protected bool ctrlDown = false;
     protected bool shiftDown = false;
+    protected bool cmdDown = false;
+    protected bool optionDown = false;
     protected bool inspectorUpdateRepaint = false;
     protected bool updateRepaint = false;
 
@@ -25,33 +27,47 @@ abstract public class UniEditorWindow : EditorWindow {
             GUI.FocusControl(null);
         }
 
+        cmdDown = Event.current.command;
+        ctrlDown = Event.current.control;
+        shiftDown = Event.current.shift;
+
         //Hot key!
         switch (Event.current.type) {
             case EventType.KeyUp:
-                if (Event.current.keyCode == KeyCode.LeftControl || Event.current.keyCode == KeyCode.RightControl) {
-                    ctrlDown = false;
-                }
-                if (Event.current.keyCode == KeyCode.LeftShift || Event.current.keyCode == KeyCode.RightShift) {
-                    shiftDown = false;
-                }
+                //[Dep]: There will not work on MacOS!
+                // if (Event.current.keyCode == KeyCode.LeftControl || Event.current.keyCode == KeyCode.RightControl) {
+                //     ctrlDown = false;
+                // }
+                // if (Event.current.keyCode == KeyCode.LeftShift || Event.current.keyCode == KeyCode.RightShift) {
+                //     shiftDown = false;
+                // }
+                // if (Event.current.keyCode == KeyCode.LeftCommand || Event.current.keyCode == KeyCode.RightCommand) {
+                //     cmdDown = false;
+                // }
                 break;
             case EventType.KeyDown:
-                if (Event.current.keyCode == KeyCode.LeftControl || Event.current.keyCode == KeyCode.RightControl) {
-                    ctrlDown = true;
-                }
-                if (Event.current.keyCode == KeyCode.LeftShift || Event.current.keyCode == KeyCode.RightShift) {
-                    shiftDown = true;
-                }
+                //[Dep]: There will not work on MacOS!
+                // if (Event.current.keyCode == KeyCode.LeftControl || Event.current.keyCode == KeyCode.RightControl) {
+                //     ctrlDown = true;
+                // }
+                // if (Event.current.keyCode == KeyCode.LeftShift || Event.current.keyCode == KeyCode.RightShift) {
+                //     shiftDown = true;
+                // }
+                // if (Event.current.keyCode == KeyCode.LeftCommand || Event.current.keyCode == KeyCode.RightCommand) {
+                //     cmdDown = true;
+                // }
+
                 if (Event.current.keyCode == KeyCode.W) {
-                    if (ctrlDown) {
-                        OnCtrlW();
+                    if (ctrlDown || cmdDown) {
+                        OnCtrlCmdW();
                     }
                 }
                 if (Event.current.keyCode == KeyCode.D) {
-                    if (ctrlDown) {
-                        OnCtrlD();
+                    if (ctrlDown || cmdDown) {
+                        OnCtrlCmdD();
                     }
                 }
+
                 ////Maximize window shortcut.
                 //if (Event.current.keyCode == KeyCode.M) {
                 //    if (ctrlDown) {
@@ -102,7 +118,7 @@ abstract public class UniEditorWindow : EditorWindow {
     /// <summary>
     /// General convenient hotkey. Override this to make your own good.
     /// </summary>
-    virtual protected void OnCtrlW() {
+    virtual protected void OnCtrlCmdW() {
         //This hotkey is the default "close window" hotkey.
         Close();
     }
@@ -110,7 +126,7 @@ abstract public class UniEditorWindow : EditorWindow {
     /// <summary>
     /// General convenient hotkey. Override this to make your own good.
     /// </summary>
-    virtual protected void OnCtrlD() {
+    virtual protected void OnCtrlCmdD() {
 
     }
 

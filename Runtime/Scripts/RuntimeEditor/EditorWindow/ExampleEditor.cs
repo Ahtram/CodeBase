@@ -151,33 +151,6 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
             }
 
             EditorUtility.ClearProgressBar();
-
-            //Now workSheetDatas contains all cell data in all workSheets. We gonna clear all exist data and use these new data.
-            // for (int i = 0; i < editingDataList.Count; ++i) {
-            //     for (int j = 0; j < editingDataList[i].Count; j++) {
-            //         if (editingDataList[i][j] != null) {
-            //             editingDataList[i][j].CleanUpFiles();
-            //         }
-            //     }
-            // }
-
-            // //Clear ID data.
-            // editingIDCollection.IDIndexes.Clear();
-            // //Clear editings.
-            // editingDataList.Clear();
-            // //Reset this for good. (Or the editor will get errors after update)
-            // selectingCatIndex = -1;
-            // selectingIDIndex = -1;
-
-            // //Magic paste the worksheet data to our game data.
-            // for (int i = 0; i < workSheetDatas.Count; i++) {
-            //     //Add a new cat for data containers.
-            //     editingIDCollection.IDIndexes.Add(new IDIndex(workSheetDatas[i].title));
-            //     editingDataList.Add(new List<DialogueRoll>());
-            //     FeedCat(i, workSheetDatas[i]);
-            // }
-            // Save();
-            // DialogueRoll.ClearCache();
         }
     }
 
@@ -235,33 +208,6 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
                 }
 
                 EditorUtility.ClearProgressBar();
-
-                //Now workSheetDatas contains all cell data in all workSheets. We gonna clear all exist data and use these new data.
-                // for (int i = 0; i < editingDataList.Count; ++i) {
-                //     for (int j = 0; j < editingDataList[i].Count; j++) {
-                //         if (editingDataList[i][j] != null) {
-                //             editingDataList[i][j].CleanUpFiles();
-                //         }
-                //     }
-                // }
-
-                // //Clear ID data.
-                // editingIDCollection.IDIndexes.Clear();
-                // //Clear editings.
-                // editingDataList.Clear();
-                // //Reset this for good. (Or the editor will get errors after update)
-                // selectingCatIndex = -1;
-                // selectingIDIndex = -1;
-
-                // //Magic paste the worksheet data to our game data.
-                // for (int i = 0; i < workSheetDatas.Count; i++) {
-                //     //Add a new cat for data containers.
-                //     editingIDCollection.IDIndexes.Add(new IDIndex(workSheetDatas[i].title));
-                //     editingDataList.Add(new List<DialogueRoll>());
-                //     FeedCat(i, workSheetDatas[i]);
-                // }
-                // Save();
-                // DialogueRoll.ClearCache();
             }
             return true;
         } else {
