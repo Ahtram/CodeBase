@@ -108,9 +108,9 @@ public class ExampleDataEditorUtility : UniEditorWindow {
         EditorGUILayout.BeginVertical("FrameBox");
         {
             //Test edit vector/quaternion field.
-            exampleData.vector3Stuff = EditorGUILayoutPlus.Vector3Field("Vector3 stuff", exampleData.vector3Stuff);
-            exampleData.vector2Stuff = EditorGUILayoutPlus.Vector2Field("Vector2 stuff", exampleData.vector2Stuff);
-            exampleData.vector4Stuff = EditorGUILayoutPlus.Vector4Field("Vector4 stuff", exampleData.vector4Stuff);
+            exampleData.vector3Stuff = EditorGUILayoutPlus.Vec3Field(exampleData.vector3Stuff);
+            exampleData.vector2Stuff = EditorGUILayoutPlus.Vec2Field(exampleData.vector2Stuff);
+            exampleData.vector4Stuff = EditorGUILayoutPlus.Vec4Field(exampleData.vector4Stuff);
             exampleData.quaternionStuff = EditorGUILayoutPlus.QuaternionField("Quaternion stuff", exampleData.quaternionStuff);
         }
         EditorGUILayout.EndVertical();

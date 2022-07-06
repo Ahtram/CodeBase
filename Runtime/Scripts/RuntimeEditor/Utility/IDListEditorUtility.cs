@@ -17,11 +17,13 @@ public class IDListEditorUtility : UniEditorWindow {
     private Action<List<string>> onClose = null;
     private Action onOpenEditorClick = null;
     private Action<string> onGreenLitClick = null;
+    private Func<string, string> getIDComment = null;
 
     private IDCollection usingIDCollection = null;
     private IDIndex usingIDIndex = null;
 
-    public static IDListEditorUtility Open(string titleInput, IDCollection IDCollection, Action<List<string>> onCloseInput, List<string> IDListInput = null, Action onOpenEditorClick = null, Action<string> onGreenLitClick = null) {
+    public static IDListEditorUtility Open(string titleInput, IDCollection IDCollection, Action<List<string>> onCloseInput, List<string> IDListInput = null,
+    Action onOpenEditorClick = null, Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
         // Get existing open window or if none, make a new one:
         IDListEditorUtility instance = (IDListEditorUtility)ShowWindow<IDListEditorUtility>();
         instance.listTitle = titleInput;
@@ -35,10 +37,12 @@ public class IDListEditorUtility : UniEditorWindow {
         }
         instance.onOpenEditorClick = onOpenEditorClick;
         instance.onGreenLitClick = onGreenLitClick;
+        instance.getIDComment = getIDComment;
         return instance as IDListEditorUtility;
     }
 
-    public static IDListEditorUtility Open(string titleInput, IDIndex IDIndex, Action<List<string>> onCloseInput, List<string> IDListInput = null, Action onOpenEditorClick = null, Action<string> onGreenLitClick = null) {
+    public static IDListEditorUtility Open(string titleInput, IDIndex IDIndex, Action<List<string>> onCloseInput, List<string> IDListInput = null,
+    Action onOpenEditorClick = null, Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
         // Get existing open window or if none, make a new one:
         IDListEditorUtility instance = (IDListEditorUtility)ShowWindow<IDListEditorUtility>();
         instance.listTitle = titleInput;
@@ -52,6 +56,7 @@ public class IDListEditorUtility : UniEditorWindow {
         }
         instance.onOpenEditorClick = onOpenEditorClick;
         instance.onGreenLitClick = onGreenLitClick;
+        instance.getIDComment = getIDComment;
         return instance as IDListEditorUtility;
     }
 
@@ -62,9 +67,9 @@ public class IDListEditorUtility : UniEditorWindow {
                 m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
                 {
                     if (usingIDCollection != null) {
-                        EditorGUILayoutPlus.EditIDList(listTitle, usingIDCollection, editingIDList, onOpenEditorClick, onGreenLitClick);
+                        EditorGUILayoutPlus.EditIDList(listTitle, usingIDCollection, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
                     } else if (usingIDIndex != null) {
-                        EditorGUILayoutPlus.EditIDList(listTitle, usingIDIndex, editingIDList, onOpenEditorClick, onGreenLitClick);
+                        EditorGUILayoutPlus.EditIDList(listTitle, usingIDIndex, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
                     }
                 }
                 EditorGUILayout.EndScrollView();

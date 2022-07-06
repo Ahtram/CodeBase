@@ -51,13 +51,17 @@ public class ExampleData : BaseData<ExampleData> {
     public Shape shapeStuff = new NoneShape();
 
     [XmlElement("V3S")]
-    public Vector3 vector3Stuff;
+    //You cannot serialize a Unity class to json data!
+    // public Vector3 vector3Stuff;
+    public Vec3 vector3Stuff = new Vec3();
 
     [XmlElement("V2S")]
-    public Vector2 vector2Stuff;
+    // public Vector2 vector2Stuff;
+    public Vec2 vector2Stuff = new Vec2();
 
     [XmlElement("V4S")]
-    public Vector4 vector4Stuff;
+    // public Vector4 vector4Stuff;
+    public Vec4 vector4Stuff = new Vec4();
 
     [XmlElement("QS")]
     public Quaternion quaternionStuff;
