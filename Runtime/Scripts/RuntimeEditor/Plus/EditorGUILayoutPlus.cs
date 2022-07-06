@@ -348,7 +348,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingStringList.Count + ")", string.Join(System.Environment.NewLine, editingStringList)),
                         EditorStyles.miniButtonRight)) {
@@ -629,7 +629,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingIntList.Count + ")", string.Join(System.Environment.NewLine, editingIntList)),
                         EditorStyles.miniButtonRight)) {
@@ -1478,7 +1478,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(label + " (" + editingToggleList.Count + ")", string.Join(System.Environment.NewLine, editingToggleList)),
                         EditorStyles.miniButtonRight)) {
@@ -1950,7 +1950,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec2List.Count + ")", string.Join(System.Environment.NewLine, editingVec2List)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -2089,7 +2089,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec2iList.Count + ")", string.Join(System.Environment.NewLine, editingVec2iList)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -2256,7 +2256,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec3List.Count + ")", string.Join(System.Environment.NewLine, editingVec3List)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -2423,7 +2423,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec3iList.Count + ")", string.Join(System.Environment.NewLine, editingVec3iList)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -2591,7 +2591,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec4List.Count + ")", string.Join(System.Environment.NewLine, editingVec4List)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -2759,7 +2759,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingVec4iList.Count + ")", string.Join(System.Environment.NewLine, editingVec4iList)),
                         EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
@@ -3365,7 +3365,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
                         EditorStyles.miniButtonRight)) {
@@ -3397,7 +3397,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                         new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
                         EditorStyles.miniButtonRight)) {
@@ -3929,7 +3929,7 @@ static public class EditorGUILayoutPlus {
             }
         }
 
-        GUI.color = Color.clear;
+        GUI.color = Color.white;
         if (GUILayout.Button(
                 new GUIContent(title + " (" + editingAssetNameList.Count + ")", string.Join(System.Environment.NewLine, editingAssetNameList)),
                 EditorStyles.miniButtonRight)) {
