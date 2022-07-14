@@ -335,25 +335,29 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingStringList"></param>
     static public void StringListEditingButton(string title, List<string> editingStringList) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            stringListBuffer = new List<string>(editingStringList);
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                stringListBuffer = new List<string>(editingStringList);
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (stringListBuffer != null && stringListBuffer.Count > 0) {
-                editingStringList.Clear();
-                editingStringList.AddRange(stringListBuffer);
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (stringListBuffer != null && stringListBuffer.Count > 0) {
+                    editingStringList.Clear();
+                    editingStringList.AddRange(stringListBuffer);
+                }
+            }
+
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingStringList.Count + ")", string.Join(System.Environment.NewLine, editingStringList)),
+                            EditorStyles.miniButtonRight)) {
+                StringListEditorUtility.Open(title, null, editingStringList);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingStringList.Count + ")", string.Join(System.Environment.NewLine, editingStringList)),
-                        EditorStyles.miniButtonRight)) {
-            StringListEditorUtility.Open(title, null, editingStringList);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -616,25 +620,29 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingIntList"></param>
     static public void InyListEditingButton(string title, List<int> editingIntList) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            intListBuffer = new List<int>(editingIntList);
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                intListBuffer = new List<int>(editingIntList);
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (intListBuffer != null && intListBuffer.Count > 0) {
-                editingIntList.Clear();
-                editingIntList.AddRange(intListBuffer);
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (intListBuffer != null && intListBuffer.Count > 0) {
+                    editingIntList.Clear();
+                    editingIntList.AddRange(intListBuffer);
+                }
+            }
+
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingIntList.Count + ")", string.Join(System.Environment.NewLine, editingIntList)),
+                            EditorStyles.miniButtonRight)) {
+                IntListEditorUtility.Open(title, null, editingIntList);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingIntList.Count + ")", string.Join(System.Environment.NewLine, editingIntList)),
-                        EditorStyles.miniButtonRight)) {
-            IntListEditorUtility.Open(title, null, editingIntList);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -1465,25 +1473,29 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingToggleList"></param>
     static public void ToggleListEditingButton(string label, List<bool> editingToggleList, List<string> contentDislayList = null) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            boolListBuffer = new List<bool>(editingToggleList);
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                boolListBuffer = new List<bool>(editingToggleList);
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (boolListBuffer != null && boolListBuffer.Count > 0) {
-                editingToggleList.Clear();
-                editingToggleList.AddRange(boolListBuffer);
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (boolListBuffer != null && boolListBuffer.Count > 0) {
+                    editingToggleList.Clear();
+                    editingToggleList.AddRange(boolListBuffer);
+                }
+            }
+
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(label + " (" + editingToggleList.Count + ")", string.Join(System.Environment.NewLine, editingToggleList)),
+                            EditorStyles.miniButtonRight)) {
+                ToggleListEditorUtility.Open(label, null, editingToggleList, contentDislayList);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(label + " (" + editingToggleList.Count + ")", string.Join(System.Environment.NewLine, editingToggleList)),
-                        EditorStyles.miniButtonRight)) {
-            ToggleListEditorUtility.Open(label, null, editingToggleList, contentDislayList);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -1935,27 +1947,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec2List"></param>
     static public void Vec2ListEditingButton(string title, List<Vec2> editingVec2List) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec2ListCopyBuffer = new List<Vec2>(editingVec2List.Select(x => new Vec2(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec2ListCopyBuffer = new List<Vec2>(editingVec2List.Select(x => new Vec2(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec2ListCopyBuffer != null && vec2ListCopyBuffer.Count > 0) {
-                editingVec2List.Clear();
-                for (int i = 0; i < vec2ListCopyBuffer.Count; i++) {
-                    editingVec2List.Add(new Vec2(vec2ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec2ListCopyBuffer != null && vec2ListCopyBuffer.Count > 0) {
+                    editingVec2List.Clear();
+                    for (int i = 0; i < vec2ListCopyBuffer.Count; i++) {
+                        editingVec2List.Add(new Vec2(vec2ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec2List.Count + ")", string.Join(System.Environment.NewLine, editingVec2List)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec2ListEditorUtility.Open(title, null, editingVec2List);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec2List.Count + ")", string.Join(System.Environment.NewLine, editingVec2List)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec2ListEditorUtility.Open(title, null, editingVec2List);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -2074,27 +2090,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec2iList"></param>
     static public void Vec2iListEditingButton(string title, List<Vec2i> editingVec2iList) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec2ListCopyBuffer = new List<Vec2>(editingVec2iList.Select(x => new Vec2(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec2ListCopyBuffer = new List<Vec2>(editingVec2iList.Select(x => new Vec2(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec2ListCopyBuffer != null && vec2ListCopyBuffer.Count > 0) {
-                editingVec2iList.Clear();
-                for (int i = 0; i < vec2ListCopyBuffer.Count; i++) {
-                    editingVec2iList.Add(new Vec2i(vec2ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec2ListCopyBuffer != null && vec2ListCopyBuffer.Count > 0) {
+                    editingVec2iList.Clear();
+                    for (int i = 0; i < vec2ListCopyBuffer.Count; i++) {
+                        editingVec2iList.Add(new Vec2i(vec2ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec2iList.Count + ")", string.Join(System.Environment.NewLine, editingVec2iList)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec2iListEditorUtility.Open(title, null, editingVec2iList);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec2iList.Count + ")", string.Join(System.Environment.NewLine, editingVec2iList)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec2iListEditorUtility.Open(title, null, editingVec2iList);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -2241,27 +2261,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec3List"></param>
     static public void Vec3ListEditingButton(string title, List<Vec3> editingVec3List) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec3ListCopyBuffer = new List<Vec3>(editingVec3List.Select(x => new Vec3(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec3ListCopyBuffer = new List<Vec3>(editingVec3List.Select(x => new Vec3(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec3ListCopyBuffer != null && vec3ListCopyBuffer.Count > 0) {
-                editingVec3List.Clear();
-                for (int i = 0; i < vec3ListCopyBuffer.Count; i++) {
-                    editingVec3List.Add(new Vec3(vec3ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec3ListCopyBuffer != null && vec3ListCopyBuffer.Count > 0) {
+                    editingVec3List.Clear();
+                    for (int i = 0; i < vec3ListCopyBuffer.Count; i++) {
+                        editingVec3List.Add(new Vec3(vec3ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec3List.Count + ")", string.Join(System.Environment.NewLine, editingVec3List)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec3ListEditorUtility.Open(title, null, editingVec3List);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec3List.Count + ")", string.Join(System.Environment.NewLine, editingVec3List)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec3ListEditorUtility.Open(title, null, editingVec3List);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -2408,27 +2432,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec3iList"></param>
     static public void Vec3iListEditingButton(string title, List<Vec3i> editingVec3iList) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec3ListCopyBuffer = new List<Vec3>(editingVec3iList.Select(x => new Vec3(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec3ListCopyBuffer = new List<Vec3>(editingVec3iList.Select(x => new Vec3(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec3ListCopyBuffer != null && vec3ListCopyBuffer.Count > 0) {
-                editingVec3iList.Clear();
-                for (int i = 0; i < vec3ListCopyBuffer.Count; i++) {
-                    editingVec3iList.Add(new Vec3i(vec3ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec3ListCopyBuffer != null && vec3ListCopyBuffer.Count > 0) {
+                    editingVec3iList.Clear();
+                    for (int i = 0; i < vec3ListCopyBuffer.Count; i++) {
+                        editingVec3iList.Add(new Vec3i(vec3ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec3iList.Count + ")", string.Join(System.Environment.NewLine, editingVec3iList)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec3iListEditorUtility.Open(title, null, editingVec3iList);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec3iList.Count + ")", string.Join(System.Environment.NewLine, editingVec3iList)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec3iListEditorUtility.Open(title, null, editingVec3iList);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -2576,27 +2604,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec4List"></param>
     static public void Vec4ListEditingButton(string title, List<Vec4> editingVec4List) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec4ListCopyBuffer = new List<Vec4>(editingVec4List.Select(x => new Vec4(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec4ListCopyBuffer = new List<Vec4>(editingVec4List.Select(x => new Vec4(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
-                editingVec4List.Clear();
-                for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
-                    editingVec4List.Add(new Vec4(vec4ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
+                    editingVec4List.Clear();
+                    for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
+                        editingVec4List.Add(new Vec4(vec4ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec4List.Count + ")", string.Join(System.Environment.NewLine, editingVec4List)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec4ListEditorUtility.Open(title, null, editingVec4List);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec4List.Count + ")", string.Join(System.Environment.NewLine, editingVec4List)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec4ListEditorUtility.Open(title, null, editingVec4List);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -2744,27 +2776,31 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingVec4iList"></param>
     static public void Vec4iListEditingButton(string title, List<Vec4i> editingVec4iList) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            vec4ListCopyBuffer = new List<Vec4>(editingVec4iList.Select(x => new Vec4(x)).ToArray());
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                vec4ListCopyBuffer = new List<Vec4>(editingVec4iList.Select(x => new Vec4(x)).ToArray());
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
-                editingVec4iList.Clear();
-                for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
-                    editingVec4iList.Add(new Vec4i(vec4ListCopyBuffer[i]));
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (vec4ListCopyBuffer != null && vec4ListCopyBuffer.Count > 0) {
+                    editingVec4iList.Clear();
+                    for (int i = 0; i < vec4ListCopyBuffer.Count; i++) {
+                        editingVec4iList.Add(new Vec4i(vec4ListCopyBuffer[i]));
+                    }
                 }
             }
-        }
 
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingVec4iList.Count + ")", string.Join(System.Environment.NewLine, editingVec4iList)),
-                        EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
-            Vec4iListEditorUtility.Open(title, null, editingVec4iList);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingVec4iList.Count + ")", string.Join(System.Environment.NewLine, editingVec4iList)),
+                            EditorStyles.miniButtonRight, GUILayout.Width(250.0f))) {
+                Vec4iListEditorUtility.Open(title, null, editingVec4iList);
+            }
         }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -3351,29 +3387,32 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingStringList"></param>
     static public void IDListEditingButton(string title, IDCollection IDCollectionInput, List<string> editingIDList, Action onOpenEditorClick,
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                stringListBuffer = new List<string>(editingIDList);
+            }
 
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            stringListBuffer = new List<string>(editingIDList);
-        }
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (stringListBuffer != null && stringListBuffer.Count > 0) {
+                    editingIDList.Clear();
+                    editingIDList.AddRange(stringListBuffer);
+                }
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (stringListBuffer != null && stringListBuffer.Count > 0) {
-                editingIDList.Clear();
-                editingIDList.AddRange(stringListBuffer);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
+                            EditorStyles.miniButtonRight)) {
+
+                IDListEditorUtility.Open(title,
+                    IDCollectionInput,
+                    null, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
-                        EditorStyles.miniButtonRight)) {
-
-            IDListEditorUtility.Open(title,
-                IDCollectionInput,
-                null, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -3383,29 +3422,32 @@ static public class EditorGUILayoutPlus {
     /// <param name="editingStringList"></param>
     static public void IDListEditingButton(string title, IDIndex IDIndex, List<string> editingIDList, Action onOpenEditorClick,
     Action<string> onGreenLitClick = null, Func<string, string> getIDComment = null) {
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                stringListBuffer = new List<string>(editingIDList);
+            }
 
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            stringListBuffer = new List<string>(editingIDList);
-        }
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (stringListBuffer != null && stringListBuffer.Count > 0) {
+                    editingIDList.Clear();
+                    editingIDList.AddRange(stringListBuffer);
+                }
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (stringListBuffer != null && stringListBuffer.Count > 0) {
-                editingIDList.Clear();
-                editingIDList.AddRange(stringListBuffer);
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                            new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
+                            EditorStyles.miniButtonRight)) {
+
+                IDListEditorUtility.Open(title,
+                    IDIndex,
+                    null, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                        new GUIContent(title + " (" + editingIDList.Count + ")", string.Join(System.Environment.NewLine, editingIDList)),
-                        EditorStyles.miniButtonRight)) {
-
-            IDListEditorUtility.Open(title,
-                IDIndex,
-                null, editingIDList, onOpenEditorClick, onGreenLitClick, getIDComment);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -3916,25 +3958,29 @@ static public class EditorGUILayoutPlus {
     /// <param name="title"></param>
     /// <param name="editingStringList"></param>
     static public void AssetNameListEditingButton(string title, string assetsFolderPath, List<string> editingAssetNameList, string targetTerm) {
-        GUI.color = ColorPlus.LightSalmon;
-        if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
-            stringListBuffer = new List<string>(editingAssetNameList);
-        }
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUI.color = ColorPlus.LightSalmon;
+            if (GUILayout.Button("c", EditorStyles.miniButtonLeft, GUILayout.Width(16.0f))) {
+                stringListBuffer = new List<string>(editingAssetNameList);
+            }
 
-        GUI.color = ColorPlus.LightBlue;
-        if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
-            if (stringListBuffer != null && stringListBuffer.Count > 0) {
-                editingAssetNameList.Clear();
-                editingAssetNameList.AddRange(stringListBuffer);
+            GUI.color = ColorPlus.LightBlue;
+            if (GUILayout.Button("p", EditorStyles.miniButtonMid, GUILayout.Width(16.0f))) {
+                if (stringListBuffer != null && stringListBuffer.Count > 0) {
+                    editingAssetNameList.Clear();
+                    editingAssetNameList.AddRange(stringListBuffer);
+                }
+            }
+
+            GUI.color = Color.white;
+            if (GUILayout.Button(
+                    new GUIContent(title + " (" + editingAssetNameList.Count + ")", string.Join(System.Environment.NewLine, editingAssetNameList)),
+                    EditorStyles.miniButtonRight)) {
+                AssetNameListEditorUtility.Open(title, assetsFolderPath, targetTerm, null, editingAssetNameList);
             }
         }
-
-        GUI.color = Color.white;
-        if (GUILayout.Button(
-                new GUIContent(title + " (" + editingAssetNameList.Count + ")", string.Join(System.Environment.NewLine, editingAssetNameList)),
-                EditorStyles.miniButtonRight)) {
-            AssetNameListEditorUtility.Open(title, assetsFolderPath, targetTerm, null, editingAssetNameList);
-        }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
