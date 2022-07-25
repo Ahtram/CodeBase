@@ -111,7 +111,7 @@ public class ExampleDataEditorUtility : UniEditorWindow {
             exampleData.vector3Stuff = EditorGUILayoutPlus.Vec3Field(exampleData.vector3Stuff);
             exampleData.vector2Stuff = EditorGUILayoutPlus.Vec2Field(exampleData.vector2Stuff);
             exampleData.vector4Stuff = EditorGUILayoutPlus.Vec4Field(exampleData.vector4Stuff);
-            exampleData.quaternionStuff = EditorGUILayoutPlus.QuaternionField("Quaternion stuff", exampleData.quaternionStuff);
+            exampleData.quaternionStuff = EditorGUILayoutPlus.Vec4Field(exampleData.quaternionStuff);
         }
         EditorGUILayout.EndVertical();
     }

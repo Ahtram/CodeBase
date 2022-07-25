@@ -56,15 +56,19 @@ public class ExampleData : BaseData<ExampleData> {
     public Vec3 vector3Stuff = new Vec3();
 
     [XmlElement("V2S")]
+    //Cannot be serialized to json
     // public Vector2 vector2Stuff;
     public Vec2 vector2Stuff = new Vec2();
 
     [XmlElement("V4S")]
+    //Cannot be serialized to json
     // public Vector4 vector4Stuff;
     public Vec4 vector4Stuff = new Vec4();
 
     [XmlElement("QS")]
-    public Quaternion quaternionStuff;
+    //Cannot be serialized to json
+    // public Quaternion quaternionStuff; 
+    public Vec4 quaternionStuff;
 
     [XmlIgnore]
     static private IDCollection m_IDCollection = null;

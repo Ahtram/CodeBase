@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
 
@@ -24,6 +25,11 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
 
     override protected void DrawDetail(ExampleData data) {
         ExampleDataEditorUtility.DrawExampleData(data);
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("See json", EditorStyles.miniButton)) {
+            string content = JsonConvert.SerializeObject(data, Formatting.Indented);
+            StringViewerUtility.Open("Json", content);
+        }
     }
 
     //Implement yourown save functions here.
