@@ -28,8 +28,6 @@ public class StringViewerUtility : UniEditorWindow {
             m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
             {
                 EditorGUILayout.TextArea(viewingString, GUILayout.ExpandHeight(true));
-
-                GUILayout.FlexibleSpace();
             }
             EditorGUILayout.EndScrollView();
             if (GUILayout.Button("Copy", EditorStyles.miniButton)) {
