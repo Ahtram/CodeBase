@@ -29,7 +29,7 @@ public class ExampleEditor : IDCollectionDataEditor<ExampleData> {
         if (GUILayout.Button("See json", EditorStyles.miniButton)) {
             string content = JsonConvert.SerializeObject(data, Formatting.Indented);
             // StringViewerUtility.Open("Json", content);
-            StringViewerUtility.Open("Json", "1234");
+            StringViewerUtility.Open("Json", content);
         }
     }
 

@@ -27,7 +27,8 @@ public class StringViewerUtility : UniEditorWindow {
         {
             m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos);
             {
-                EditorGUILayout.TextArea(viewingString, GUILayout.ExpandHeight(true));
+                GUIStyle customTextAreaStyle = new GUIStyle(EditorStyles.textArea) { wordWrap = true };
+                EditorGUILayout.LabelField(viewingString, customTextAreaStyle, GUILayout.ExpandHeight(true));
             }
             EditorGUILayout.EndScrollView();
             if (GUILayout.Button("Copy", EditorStyles.miniButton)) {
