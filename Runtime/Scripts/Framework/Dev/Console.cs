@@ -11,6 +11,7 @@ public class Console : MonoBehaviour {
 
     //Console Text主體，為UGUI Text Component。
     public Text consoleText;
+    public CanvasGroup canvasGroup;
 
     //同時也顯示在 Unity console 視窗內。
     public bool unityConsoleLog = true;
@@ -156,7 +157,7 @@ public class Console : MonoBehaviour {
     //當前Console是否被顯示?
     static public bool IsShowing() {
         if (instance != null) {
-            return instance.consoleText.enabled;
+            return (instance.canvasGroup.alpha != 0);
         } else {
             return false;
         }
@@ -165,24 +166,24 @@ public class Console : MonoBehaviour {
     //顯示Console?
     static public void Show() {
         if (instance != null) {
-            instance.consoleText.enabled = true;
+            instance.canvasGroup.alpha = 1;
         }
     }
 
     //隱藏Console?
     static public void Hide() {
         if (instance != null) {
-            instance.consoleText.enabled = false;
+            instance.canvasGroup.alpha = 0;
         }
     }
 
     //切換隱藏顯示
     static public void SwitchVisible() {
         if (instance != null) {
-            if (instance.consoleText.enabled) {
-                instance.consoleText.enabled = false;
+            if (instance.canvasGroup.alpha == 0) {
+                instance.canvasGroup.alpha = 1;
             } else {
-                instance.consoleText.enabled = true;
+                instance.canvasGroup.alpha = 0;
             }
         }
     }

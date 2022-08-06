@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class FPS : MonoBehaviour {
 
     public Text fpsText;
+    public CanvasGroup canvasGroup;
 
     public float m_refreshTime = 0.5F;
     private float m_accumulateTime = 0;
@@ -50,24 +51,36 @@ public class FPS : MonoBehaviour {
         }
     }
 
+    //當前Console是否被顯示?
+    static public bool IsShowing() {
+        if (instance != null) {
+            return (instance.canvasGroup.alpha != 0);
+        } else {
+            return false;
+        }
+    }
+
+    //顯示Console?
     static public void Show() {
         if (instance != null) {
-            instance.fpsText.enabled = true;
+            instance.canvasGroup.alpha = 1;
         }
     }
 
+    //隱藏Console?
     static public void Hide() {
         if (instance != null) {
-            instance.fpsText.enabled = false;
+            instance.canvasGroup.alpha = 0;
         }
     }
 
+    //切換隱藏顯示
     static public void SwitchVisible() {
         if (instance != null) {
-            if (instance.fpsText.enabled) {
-                instance.fpsText.enabled = false;
+            if (instance.canvasGroup.alpha == 0) {
+                instance.canvasGroup.alpha = 1;
             } else {
-                instance.fpsText.enabled = true;
+                instance.canvasGroup.alpha = 0;
             }
         }
     }
