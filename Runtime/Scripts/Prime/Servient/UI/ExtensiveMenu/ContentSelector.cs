@@ -211,6 +211,25 @@ public class ContentSelector : UIBase, IPointerClickHandler {
             m_selectingContentName = allContentNames[index];
             UpdateSelectingDisplay();
             onContentChanged.Invoke(m_selectingContentName);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Try select a name.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool SelectName(string name) {
+        List<string> allContentNames = GetAllContentNames();
+        for (int i = 0; i < allContentNames.Count; ++i) {
+            if (allContentNames[i] == name) {
+                m_selectingContentName = name;
+                UpdateSelectingDisplay();
+                onContentChanged.Invoke(m_selectingContentName);
+                return true;
+            }
         }
         return false;
     }

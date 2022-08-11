@@ -217,6 +217,25 @@ public class IDSelector : UIBase, IPointerClickHandler {
             m_selectingID = allIDs[index];
             UpdateSelectingDisplay();
             onIDChanged.Invoke(m_selectingID);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Try select an ID.
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
+    public bool SelectID(string ID) {
+        List<string> allIDs = GetAllIDs();
+        for (int i = 0; i < allIDs.Count; ++i) {
+            if (allIDs[i] == ID) {
+                m_selectingID = ID;
+                UpdateSelectingDisplay();
+                onIDChanged.Invoke(m_selectingID);
+                return true;
+            }
         }
         return false;
     }

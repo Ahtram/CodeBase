@@ -219,6 +219,25 @@ public class AssetNameSelector : UIBase, IPointerClickHandler {
             m_selectingAssetName = allAssetNames[index];
             UpdateSelectingDisplay();
             onAssetNameChanged.Invoke(m_selectingAssetName);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Try select a name.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool SelectName(string name) {
+        List<string> allAssetNames = GetAllAssetNames();
+        for (int i = 0; i < allAssetNames.Count; ++i) {
+            if (allAssetNames[i] == name) {
+                m_selectingAssetName = name;
+                UpdateSelectingDisplay();
+                onAssetNameChanged.Invoke(m_selectingAssetName);
+                return true;
+            }
         }
         return false;
     }
