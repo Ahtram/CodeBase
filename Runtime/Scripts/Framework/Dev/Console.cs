@@ -167,6 +167,8 @@ public class Console : MonoBehaviour {
     static public void Show() {
         if (instance != null) {
             instance.canvasGroup.alpha = 1;
+            instance.canvasGroup.interactable = true;
+            instance.canvasGroup.blocksRaycasts = true;
         }
     }
 
@@ -174,6 +176,8 @@ public class Console : MonoBehaviour {
     static public void Hide() {
         if (instance != null) {
             instance.canvasGroup.alpha = 0;
+            instance.canvasGroup.interactable = false;
+            instance.canvasGroup.blocksRaycasts = false;
         }
     }
 
@@ -182,8 +186,12 @@ public class Console : MonoBehaviour {
         if (instance != null) {
             if (instance.canvasGroup.alpha == 0) {
                 instance.canvasGroup.alpha = 1;
+                instance.canvasGroup.interactable = true;
+                instance.canvasGroup.blocksRaycasts = true;
             } else {
                 instance.canvasGroup.alpha = 0;
+                instance.canvasGroup.interactable = false;
+                instance.canvasGroup.blocksRaycasts = false;
             }
         }
     }
