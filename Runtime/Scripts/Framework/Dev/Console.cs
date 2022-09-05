@@ -20,7 +20,7 @@ public class Console : MonoBehaviour {
     static private Queue<string> m_consoleStrings = new Queue<string>();
 
     //最多顯示幾筆字串?
-    static private int MAXCONSOLELINE = 30;
+    public int maxConsoleLine = 24;
 
     static private Console instance = null;
 
@@ -41,7 +41,7 @@ public class Console : MonoBehaviour {
     static public void Out(string strIn) {
         if (instance != null) {
             //限叔摦示筆數。
-            if (m_consoleStrings.Count >= MAXCONSOLELINE) {
+            if (m_consoleStrings.Count >= instance.maxConsoleLine) {
                 m_consoleStrings.Dequeue();
             }
 
@@ -69,7 +69,7 @@ public class Console : MonoBehaviour {
     //顯示一行綠色字串。
     static public void OutGood(string strIn) {
         if (instance != null) {
-            if (m_consoleStrings.Count >= MAXCONSOLELINE) {
+            if (m_consoleStrings.Count >= instance.maxConsoleLine) {
                 m_consoleStrings.Dequeue();
             }
 
@@ -96,7 +96,7 @@ public class Console : MonoBehaviour {
     //顯示一行黃色字串。
     static public void OutWarning(string strIn) {
         if (instance != null) {
-            if (m_consoleStrings.Count >= MAXCONSOLELINE) {
+            if (m_consoleStrings.Count >= instance.maxConsoleLine) {
                 m_consoleStrings.Dequeue();
             }
 
@@ -123,7 +123,7 @@ public class Console : MonoBehaviour {
     //顯示一行錯誤字串。
     static public void OutError(string strIn) {
         if (instance != null) {
-            if (m_consoleStrings.Count >= MAXCONSOLELINE) {
+            if (m_consoleStrings.Count >= instance.maxConsoleLine) {
                 m_consoleStrings.Dequeue();
             }
 
