@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,8 +10,8 @@ using UnityEditor;
 //使用UGUI系統製作的Console類別，可用在執行階段於銀幕上顯示字串。您不需要手動新增這個Component，請愛用Project內的Console Prefab。
 public class Console : MonoBehaviour {
 
-    //Console Text主體，為UGUI Text Component。
-    public Text consoleText;
+    //Console Text主體
+    public TextMeshProUGUI consoleText;
     public CanvasGroup canvasGroup;
 
     //同時也顯示在 Unity console 視窗內。
@@ -20,7 +21,7 @@ public class Console : MonoBehaviour {
     static private Queue<string> m_consoleStrings = new Queue<string>();
 
     //最多顯示幾筆字串?
-    public int maxConsoleLine = 24;
+    public int maxConsoleLine = 30;
 
     static private Console instance = null;
 

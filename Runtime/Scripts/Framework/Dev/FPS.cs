@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 //A class for showing FPS in game.
 public class FPS : MonoBehaviour {
 
-    public Text fpsText;
+    public TextMeshProUGUI fpsText;
     public CanvasGroup canvasGroup;
 
     public float m_refreshTime = 0.5F;
