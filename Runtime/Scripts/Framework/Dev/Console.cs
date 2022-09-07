@@ -46,20 +46,22 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            Color useColor = Color.white;
+            Color consoleColor = Color.white;
+            Color editorColor = Color.black;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.WhiteSmoke;
+                editorColor = ColorPlus.WhiteSmoke;
             } else {
-                useColor = ColorPlus.DimGray;
+                editorColor = ColorPlus.Black;
             }
 #endif
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
-            m_consoleStrings.Enqueue(strIn);
+            string consoleStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(consoleColor) + ">" + strIn + "</color>";
+            m_consoleStrings.Enqueue(consoleStrIn);
 
             if (instance.unityConsoleLog) {
-                Debug.Log(strIn);
+                string editorStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(editorColor) + ">" + strIn + "</color>";
+                Debug.Log(editorStrIn);
             }
 
             //輸出字串於Component上。
@@ -74,20 +76,22 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            Color useColor = Color.white;
+            Color consoleColor = ColorPlus.Chartreuse;
+            Color editorColor = ColorPlus.Chartreuse;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.Chartreuse;
+                editorColor = ColorPlus.Chartreuse;
             } else {
-                useColor = ColorPlus.DarkGreen;
+                editorColor = ColorPlus.DarkGreen;
             }
 #endif
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
-            m_consoleStrings.Enqueue(strIn);
+            string consoleStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(consoleColor) + ">" + strIn + "</color>";
+            m_consoleStrings.Enqueue(consoleStrIn);
 
             if (instance.unityConsoleLog) {
-                Debug.Log(strIn);
+                string editorStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(editorColor) + ">" + strIn + "</color>";
+                Debug.Log(editorStrIn);
             }
 
             RefreshConsoleText();
@@ -101,20 +105,22 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            Color useColor = Color.white;
+            Color consoleColor = ColorPlus.LightGoldenrodYellow;
+            Color editorColor = ColorPlus.LightGoldenrodYellow;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.LightGoldenrodYellow;
+                editorColor = ColorPlus.LightGoldenrodYellow;
             } else {
-                useColor = ColorPlus.Brown;
+                editorColor = ColorPlus.Brown;
             }
 #endif
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
-            m_consoleStrings.Enqueue(strIn);
+            string consoleStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(consoleColor) + ">" + strIn + "</color>";
+            m_consoleStrings.Enqueue(consoleStrIn);
 
             if (instance.unityConsoleLog) {
-                Debug.LogWarning(strIn);
+                string editorStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(editorColor) + ">" + strIn + "</color>";
+                Debug.LogWarning(editorStrIn);
             }
 
             RefreshConsoleText();
@@ -128,20 +134,22 @@ public class Console : MonoBehaviour {
                 m_consoleStrings.Dequeue();
             }
 
-            Color useColor = Color.white;
+            Color consoleColor = ColorPlus.PaleVioletRed;
+            Color editorColor = ColorPlus.PaleVioletRed;
 #if UNITY_EDITOR
             if (EditorGUIUtility.isProSkin) {
-                useColor = ColorPlus.PaleVioletRed;
+                editorColor = ColorPlus.PaleVioletRed;
             } else {
-                useColor = ColorPlus.DarkRed;
+                editorColor = ColorPlus.DarkRed;
             }
 #endif
 
-            strIn = "<color=#" + ColorUtility.ToHtmlStringRGB(useColor) + ">" + strIn + "</color>";
-            m_consoleStrings.Enqueue(strIn);
+            string consoleStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(consoleColor) + ">" + strIn + "</color>";
+            m_consoleStrings.Enqueue(consoleStrIn);
 
             if (instance.unityConsoleLog) {
-                Debug.LogError(strIn);
+                string editorStrIn = "<color=#" + ColorUtility.ToHtmlStringRGB(editorColor) + ">" + strIn + "</color>";
+                Debug.LogError(editorStrIn);
             }
 
             RefreshConsoleText();
