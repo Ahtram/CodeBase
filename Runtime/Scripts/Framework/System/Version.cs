@@ -65,10 +65,10 @@ namespace Teamuni.Codebase {
             }
         }
 
-        static public string BundleVersion() {
+        static public string BundleVersion(string seperator = ".") {
             Get();
             if (version != null) {
-                return (version.major + "." + version.minor + "." + version.bugFix + "." + version.build);
+                return (version.major + seperator + version.minor + seperator + version.bugFix + seperator + version.build);
             } else {
                 Debug.LogWarning("OOps! Version not loaded yet! Save failed!");
                 return "";
