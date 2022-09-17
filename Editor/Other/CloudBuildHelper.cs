@@ -8,7 +8,7 @@ public static class CloudBuildHelper {
     /// This method will be execute by UnityCloud before a build happen.
     /// </summary>
     /// <param name="manifest"></param>
-    public static void PreExport(UnityEngine.CloudBuild.BuildManifestObject manifest) {
+    public static void SetupBundleVersionFromCloudManifest(UnityEngine.CloudBuild.BuildManifestObject manifest) {
         string build = "";
         string cloudBuildTargetName = "";
         manifest.TryGetValue("cloudBuildTargetName", out cloudBuildTargetName);
