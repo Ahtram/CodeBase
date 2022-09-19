@@ -109,6 +109,7 @@ namespace Teamuni.Codebase {
                 AssetDatabase.Refresh();
                 //Also update bundle version.
                 UnityEditor.PlayerSettings.bundleVersion = BundleVersion();
+                AssetDatabase.SaveAssets();
                 ClearCache();
             }
         }
